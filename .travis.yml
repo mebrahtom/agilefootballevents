@@ -11,5 +11,5 @@ jobs:
     - stage: deploy api production
       script:
         - cd api && npm install
-        - npm run all
+        - npm test
         - cd -
