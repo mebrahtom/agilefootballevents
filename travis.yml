@@ -1,3 +1,15 @@
 language: node_js
 node_js:
   - "8"
+jobs:
+  include:
+    - stage: deploy client production
+      script:
+        - gem install dpl
+        - cd client && npm install && cd -
+        - npm run build
+    - stage: deploy api production
+      script:
+        - gem install dpl
+        - cd api && npm install && cd -
+        - npm run build
