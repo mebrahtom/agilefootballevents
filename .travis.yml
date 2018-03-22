@@ -7,9 +7,9 @@ jobs:
       script:
         - gem install dpl
         - cd client && npm install && cd -
-        - npm run build
+        - npm run build:client
     - stage: deploy api production
       script:
         - gem install dpl
         - cd api && npm install && cd -
-        - npm run build
+        - npm run build:api
