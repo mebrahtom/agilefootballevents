@@ -5,9 +5,11 @@ jobs:
   include:
     - stage: deploy client production
       script:
-        - cd client && npm install && cd -
-        - npm run build:client
+        - cd client && npm install
+        - npm run build
+        - cd -
     - stage: deploy api production
       script:
-        - cd api && npm install && cd -
-        - npm run build:api
+        - cd api && npm install
+        - npm run build
+        - cd -
