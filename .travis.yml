@@ -8,8 +8,3 @@ jobs:
         - cd client && npm install
         - npm run build
         - cd -
-    - stage: deploy api production
-      script:
-        - cd api && npm install
-        - npm test
-        - cd -
