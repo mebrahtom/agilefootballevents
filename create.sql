@@ -64,14 +64,14 @@ CREATE TABLE MatchResults(
 	CONSTRAINT no_self_match1 CHECK (team1 <> team2)
 	);
 --Result Data
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (1,'RUS','KSA','2','1');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (2,'EGP','PER','2','1');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (3,'MOR','IRN','2','2');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (4,'POR','SPA','2','3');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (5,'FRA','AUS','3','1');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (6,'ARG','ICE','2','0');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (7,'PER','DEN','1','2');
-INSERT INTO MatchResults (matchNumber,team1, team1, goals1, goals2) VALUES (8,'COR','NGA','1','1');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (1,'RUS','KSA','2','1');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (2,'EGP','PER','2','1');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (3,'MOR','IRN','2','2');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (4,'POR','SPA','2','3');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (5,'FRA','AUS','3','1');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (6,'ARG','ICE','2','0');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (7,'PER','DEN','1','2');
+INSERT INTO MatchResults (matchNumber,team1, team1, goals2, goals2) VALUES (8,'COR','NGA','1','1');
 
 
 CREATE VIEW ResultTable (matchNnumber, team1, goals1, goals2,team2, pdate) AS
