@@ -61,13 +61,13 @@ class MatchTable extends Component {
         <div class ="container">
           <div class="selection-menu" >
             <div className="selection-item selection-item-select">
-              <a href="#">Results</a>
+              <span>Results</span>
             </div>
             <div className="selection-item">
-              <a href="#">Upcoming games</a>
+              <span >Upcoming games</span>
             </div>
             <div className="selection-item">
-              <a href="#">Tables</a>
+              <span>Tables</span>
             </div>
           </div>
           <div className="match-container">

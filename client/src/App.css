@@ -67,16 +67,19 @@
   border-bottom:1px solid var(--red-color) !important;
   text-decoration: underline;
 }
-
+.selection-item:hover{
+  border-bottom:1px solid var(--red-color) !important;
+}
 .selection-item{
   box-sizing: border-box;
   background-color: #fff;
   border-bottom:1px solid #fff;
   display: inline-block;
   padding: 5px;
+  cursor: pointer;
 
 }
-.selection-item a{
+.selection-item span{
   display: inline-block;
   margin: 5px;
   color: var(--red-color);
