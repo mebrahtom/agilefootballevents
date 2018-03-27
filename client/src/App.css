@@ -1,5 +1,13 @@
 .app {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
 
+:root {
+    --red-color: #cd5360;
+    --sky-blue-color:#286DA8;
+    --brown-color:#B37D4E;
+    --breeze-blue-color:#438496;
 }
 
 
@@ -8,27 +16,79 @@
   margin: 0 auto;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.match-container{
+  background-color: #fff;
+  padding: 15px 30px !important;
 }
+
+.navbar-custom{
+  background: linear-gradient(to right, rgba(255,0,0,0), rgba(67,132,150,1));
+  border-radius: 0px !important;
+  border: 0px;
+}
+
+.navbar-collapse-custom{
+  position: relative;
+}
+
+.nav-custom{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 
 .app-header {
-  background-color: #d3d3d3;
-  height: 100px;
-  padding: 20px;
-  color: #000;
+  margin:20px auto;
 }
 
-.App-title {
-  font-size: 1.5em;
+
+.match-cell{
+  background-color: #fff;
+  padding:10px;
+  margin: 5px auto;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.2);
 }
 
-.App-intro {
-  font-size: large;
+
+.selection-menu{
+
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.selection-item-select{
+  font-weight: bold;
+  border-bottom:1px solid var(--red-color) !important;
+  text-decoration: underline;
+}
+
+.selection-item{
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom:1px solid #fff;
+  display: inline-block;
+  padding: 5px;
+
+}
+.selection-item a{
+  display: inline-block;
+  margin: 5px;
+  color: var(--red-color);
+
+}
+
+.center-hz{
+  text-align: center;
+}
+
+// Overwriting Bootstrap
+.navitem-custom a{
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff !important;
 }
