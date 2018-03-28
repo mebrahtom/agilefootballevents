@@ -21,7 +21,7 @@ class Header extends Component {
       <Navbar inverse collapseOnSelect className="navbar-custom">
         <Navbar.Header className="app-header">
           <Navbar.Brand>
-            <a href="#brand"><img src={logo} /></a>
+            <a href="#brand" className="navbar-brand-custom"><img src={logo} /></a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

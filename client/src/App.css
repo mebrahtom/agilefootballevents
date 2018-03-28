@@ -38,6 +38,23 @@
 }
 
 
+
+
+@media (max-width: 768px){
+  .nav-custom {
+      position: relative;
+  }
+
+  .navbar-brand-custom{
+        height: 70px !important;
+  }
+
+}
+
+
+
+
+
 .app-header {
   margin:20px auto;
 }
@@ -87,6 +104,7 @@
 }
 
 // Overwriting Bootstrap
+
 .navitem-custom a{
     color: #fff !important;
 }
