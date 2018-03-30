@@ -106,7 +106,12 @@ class MatchTable extends Component {
             </Tab>
             <Tab eventKey={3} title="Groups">
               {/* Group content here*/}
-              { groups }
+              <div class="group-container">
+                { groups }
+                <div className="center-hz">
+                  <Button>More groups</Button>
+                </div>
+              </div>
             </Tab>
           </Tabs>
           {/*<div class="selection-menu" >
@@ -154,27 +159,29 @@ class GroupTable extends Component {
   render() {
     const grows = renderGroupRows();
     return(
-      <Table striped bordered condensed hover>
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th>W</th>
-            <th>D</th>
-            <th>L</th>
-            <th>P</th>
-          </tr>
-        </thead>
-      <tbody>
-        { grows }
-        {
+      <div class="col-md-6 col-xs-12">
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th class="col-sm-4">Team</th>
+              <th class="col-sm-1">W</th>
+              <th class="col-sm-1">D</th>
+              <th class="col-sm-1">L</th>
+              <th class="col-sm-1">P</th>
+            </tr>
+          </thead>
+        <tbody>
+          { grows }
+          {
 
-        /*<tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>*/}
-      </tbody>
-      </Table>
+          /*<tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+          </tr>*/}
+        </tbody>
+        </Table>
+      </div>
     );
   }
 }
