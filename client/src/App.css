@@ -19,6 +19,9 @@
 .match-container{
   background-color: #fff;
   padding: 15px 30px !important;
+  border-style:none solid solid solid;
+  border-width:1px;
+  border-color:#DDDDDD;
 }
 
 .navbar-custom{
@@ -46,7 +49,29 @@
 .match-cell{
   background-color: #fff;
   padding:10px;
-  margin: 5px auto;
+  margin: 5px 0px 5px 0px;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+}
+
+.group-table{
+  background-color: #fff;
+  padding:10px;
+  margin: 5px 0px 5px 0px;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+}
+
+.group-cell{
+  background-color: #fff;
+  padding:10px;
+  margin: 5px 0px 5px 0px;
   /*border-radius: 10px;*/
   text-align: center;
   webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
@@ -56,6 +81,7 @@
 
 .center-hz{
   text-align: center;
+  margin: 10px auto;
 
 }
 .selection-menu{
