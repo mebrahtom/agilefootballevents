@@ -56,7 +56,7 @@ function renderMatches() {
 function renderGroups() {
   var groups = [];
 
-  for(var i = 0; i < 4; i++){
+  for(var i = 0; i < 6; i++){
 
     groups.push(<GroupTable/>);
   }
@@ -72,7 +72,7 @@ function renderGroupRows() {
     grouprow.push(
       <tr>
         <td>Team Name</td>
-        <td>#Won games</td>
+        <td>#Won</td>
         <td>#Draws</td>
         <td>#Losses</td>
         <td>#Points</td>
@@ -106,21 +106,12 @@ class MatchTable extends Component {
             </Tab>
             <Tab eventKey={3} title="Groups">
               {/* Group content here*/}
-              { groups }
+              <div class="group-container">
+                { groups }
+                <div class="clearfix"></div>
+              </div>
             </Tab>
           </Tabs>
-          {/*<div class="selection-menu" >
-            <div className="selection-item selection-item-select">
-              <span>Results</span>
-            </div>
-            <div className="selection-item" href="#item">
-              <span href="#item">Upcoming games</span>
-            </div>
-            <div className="selection-item">
-              <span>Tables</span>
-            </div>
-          </div>*/}
-          
         </div>
     );
   }
@@ -154,27 +145,25 @@ class GroupTable extends Component {
   render() {
     const grows = renderGroupRows();
     return(
-      <Table striped bordered condensed hover>
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th>W</th>
-            <th>D</th>
-            <th>L</th>
-            <th>P</th>
-          </tr>
-        </thead>
-      <tbody>
-        { grows }
-        {
-
-        /*<tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>*/}
-      </tbody>
-      </Table>
+      <div class="col-md-6 col-xs-12">
+        <h4>
+          <strong>Group x</strong>
+        </h4>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th class="col-sm-4">Team</th>
+              <th class="col-sm-1">W</th>
+              <th class="col-sm-1">D</th>
+              <th class="col-sm-1">L</th>
+              <th class="col-sm-1">P</th>
+            </tr>
+          </thead>
+        <tbody>
+          { grows }
+        </tbody>
+        </Table>
+      </div>
     );
   }
 }

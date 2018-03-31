@@ -24,6 +24,15 @@
   border-color:#DDDDDD;
 }
 
+.group-container{
+  background-color: #fff;
+  padding: 15px 30px !important;
+  border-style:none solid solid solid;
+  border-width:1px;
+  border-color:#DDDDDD;
+ /* The height will not scale to more tables */
+}
+
 .navbar-custom{
   background: linear-gradient(to right, rgba(255,0,0,0), rgba(67,132,150,1));
   border-radius: 0px !important;
@@ -45,7 +54,6 @@
   margin:20px auto;
 }
 
-
 .match-cell{
   background-color: #fff;
   padding:10px;
@@ -57,6 +65,7 @@
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
 }
 
+/*This is group table properties*/
 .group-table{
   background-color: #fff;
   padding:10px;
@@ -68,6 +77,7 @@
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
 }
 
+/*This is group cell properties*/
 .group-cell{
   background-color: #fff;
   padding:10px;
