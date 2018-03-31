@@ -30,8 +30,7 @@
   border-style:none solid solid solid;
   border-width:1px;
   border-color:#DDDDDD;
-  min-height:100%;
-  height:100%;
+ /* The height will not scale to more tables */
 }
 
 .navbar-custom{

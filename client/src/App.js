@@ -56,7 +56,7 @@ function renderMatches() {
 function renderGroups() {
   var groups = [];
 
-  for(var i = 0; i < 4; i++){
+  for(var i = 0; i < 6; i++){
 
     groups.push(<GroupTable/>);
   }
@@ -72,7 +72,7 @@ function renderGroupRows() {
     grouprow.push(
       <tr>
         <td>Team Name</td>
-        <td>#Won games</td>
+        <td>#Won</td>
         <td>#Draws</td>
         <td>#Losses</td>
         <td>#Points</td>
@@ -108,24 +108,10 @@ class MatchTable extends Component {
               {/* Group content here*/}
               <div class="group-container">
                 { groups }
-                <div className="center-hz">
-                  <Button>More groups</Button>
-                </div>
+                <div class="clearfix"></div>
               </div>
             </Tab>
           </Tabs>
-          {/*<div class="selection-menu" >
-            <div className="selection-item selection-item-select">
-              <span>Results</span>
-            </div>
-            <div className="selection-item" href="#item">
-              <span href="#item">Upcoming games</span>
-            </div>
-            <div className="selection-item">
-              <span>Tables</span>
-            </div>
-          </div>*/}
-          
         </div>
     );
   }
@@ -160,6 +146,9 @@ class GroupTable extends Component {
     const grows = renderGroupRows();
     return(
       <div class="col-md-6 col-xs-12">
+        <h4>
+          <strong>Group x</strong>
+        </h4>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -172,13 +161,6 @@ class GroupTable extends Component {
           </thead>
         <tbody>
           { grows }
-          {
-
-          /*<tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-          </tr>*/}
         </tbody>
         </Table>
       </div>
