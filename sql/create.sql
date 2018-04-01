@@ -65,12 +65,8 @@ CREATE VIEW FinalResultTable (team, MP,W, D,L,GF, GA, Diff, points, groupName ) 
 
 
 --Qualified teams for Round 16
-CREATE VIEW QualifiedToRound16Groups(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
-	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)
-	  UNION ALL
-	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 2,1);
 
-	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
+CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 0,1)
 	  UNION ALL 
