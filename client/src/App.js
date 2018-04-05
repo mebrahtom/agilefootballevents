@@ -120,23 +120,31 @@ class MatchTable extends Component {
 class MatchRow extends Component {
   render() {
     return (
-        <Row className="match-cell">
-          <Col sm={2}>
-            Date
-          </Col>
-          <Col sm={3}>
-            Team 1
-          </Col>
-          <Col sm={2}>
-            x - x
-          </Col>
-          <Col sm={3}>
-            Team 2
-          </Col>
-          <Col sm={2}>
-            Location
-          </Col>
-        </Row>
+      <Row className="match-cell" class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <Col sm={2}>
+          Date
+        </Col>
+        <Col sm={3}>
+          Team 1
+        </Col>
+        <Col sm={2}>
+          x - x
+        </Col>
+        <Col sm={3}>
+          Team 2
+        </Col>
+        <Col sm={2}>
+          Location
+        </Col>
+        <Col sm={2}>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            Content here
+          </div>
+        </div>
+        </Col>
+      </Row>
+
     );
   }
 }
