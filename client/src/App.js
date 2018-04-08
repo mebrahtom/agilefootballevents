@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './img/logo.png';
 import './App.css';
 
-import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table} from 'react-bootstrap';
+import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table, Panel} from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -84,6 +84,7 @@ function renderGroupRows() {
 }
 
 class MatchTable extends Component {
+
   render() {
     const matches = renderMatches();
     const groups = renderGroups();
@@ -118,25 +119,41 @@ class MatchTable extends Component {
 }
 
 class MatchRow extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      open: false
+    };
+  }
   render() {
     return (
-        <Row className="match-cell">
-          <Col sm={2}>
-            Date
-          </Col>
-          <Col sm={3}>
-            Team 1
-          </Col>
-          <Col sm={2}>
-            x - x
-          </Col>
-          <Col sm={3}>
-            Team 2
-          </Col>
-          <Col sm={2}>
-            Location
-          </Col>
-        </Row>
+      <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
+        <Col sm={2}>
+          Date
+        </Col>
+        <Col sm={3}>
+          Team 1
+        </Col>
+        <Col sm={2}>
+          x - x
+        </Col>
+        <Col sm={3}>
+          Team 2
+        </Col>
+        <Col sm={2}>
+          Location
+        </Col>
+        {/* Collapse Div*/}
+        <Panel id="collapseable-panel" expanded={this.state.open}>
+          <Panel.Collapse>
+            <Panel.Body>
+              Information about the game....
+            </Panel.Body>
+          </Panel.Collapse>
+        </Panel>
+      </Row>
+
     );
   }
 }
