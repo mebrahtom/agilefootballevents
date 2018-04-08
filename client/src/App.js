@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './img/logo.png';
 import './App.css';
 
-import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table} from 'react-bootstrap';
+import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table, Panel} from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -84,6 +84,7 @@ function renderGroupRows() {
 }
 
 class MatchTable extends Component {
+
   render() {
     const matches = renderMatches();
     const groups = renderGroups();
@@ -118,9 +119,16 @@ class MatchTable extends Component {
 }
 
 class MatchRow extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      open: false
+    };
+  }
   render() {
     return (
-      <Row className="match-cell" class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
         <Col sm={2}>
           Date
         </Col>
@@ -136,13 +144,14 @@ class MatchRow extends Component {
         <Col sm={2}>
           Location
         </Col>
-        <Col sm={2}>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            Content here
-          </div>
-        </div>
-        </Col>
+        {/* Collapse Div*/}
+        <Panel expanded={this.state.open}>
+          <Panel.Collapse>
+            <Panel.Body>
+              Information about the game....
+            </Panel.Body>
+          </Panel.Collapse>
+        </Panel>
       </Row>
 
     );
