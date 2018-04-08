@@ -145,7 +145,7 @@ class MatchRow extends Component {
           Location
         </Col>
         {/* Collapse Div*/}
-        <Panel expanded={this.state.open}>
+        <Panel id="collapseable-panel" expanded={this.state.open}>
           <Panel.Collapse>
             <Panel.Body>
               Information about the game....
