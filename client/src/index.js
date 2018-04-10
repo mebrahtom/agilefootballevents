@@ -10,8 +10,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 ReactDOM.render((
-  <HashRouter>
     <App />
-  </HashRouter>
 ), document.getElementById('root'));
 registerServiceWorker();

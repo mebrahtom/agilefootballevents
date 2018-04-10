@@ -4,20 +4,37 @@ import logo from './img/logo.png';
 import './App.css';
 
 import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table, Panel} from 'react-bootstrap';
-
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
 class App extends Component {
   render() {
+    const match_table = () => ( <MatchTable/> );
     return (
+      <Router>
       <div className="app">
         <Header/>
-        <MatchTable/>
+        <Route exact path="/" component={Home} />
+        <Route path="/football" component={match_table} />
+        <Route path="/explore" component={ExploreGothenburg} />
       </div>
+    </Router>
     );
   }
 }
+
+const Home = () => (
+  <div class="container">
+    <h2>Home page</h2>
+  </div>
+);
+const ExploreGothenburg = () => (
+  <div class="container">
+    <h2>Explore Gothenburg</h2>
+  </div>
+);
+
 
 class Header extends Component {
   render() {
@@ -31,14 +48,14 @@ class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse className="app-header navbar-collapse-custom">
           <Nav pullRight className="nav-custom">
-            <NavItem eventKey={1} href="#home" >
+            <NavItem eventKey={1} href="/" >
               Home
             </NavItem>
-            <NavItem eventKey={2} href="#football">
+            <NavItem eventKey={2} href="/football">
               Football
             </NavItem>
-            <NavItem eventKey={2} href="#exploration">
-              Explore gothenburg
+            <NavItem eventKey={2} href="/explore">
+              Explore Gothenburg
             </NavItem>
           </Nav>
         </Navbar.Collapse>
@@ -48,6 +65,14 @@ class Header extends Component {
 }
 
 function renderMatches() {
+  var matches = [];
+
+  matches.push(<MatchContainer/>);
+
+  return matches;
+}
+
+function renderMatchRows(){
   var matches = [];
 
   for(var i = 0; i < 10; i++ ){
@@ -98,16 +123,11 @@ class MatchTable extends Component {
           <Tabs defaultActiveKey={1}>
             <Tab eventKey={1} title="Results">
               { /*Result Content Here */}
-              <div className="match-container">
-                { matches }
-                <div className="center-hz">
-                  <Button>Show more</Button>
-                </div>
-              </div>
-              
+              {matches}
+
             </Tab>
             <Tab eventKey={2} title="Upcoming Games">
-              {/* Upcoming Games content here*/}
+              {matches}
             </Tab>
             <Tab eventKey={3} title="Groups">
               {/* Group content here*/}
@@ -118,6 +138,20 @@ class MatchTable extends Component {
             </Tab>
           </Tabs>
         </div>
+    );
+  }
+}
+
+class MatchContainer extends Component{
+  render(){
+    const gmatches = renderMatchRows();
+    return(
+      <div className="match-container">
+        {gmatches}
+        <div className="center-hz">
+          <Button>Show more</Button>
+        </div>
+      </div>
     );
   }
 }
