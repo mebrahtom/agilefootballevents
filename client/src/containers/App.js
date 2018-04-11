@@ -1,39 +1,30 @@
 import React, { Component } from 'react';
-
-import logo from './img/logo.png';
+import logo from '../img/logo.png';
 import './App.css';
-
-import { Button, Row, Col, Navbar, Nav, NavItem, Tabs, Tab, Table, Panel} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, Tabs, Tab, Table} from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
-
+import MatchTable from "../components/MatchTable.js"
+import HomePage from "../containers/HomePage.js"
+import ExplorePage from "../containers/ExplorePage.js"
 
 class App extends Component {
   render() {
-    const match_table = () => ( <MatchTable/> );
+    const home_page = () => (<HomePage/>);
+    const football_page = () => ( <FootballPage/> );
+    const explore_page = () => (<ExplorePage/>);
+
     return (
       <Router>
       <div className="app">
         <Header/>
-        <Route exact path="/" component={Home} />
-        <Route path="/football" component={match_table} />
-        <Route path="/explore" component={ExploreGothenburg} />
+        <Route exact path="/" component={home_page} />
+        <Route path="/football" component={football_page} />
+        <Route path="/explore" component={explore_page} />
       </div>
     </Router>
     );
   }
 }
-
-const Home = () => (
-  <div class="container">
-    <h2>Home page</h2>
-  </div>
-);
-const ExploreGothenburg = () => (
-  <div class="container">
-    <h2>Explore Gothenburg</h2>
-  </div>
-);
 
 
 class Header extends Component {
@@ -67,17 +58,7 @@ class Header extends Component {
 function renderMatches() {
   var matches = [];
 
-  matches.push(<MatchContainer/>);
-
-  return matches;
-}
-
-function renderMatchRows(){
-  var matches = [];
-
-  for(var i = 0; i < 10; i++ ){
-    matches.push(<MatchRow/>);
-  }
+  matches.push(<MatchTable/>);
 
   return matches;
 }
@@ -98,6 +79,8 @@ function renderGroupRows() {
   var grouprow = [];
 
   for(var i = 0; i < 6; i++){
+    // TODO Maybe this should be a component class. In that way we can
+    // have props and load
     grouprow.push(
       <tr>
         <td>Team Name</td>
@@ -112,7 +95,7 @@ function renderGroupRows() {
   return grouprow;
 }
 
-class MatchTable extends Component {
+class FootballPage extends Component {
 
   render() {
     const matches = renderMatches();
@@ -124,7 +107,6 @@ class MatchTable extends Component {
             <Tab eventKey={1} title="Results">
               { /*Result Content Here */}
               {matches}
-
             </Tab>
             <Tab eventKey={2} title="Upcoming Games">
               {matches}
@@ -142,65 +124,12 @@ class MatchTable extends Component {
   }
 }
 
-class MatchContainer extends Component{
-  render(){
-    const gmatches = renderMatchRows();
-    return(
-      <div className="match-container">
-        {gmatches}
-        <div className="center-hz">
-          <Button>Show more</Button>
-        </div>
-      </div>
-    );
-  }
-}
-
-class MatchRow extends Component {
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = {
-      open: false
-    };
-  }
-  render() {
-    return (
-      <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={2}>
-          Date
-        </Col>
-        <Col sm={3}>
-          Team 1
-        </Col>
-        <Col sm={2}>
-          x - x
-        </Col>
-        <Col sm={3}>
-          Team 2
-        </Col>
-        <Col sm={2}>
-          Location
-        </Col>
-        {/* Collapse Div*/}
-        <Panel id="collapseable-panel" expanded={this.state.open}>
-          <Panel.Collapse>
-            <Panel.Body>
-              Information about the game....
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
-      </Row>
-
-    );
-  }
-}
 
 class GroupTable extends Component {
   render() {
     const grows = renderGroupRows();
     return(
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-6">
         <h4>
           <strong>Group x</strong>
         </h4>
