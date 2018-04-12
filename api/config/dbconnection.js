@@ -5,7 +5,7 @@ mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: process.env.DB_PASSWORD,
-    database: 'db1'
+    database: 'gothacupdb'
 });
 
 connection.connect(function(err) {
