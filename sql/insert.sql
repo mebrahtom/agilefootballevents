@@ -1,5 +1,4 @@
-                  --All input data
---Groups Data
+
         INSERT INTO Groups(groupName) VALUES ('A');
 	INSERT INTO Groups(groupName) VALUES ('B');
 	INSERT INTO Groups(groupName) VALUES ('C');
@@ -7,9 +6,9 @@
 	INSERT INTO Groups(groupName) VALUES ('E');
 	INSERT INTO Groups(groupName) VALUES ('F');
 	INSERT INTO Groups(groupName) VALUES ('G');
-	INSERT INTO Groups(groupName) VALUES ('H');	
-	
---Countries Data
+	INSERT INTO Groups(groupName) VALUES ('H');
+
+
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('RUS','Russia','A');
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('KSA','Saudi Arbaia','A');
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('EGY','Egypt','A');
@@ -42,7 +41,7 @@
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SEN','Sengal','H');
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('COL','Colombia','H');
 	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('JPN','Japan','H');
---Match Data
+
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES (1,'RUS','KSA','14 June 2018','12:00','Luzhniki Stadium, Moscow');
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(2,'EGY','ERY','15 June 2018','14:00','Central Stadium, Yekaterinburg');
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(3,'MOR','IRN','15 June 2018','17:00','Saint Petersburg Stadium Saint Petersburg');
@@ -64,7 +63,7 @@
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(19,'POR','MOR','20 June','15:00','Moscow,');
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(20,'IRN','SPA','20 June','21','Kazan, Kazan Arena Stadium');
 
---Result Data
+
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('A',1,'RUS','KSA','3','1');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('A',2,'EGY','PER','2','1');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('B',3,'MOR','IRN','2','1');
@@ -73,6 +72,3 @@
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('C',6,'ARG','ICE','2','0');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',7,'PER','DEN','1','2');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',8,'CRO','NGA','1','3');
-
-
-
