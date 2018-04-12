@@ -18,11 +18,20 @@ router.get('/countries',function(req, res, next) {
 router.get('/countries/group/:groupId', function(req, res, next) {
   const groupId = req.params.groupId
   var sql = 'SELECT * FROM Countries WHERE groupName = ' + mysql.escape(groupId)
-  console.log(sql)
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
   })
+})
+
+router.get('/fixtures/playedMatches', function(req, res, next) {
+  var sql = 'SELECT * FROM MatchResults'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+
+  })
+
 })
 
 module.exports = router
