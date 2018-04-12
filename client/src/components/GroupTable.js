@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Panel, Table} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 
 class GroupTable extends Component {
   render() {
     const grows = renderGroupRows();
     return(
-      <div class="col-md-6">
+      <div className="col-md-6">
         <h4>
           <strong>Group x</strong>
         </h4>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th class="col-sm-4">Team</th>
-              <th class="col-sm-1">W</th>
-              <th class="col-sm-1">D</th>
-              <th class="col-sm-1">L</th>
-              <th class="col-sm-1">P</th>
+              <th className="col-sm-4">Team</th>
+              <th className="col-sm-1">W</th>
+              <th className="col-sm-1">D</th>
+              <th className="col-sm-1">L</th>
+              <th className="col-sm-1">P</th>
             </tr>
           </thead>
         <tbody>

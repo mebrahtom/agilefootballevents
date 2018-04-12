@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import logo from '../img/logo.png';
 import './App.css';
-import {Navbar, Nav, NavItem, Tabs, Tab, Table} from 'react-bootstrap';
+import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-import MatchTable from "../components/MatchTable.js"
+
 import HomePage from "../containers/HomePage.js"
+import FootballPage from "../containers/FootballPage.js"
 import ExplorePage from "../containers/ExplorePage.js"
-import GroupTable from "../components/GroupTable.js"
 
 class App extends Component {
   render() {
@@ -52,54 +52,6 @@ class Header extends Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    );
-  }
-}
-
-function renderMatches() {
-  var matches = [];
-
-  matches.push(<MatchTable/>);
-
-  return matches;
-}
-
-function renderGroups() {
-  var groups = [];
-
-  for(var i = 0; i < 6; i++){
-
-    groups.push(<GroupTable/>);
-  }
-
-  return groups;
-}
-
-class FootballPage extends Component {
-
-  render() {
-    const matches = renderMatches();
-    const groups = renderGroups();
-
-    return (
-        <div class ="container">
-          <Tabs defaultActiveKey={1}>
-            <Tab eventKey={1} title="Results">
-              { /*Result Content Here */}
-              {matches}
-            </Tab>
-            <Tab eventKey={2} title="Upcoming Games">
-              {matches}
-            </Tab>
-            <Tab eventKey={3} title="Groups">
-              {/* Group content here*/}
-              <div class="group-container">
-                { groups }
-                <div class="clearfix"></div>
-              </div>
-            </Tab>
-          </Tabs>
-        </div>
     );
   }
 }

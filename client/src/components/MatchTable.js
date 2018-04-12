@@ -20,7 +20,7 @@ function renderMatchRows(){
   var matches = [];
 
   for(var i = 0; i < 10; i++ ){
-    matches.push(<MatchRow date="2018-03-11"/>);
+    matches.push(<MatchRow key ={i} date="2018-03-11"/>);
   }
 
   return matches;
