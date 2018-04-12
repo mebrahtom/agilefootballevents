@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 const pw = process.env.DB_PASSWORD
 
-mysql.createConnection({
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: process.env.DB_PASSWORD,
