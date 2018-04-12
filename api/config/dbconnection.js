@@ -3,6 +3,6 @@ const conn=mysql.createConnection({
     host:'localhost',
     user:'root',
     password:"",
-    database:'db1'
+    database:'gothenballdb'
 });
 module.exports=conn;
