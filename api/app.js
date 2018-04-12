@@ -10,6 +10,17 @@ var users = require('./routes/users');
 
 var app = express();
 
+// CORS enable (if request from other domains)
+app.all('/*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', '*');
+  if ('OPTIONS' == req.method) {
+  res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 // view engine setup
 app.set('port',process.env.PORT||8000);
 app.set('views', path.join(__dirname, 'views'));

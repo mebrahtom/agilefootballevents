@@ -29,9 +29,7 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
-
   })
-
 })
 
 module.exports = router

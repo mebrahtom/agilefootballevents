@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Panel} from 'react-bootstrap';
-
+import Fixtures from '../model/Fixtures'
 
 class MatchTable extends Component{
+  componentDidMount() {
+    Fixtures.getPlayedMatches()
+  }
+
   render(){
     const gmatches = renderMatchRows();
     return(
