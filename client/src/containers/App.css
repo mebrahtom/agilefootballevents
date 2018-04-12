@@ -1,0 +1,156 @@
+.app {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+:root {
+    --red-color: #cd5360;
+    --sky-blue-color:#286DA8;
+    --brown-color:#B37D4E;
+    --breeze-blue-color:#438496;
+}
+
+
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.match-container{
+  background-color: #fff;
+  padding: 15px 30px !important;
+  border-style:none solid solid solid;
+  border-width:1px;
+  border-color:#DDDDDD;
+}
+
+.group-container{
+  background-color: #fff;
+  padding: 15px 30px !important;
+  border-style:none solid solid solid;
+  border-width:1px;
+  border-color:#DDDDDD;
+ /* The height will not scale to more tables */
+}
+
+.navbar-custom{
+  background: linear-gradient(to right, rgba(255,0,0,0), rgba(67,132,150,1));
+  border-radius: 0px !important;
+  border: 0px;
+}
+
+.navbar-collapse-custom{
+  position: relative;
+}
+
+.nav-custom{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@media (max-width: 768px){
+  .nav-custom {
+      position: relative;
+  }
+
+  .navbar-brand-custom{
+        height: 70px !important;
+  }
+
+}
+
+
+
+
+
+.app-header {
+  margin:20px auto;
+}
+
+.match-cell{
+  background-color: #fff;
+  padding:15px;
+  margin: 5px 0px 5px 0px;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  cursor:pointer;
+}
+
+#collapseable-panel{
+  margin-top:20px;
+  border-style:none;
+  webkit-box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+  box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+}
+
+/*This is group table properties*/
+.group-table{
+  background-color: #fff;
+  padding:10px;
+  margin: 5px 0px 5px 0px;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+}
+
+/*This is group cell properties*/
+.group-cell{
+  background-color: #fff;
+  padding:10px;
+  margin: 5px 0px 5px 0px;
+  /*border-radius: 10px;*/
+  text-align: center;
+  webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.2);
+}
+
+.center-hz{
+  text-align: center;
+  margin: 10px auto;
+
+}
+.selection-menu{
+
+}
+
+.selection-item-select{
+  font-weight: bold;
+  border-bottom:1px solid var(--red-color) !important;
+  text-decoration: underline;
+}
+.selection-item:hover{
+  border-bottom:1px solid var(--red-color) !important;
+}
+.selection-item{
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom:1px solid #fff;
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+
+}
+.selection-item span{
+  display: inline-block;
+  margin: 5px;
+  color: var(--red-color);
+
+}
+
+// Overwriting Bootstrap
+
+.navitem-custom a{
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff !important;
+}
