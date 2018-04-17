@@ -3,10 +3,11 @@ import logo from '../img/logo.png';
 import './App.css';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import { Provider } from 'react-redux'
 import HomePage from "../containers/HomePage.js"
 import FootballPage from "../containers/FootballPage.js"
 import ExplorePage from "../containers/ExplorePage.js"
+import store from '../store'
 
 class App extends Component {
   render() {
@@ -15,14 +16,16 @@ class App extends Component {
     const explore_page = () => (<ExplorePage/>);
 
     return (
-      <Router>
-      <div className="app">
-        <Header/>
-        <Route exact path="/" component={home_page} />
-        <Route path="/football" component={football_page} />
-        <Route path="/explore" component={explore_page} />
-      </div>
-    </Router>
+      <Provider store={store}>
+        <Router>
+        <div className="app">
+          <Header/>
+          <Route exact path="/" component={home_page} />
+          <Route path="/football" component={football_page} />
+          <Route path="/explore" component={explore_page} />
+        </div>
+      </Router>
+    </Provider>
     );
   }
 }
