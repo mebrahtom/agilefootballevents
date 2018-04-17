@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Panel} from 'react-bootstrap';
-import Fixtures from '../model/Fixtures'
+import * as actionCreators from '../redux/actions/actionCreators'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class MatchTable extends Component{
   componentDidMount() {
-    Fixtures.getPlayedMatches()
+    this.props.getAllMatches().then(() => {
+      console.log(this.props.matches)
+    })
   }
 
   render(){
@@ -70,4 +74,14 @@ class MatchRow extends Component {
   }
 }
 
-export default MatchTable;
+function mapStateToProps(state) {
+  return {
+    matches: state.matches
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchTable)
