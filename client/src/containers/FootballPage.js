@@ -44,7 +44,7 @@ function renderMatches() {
 function renderGroups() {
   var groups = [];
 
-  for(var i = 0; i < 6; i++){
+  for(var i = 0; i < 8; i++){
 
     groups.push(<GroupTable key={i}/>);
   }
