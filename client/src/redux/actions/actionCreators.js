@@ -14,3 +14,18 @@ export function dispatchGetAllMatches(matches){
     matches
   }
 }
+
+export function getAllUpcomingMatches(){
+  return (dispatch, getState) => {
+    return Fixtures.getUpcomingMatches().then((data) => {
+      return dispatch(dispatchGetAllUpcomingMatches(data))
+    })
+  }
+}
+
+export function dispatchGetAllUpcomingMatches(upcomingmatches){
+  return {
+    type: 'GET_ALL_UPCOMING_MATCHES',
+    upcomingmatches
+  }
+}

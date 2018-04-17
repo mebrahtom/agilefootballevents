@@ -5,33 +5,50 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 class MatchTable extends Component{
+
   componentDidMount() {
     this.props.getAllMatches().then(() => {
+     
       console.log(this.props.matches)
+    })
+    this.props.getAllUpcomingMatches().then(() => {
+      console.log(this.props.upcomingmatches)
     })
   }
 
   render(){
-    const gmatches = renderMatchRows();
+    const gmatches = renderMatchRows(this.props.upcomingmatches);
     return(
       <div className="match-container">
         {gmatches}
         <div className="center-hz">
-          <Button>Show more</Button>
+          <Button>Show More</Button>
         </div>
       </div>
     );
   }
 }
 
-function renderMatchRows(){
+function renderMatchRows(upcomingmatches){
   var matches = [];
 
-  for(var i = 0; i < 10; i++ ){
-    matches.push(<MatchRow key ={i} date="2018-03-11"/>);
+  for(var i = 0; i < upcomingmatches.length; i++ ){
+  {/* Push the data from database to the MatchRow and create rows*/}
+    matches.push(<MatchRow key ={i} 
+      date={upcomingmatches[i].playingDate + " " + upcomingmatches[i].PlayingTime} 
+      t1={upcomingmatches[i].team1} 
+      t2={upcomingmatches[i].team2} 
+      loc={upcomingmatches[i].stadium}/>);
   }
 
   return matches;
+}
+
+{/* Importing all images */}
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  return images;
 }
 
 class MatchRow extends Component {
@@ -43,22 +60,28 @@ class MatchRow extends Component {
     };
   }
   render() {
+    const images = importAll(require.context('../img/flags', false, /\.(png)$/));
     return (
+      
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
         <Col sm={2}>
           {this.props.date}
         </Col>
         <Col sm={3}>
-          Team 1
+          <img src={images[this.props.t1+'.png']} width={35} height={25}/>
+          <br />
+          <div className="ccodetext" >{this.props.t1}</div>
         </Col>
         <Col sm={2}>
           x - x
         </Col>
         <Col sm={3}>
-          Team 2
+          <img src={images[this.props.t2+'.png']} width={35} height={25}/>
+          <br />
+          <div className="ccodetext" >{this.props.t2}</div>
         </Col>
         <Col sm={2}>
-          Location
+          {this.props.loc}
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open}>
@@ -76,7 +99,8 @@ class MatchRow extends Component {
 
 function mapStateToProps(state) {
   return {
-    matches: state.matches
+    matches: state.matches,
+    upcomingmatches: state.upcomingmatches
   }
 }
 

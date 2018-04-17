@@ -32,4 +32,12 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
   })
 })
 
+router.get('/fixtures/matchfixtures', function(req, res, next) {
+  var sql = 'SELECT * FROM MatchFixtures'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 module.exports = router
