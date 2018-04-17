@@ -10,7 +10,6 @@
     --breeze-blue-color:#438496;
 }
 
-
 .container{
   max-width: 1000px;
   margin: 0 auto;
@@ -57,12 +56,7 @@
   .navbar-brand-custom{
         height: 70px !important;
   }
-
 }
-
-
-
-
 
 .app-header {
   margin:20px auto;
@@ -115,8 +109,8 @@
 .center-hz{
   text-align: center;
   margin: 10px auto;
-
 }
+
 .selection-menu{
 
 }
@@ -126,9 +120,11 @@
   border-bottom:1px solid var(--red-color) !important;
   text-decoration: underline;
 }
+
 .selection-item:hover{
   border-bottom:1px solid var(--red-color) !important;
 }
+
 .selection-item{
   box-sizing: border-box;
   background-color: #fff;
@@ -136,8 +132,8 @@
   display: inline-block;
   padding: 5px;
   cursor: pointer;
-
 }
+
 .selection-item span{
   display: inline-block;
   margin: 5px;
@@ -145,12 +141,15 @@
 
 }
 
-// Overwriting Bootstrap
-
 .navitem-custom a{
     color: #fff !important;
 }
 
 .navbar-inverse .navbar-nav > li > a {
     color: #fff !important;
+}
+
+.formGroupCustom {
+  max-width: 300px;
+  margin: auto;
 }

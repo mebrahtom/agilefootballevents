@@ -7,13 +7,15 @@ import { Provider } from 'react-redux'
 import HomePage from "../containers/HomePage.js"
 import FootballPage from "../containers/FootballPage.js"
 import ExplorePage from "../containers/ExplorePage.js"
+import LoginPage from "../containers/LoginPage.js"
 import store from '../store'
 
 class App extends Component {
   render() {
     const home_page = () => (<HomePage/>);
-    const football_page = () => ( <FootballPage/> );
+    const football_page = () => (<FootballPage/>);
     const explore_page = () => (<ExplorePage/>);
+    const login_page = () => (<LoginPage/>);
 
     return (
       <Provider store={store}>
@@ -23,6 +25,7 @@ class App extends Component {
           <Route exact path="/" component={home_page} />
           <Route path="/football" component={football_page} />
           <Route path="/explore" component={explore_page} />
+          <Route path="/login" component={login_page} />
         </div>
       </Router>
     </Provider>
