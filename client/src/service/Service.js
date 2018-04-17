@@ -1,3 +1,5 @@
+
+// Module that sends requests to the backend
 class Service {
   static headers() {
     return {
@@ -6,6 +8,8 @@ class Service {
     }
   }
 
+  // Get request that takes a route as parmeter (same as specified in backend for desired router)
+  // Will return JSON file that is received from the associated router in the backend
   static get(route) {
     return this.xhr(route, null, 'GET');
   }
