@@ -32,4 +32,14 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
   })
 })
 
+router.get('/fixtures/groups1', function(req, res, next) {
+  var sql = 'SELECT groupName, GROUP_CONCAT(CONCAT({team:\"\', team, \'\"})) list FROM HelperResultTable GROUP BY groupName;'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+
+  })
+
+})
+
 module.exports = router
