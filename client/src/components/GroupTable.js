@@ -13,6 +13,7 @@ class GroupTable extends Component {
           <thead>
             <tr>
               <th className="col-sm-4">Team</th>
+              <th className="col-sm-1">MP</th>
               <th className="col-sm-1">W</th>
               <th className="col-sm-1">D</th>
               <th className="col-sm-1">L</th>
@@ -31,12 +32,13 @@ function renderGroupRows() {
 
   var grouprow = [];
 
-  for(var i = 0; i < 6; i++){
+  for(var i = 0; i < 4; i++){
     // TODO Maybe this should be a component class. In that way we can
     // have props and load
     grouprow.push(
       <tr>
         <td>Team Name</td>
+        <td>#MP</td>
         <td>#Won</td>
         <td>#Draws</td>
         <td>#Losses</td>
