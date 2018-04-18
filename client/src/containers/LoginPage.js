@@ -4,7 +4,7 @@ import { Form, FormGroup, FormControl, Button, Col, ControlLabel } from 'react-b
 class LoginPage extends Component {
   render() {
     return (
-      <div class="loginForm">
+      <div class="container">
         <Form horizontal className="formGroupCustom">
           <FormGroup controlId="formHorizontalUsername">
             <Col componentClass={ControlLabel} sm={4}>
