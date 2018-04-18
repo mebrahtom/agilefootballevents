@@ -9,6 +9,7 @@ import FootballPage from "../containers/FootballPage.js"
 import ExplorePage from "../containers/ExplorePage.js"
 import LoginPage from "../containers/LoginPage.js"
 import store from '../store'
+import AdminPage from "../containers/AdminPage.js"
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
     const football_page = () => (<FootballPage/>);
     const explore_page = () => (<ExplorePage/>);
     const login_page = () => (<LoginPage/>);
+    const admin_page = () => (<AdminPage/>);
 
     return (
       <Provider store={store}>
@@ -26,6 +28,7 @@ class App extends Component {
           <Route path="/football" component={football_page} />
           <Route path="/explore" component={explore_page} />
           <Route path="/login" component={login_page} />
+          <Route path="/admin" component={admin_page} />            
         </div>
       </Router>
     </Provider>
