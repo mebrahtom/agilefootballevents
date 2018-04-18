@@ -154,3 +154,18 @@
   margin: auto;
   padding-top: 10%;
 }
+
+.formUpdate { 
+  box-shadow: 1px 1px 25px rgba(0,0,0,0.35);
+  border-radius: 5px;
+  border: 6px solid rgb(178, 194, 204);
+
+  padding: 2em;
+  margin: 3em 10vw auto;
+  width: 80%;
+  text-align: center; 
+}
+
+.horizontalTeam{
+  display: block;
+}
