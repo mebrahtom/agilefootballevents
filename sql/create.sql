@@ -1,13 +1,21 @@
-CREATE TABLE Groups
-	( 
-	  groupName VARCHAR(1) PRIMARY KEY
+
+CREATE TABLE Groups( 
+	groupName VARCHAR(1) PRIMARY KEY
 );
+
+CREATE TABLE Arenas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arena TEXT NOT NULL,
+	latitude DECIMAL(10, 10),
+	longitude DECIMAL(10, 10)
+)
+
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
-	groupName  VARCHAR(1) REFERENCES Groups(groupName )
-     
+	groupName VARCHAR(1) REFERENCES Groups(groupName)
 );
+
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
@@ -17,15 +25,17 @@ CREATE TABLE MatchFixtures(
 	stadium TEXT,
 	CONSTRAINT no_self_match CHECK (team1 <> team2)
 );
+
 CREATE TABLE MatchResults(
-        groupName  VARCHAR(1) REFERENCES Groups(groupName ),
+    groupName  VARCHAR(1) REFERENCES Groups(groupName ),
 	matchNumber INT NOT NULL  PRIMARY KEY REFERENCES MatchFixtures(matchNumber),
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	goals1 INT NOT NULL,
 	goals2 INT NOT NULL,
 	CONSTRAINT no_self_match1 CHECK (team1 <> team2)
-	);
+);
+
 CREATE VIEW LatestMatchResults(matchNnumber,groupName , team1, goals1,terminator, goals2,team2) AS
 	(SELECT M.matchNumber, groupName , M.team1, M.goals1,'-' AS TEXT , M.goals2, M.team2 FROM MatchResults M);
 
