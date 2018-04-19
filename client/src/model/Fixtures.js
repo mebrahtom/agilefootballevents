@@ -14,6 +14,13 @@ class Fixtures {
 		  return upcomingmatches
 		})
 	}
+
+	static getGroups(){
+		var route = '/fixtures/groups'
+		return Service.get(route).then(function(groups){
+		  return groups
+		})
+	}
 }
 
 export default Fixtures

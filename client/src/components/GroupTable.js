@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
+import * as actionCreators from '../redux/actions/actionCreators'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class GroupTable extends Component {
+
+  /* Fetching database information through actionCreators.js */
+  componentDidMount() {
+    this.props.getAllMatches().then(() => {
+      //console.log(this.props.matches)
+    })
+    this.props.getAllUpcomingMatches().then(() => {
+     // console.log(this.props.upcomingmatches)
+    })
+    this.props.getAllGroups().then(() => {
+      console.log(this.props.groups)
+    })
+  }
+
   render() {
     const grows = renderGroupRows();
+    const tableLabels = createLabels(this.props.groups);
     return(
       <div className="col-md-6">
         <h4>
-          <strong>Group x</strong>
+          {this.props.label}
         </h4>
         <Table striped bordered condensed hover>
           <thead>
@@ -27,13 +45,27 @@ class GroupTable extends Component {
     );
   }
 }
+
+
+function createLabels(groups){
+  var tableLabels = [];
+
+  for(var i = 0; i < groups.length; i++){
+    
+    tableLabels.push(<GroupTable key = {i}
+      label = {groups[i].groupName}/>
+    );
+  }
+  return tableLabels;
+
+}
+
 function renderGroupRows() {
 
   var grouprow = [];
 
   for(var i = 0; i < 6; i++){
-    // TODO Maybe this should be a component class. In that way we can
-    // have props and load
+
     grouprow.push(
       <tr>
         <td>Team Name</td>
@@ -48,4 +80,16 @@ function renderGroupRows() {
   return grouprow;
 }
 
-export default GroupTable;
+function mapStateToProps(state) {
+  return {
+    matches: state.matches,
+    upcomingmatches: state.upcomingmatches,
+    groups : state.groups
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupTable);

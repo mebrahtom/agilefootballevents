@@ -40,4 +40,12 @@ router.get('/fixtures/matchfixtures', function(req, res, next) {
   })
 })
 
+router.get('/fixtures/groups', function(req, res, next) {
+  var sql = 'SELECT * FROM Groups'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 module.exports = router

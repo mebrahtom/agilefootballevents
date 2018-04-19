@@ -4,7 +4,8 @@ import thunk from 'redux-thunk'
 
 const defaultState = {
   matches: [{groupName : "", matchNumber : 0, team1 : "", team2 : "", goals1 : 0, goals2 : 0}],
-  upcomingmatches : [{matchNumber : 0, team1: "", team2 : "", playingDate : "", PlayingTime : "", stadium : ""}]
+  upcomingmatches : [{matchNumber : 0, team1: "", team2 : "", playingDate : "", PlayingTime : "", stadium : ""}],
+  groups : [{groupName : ""}]
 }
 
 const store = createStore(

@@ -29,3 +29,18 @@ export function dispatchGetAllUpcomingMatches(upcomingmatches){
     upcomingmatches
   }
 }
+
+export function getAllGroups(){
+  return (dispatch, getState) => {
+    return Fixtures.getGroups().then((data) => {
+      return dispatch(dispatchGetAllGroups(data))
+    })
+  }
+}
+
+export function dispatchGetAllGroups(groups){
+  return {
+    type: 'GET_ALL_GROUPS',
+    groups
+  }
+}
