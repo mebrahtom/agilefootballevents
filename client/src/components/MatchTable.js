@@ -3,6 +3,7 @@ import { Button, Row, Col, Panel} from 'react-bootstrap';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import {importAll} from '../HelperFunctions.js'
 
 class MatchTable extends Component{
 
@@ -43,11 +44,7 @@ function renderMatchRows(upcomingmatches){
 }
 
 /* Importing all images */
-function importAll(r) {
-  let images = {};
-  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-  return images;
-}
+
 
 class MatchRow extends Component {
   constructor(props, context) {
@@ -57,6 +54,9 @@ class MatchRow extends Component {
       open: false
     };
   }
+
+
+
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
@@ -85,7 +85,7 @@ class MatchRow extends Component {
           {this.props.loc}
         </Col>
         {/* Collapse Div*/}
-        <Panel id="collapseable-panel" expanded={this.state.open}>
+        <Panel id="collapseable-panel" expanded={this.state.open} >
           <Panel.Collapse>
             <Panel.Body>
               Information about the game....

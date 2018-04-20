@@ -4,10 +4,10 @@ import placeholder_profile from '../img/placeholder_profile.png';
 import banner from '../img/banners/SWE_banner.png'
 import {Table} from 'react-bootstrap';
 
+
+
+
 class PlayerPage extends Component {
-
-
-
 
   componentDidMount () {
     //const { id } = this.props.match.params

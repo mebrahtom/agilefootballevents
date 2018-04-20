@@ -15,6 +15,15 @@ router.get('/countries',function(req, res, next) {
   })
 })
 
+router.get('/countries/squad/:abr',function(req, res, next) {
+  const abr = req.params.abr
+  var sql = 'SELECT * FROM Players WHERE country = ' + mysql.escape(abr)
+  db.query(sql, function (err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 router.get('/countries/group/:groupId', function(req, res, next) {
   const groupId = req.params.groupId
   var sql = 'SELECT * FROM Countries WHERE groupName = ' + mysql.escape(groupId)

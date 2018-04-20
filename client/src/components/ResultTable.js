@@ -3,6 +3,7 @@ import { Button, Row, Col, Panel} from 'react-bootstrap';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import {importAll} from '../HelperFunctions.js'
 
 class ResultTable extends Component{
 
@@ -39,12 +40,6 @@ function renderMatchRows(resultmatches){
   return matches;
 }
 
-/* Importing all images */
-function importAll(r) {
-  let images = {};
-  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-  return images;
-}
 
 class ResultRow extends Component {
   constructor(props, context) {

@@ -1,4 +1,5 @@
 import Fixtures from '../../model/Fixtures'
+import Teams from '../../model/Teams'
 // ActionCreator which performs actions requested in containers + components
 
 // Method calling the fixtures model to get all matches then dispatch
@@ -60,5 +61,21 @@ export function dispatchGetAllgroupresults(groupresults){
   return {
     type: 'GET_ALL_GROUP_RESULTS',
     groupresults
+  }
+}
+
+
+export function getSquad(abr){
+  return (dispatch, getState) => {
+    return Teams.getSquad(abr).then((data) => {
+      return dispatch(dispatchGetSquad(data))
+    })
+  }
+}
+
+export function dispatchGetSquad(squad){
+  return {
+    type: 'GET_SQUAD_COUNTRY',
+    squad
   }
 }
