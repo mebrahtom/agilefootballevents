@@ -10,14 +10,15 @@ class GroupTable extends Component {
   componentDidMount() {
     this.props.getAllGroups().then(() => {
     })
-    this.props.getAllgroupresults()
+    this.props.getAllgroupresults();
   }
 
   render() {
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
     const tables = renderTables(this.props.groups, this.props.groupresults, images);
+    console.log('render');
     return(
-      <div className="col-md-6">
+      <div className ="hejsan">
         {tables}
       </div>
     );
@@ -26,11 +27,11 @@ class GroupTable extends Component {
 
 function renderTables(groups, groupresults, images) {
   var allTables = [];
-
+  console.log(groups.length );
   for(var i = 0; i < groups.length; i++){
     /* Adding the table and label*/
     allTables.push(
-      <div>
+      <div className="col-md-6">
         <h4>
           {"Group " + groups[i].groupName}
         </h4>
@@ -55,6 +56,7 @@ function renderTables(groups, groupresults, images) {
 
     );
   }
+  console.log(allTables);
   return allTables;
 }
 
@@ -71,7 +73,8 @@ function renderGroupRows(groupresults, currGroupname, images) {
       grouprow.push(
         <tr>
           {/* TODO add flags to the team */}
-          <td><img src={images[groupresults[i].team+".png"]} alt={' '} width={15} height={10} /> {groupresults[i].team} </td>
+          <td><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team} </td>
+          <td>{groupresults[i].MP}</td>
           <td>{groupresults[i].W}</td>
           <td>{groupresults[i].D}</td>
           <td>{groupresults[i].L}</td>
