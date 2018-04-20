@@ -58,12 +58,10 @@ CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName )
 (SELECT team2, COUNT(team2),0,0,COUNT(matchNumber), SUM(goals2), SUM(goals1),SUM(goals2)-SUM(goals1), 0 ,groupName  FROM MatchResults
     WHERE goals2 < goals1 group BY team2,groupName );
 
-
-
-CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS 
-(SELECT team, countryName, COUNT(MP),COUNT(W), COUNT(D),COUNT(L), SUM(GF), SUM(GA),SUM(Diff), 
+CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
+(SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff),
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
- C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, points DESC);
+C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, SUM(Diff) DESC, points DESC );
 
 CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)

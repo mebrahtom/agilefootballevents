@@ -1,14 +1,40 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
+import * as actionCreators from '../redux/actions/actionCreators'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class GroupTable extends Component {
+
+  /* Fetching database information through actionCreators.js */
+  componentDidMount() {
+    this.props.getAllGroups().then(() => {
+    })
+    this.props.getAllgroupresults()
+  }
+
   render() {
-    const grows = renderGroupRows();
+    const images = importAll(require.context('../img/flags', false, /\.(png)$/));
+    const tables = renderTables(this.props.groups, this.props.groupresults, images);
     return(
       <div className="col-md-6">
+        {tables}
+      </div>
+    );
+  }
+}
+
+function renderTables(groups, groupresults, images) {
+  var allTables = [];
+
+  for(var i = 0; i < groups.length; i++){
+    {/* Adding the table and label*/}
+    allTables.push(
+      <div>
         <h4>
-          <strong>Group x</strong>
-        </h4>
+          {"Group " + groups[i].groupName}
+        </h4>   
+
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -19,33 +45,60 @@ class GroupTable extends Component {
               <th className="col-sm-1">P</th>
             </tr>
           </thead>
-        <tbody>
-          { grows }
-        </tbody>
+          <tbody>
+            {renderGroupRows(groupresults, groups[i].groupName, images)}
+          </tbody>
         </Table>
       </div>
+
+      
     );
   }
+  return allTables;
 }
-function renderGroupRows() {
+
+function renderGroupRows(groupresults, currGroupname, images) {
 
   var grouprow = [];
 
-  for(var i = 0; i < 6; i++){
-    // TODO Maybe this should be a component class. In that way we can
-    // have props and load
-    grouprow.push(
-      <tr>
-        <td>Team Name</td>
-        <td>#Won</td>
-        <td>#Draws</td>
-        <td>#Losses</td>
-        <td>#Points</td>
-      </tr>
-    );
+  {/* Check if groupresults.groupname is the same as groups.groupname. then go ahead. */}
+
+  for(var i = 0; i < groupresults.length; i++){
+
+    if(groupresults[i].groupName == currGroupname){
+
+      grouprow.push(
+        <tr>
+          {/* TODO add flags to the team */}
+          <td><img src={images[groupresults[i].team+".png"]} width={15} height={10} /> {groupresults[i].team} </td>
+          <td>{groupresults[i].W}</td>
+          <td>{groupresults[i].D}</td>
+          <td>{groupresults[i].L}</td>
+          <td>{groupresults[i].points}</td>
+        </tr>
+      );
+    }
   }
 
   return grouprow;
 }
 
-export default GroupTable;
+{/* Importing all images */}
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  return images;
+}
+
+function mapStateToProps(state) {
+  return {
+    groups : state.groups,
+    groupresults : state.groupresults
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupTable);

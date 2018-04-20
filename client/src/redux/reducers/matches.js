@@ -9,7 +9,6 @@ function matches(state = [], action){
     default:
       return state
   }
-
 }
 
 export default matches

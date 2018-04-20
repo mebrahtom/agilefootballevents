@@ -60,8 +60,10 @@
 
 }
 
-
-
+/* Country code text */
+.ccodetext{
+  padding:5px;
+}
 
 
 .app-header {
