@@ -72,3 +72,19 @@
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('C',6,'ARG','ICE','2','0');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',7,'PER','DEN','1','2');
 	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',8,'CRO','NGA','1','3');
+
+
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (1, 'SWE', 'Ola','Toivonen' , 20, 'Forward', 0, 'Toulouse FC', 191, 75, 'ola_toivo');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (2, 'SWE', 'Robin', 'Olsen', 1, 'Goalkeeper', 0, 'FC KØBENHAVN', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (3, 'SWE', 'Andreas', 'Granqvist', 2, 'Defender', 0, 'FC KRASNODAR', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (4, 'SWE', 'Mikael', 'Lustig', 3, 'Defender', 0, 'CELTIC FC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (5, 'SWE', 'Martin', 'Olsson', 4, 'Defender', 0, 'SWANSEA CITY AFC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (6, 'SWE', 'Victor', 'Nilsson Lindelöf', 5, 'Defender', 0, 'MANCHESTER UNITED FC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (7, 'SWE', 'Jimmy', 'Durmaz', 6, 'Midfielder', 0, 'TOULOUSE FC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (8, 'SWE', 'Albin', 'Ekdal', 7, 'Midfielder', 0, 'HAMBURGER SV', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (9, 'SWE', 'Emil', 'Forsberg', 8, 'Midfielder', 0, 'RB LEIPZIG', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (10, 'SWE', 'Sebastian', 'Larsson', 9, 'Midfielder', 0, 'HULL CITY FC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (11, 'SWE', 'John', 'Guidetti', 10, 'Forward', 0, 'RC CELTA DE VIGO', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (12, 'SWE', 'Marcus', 'Berg', 11, 'Forward', 0, 'AL AIN FC', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (13, 'SWE', 'Janne', 'Andersson', 12, 'Coach', 0, '', 191, 75, '');
+  INSERT INTO Players (id ,country ,firstname, surname, shirtNumber ,position, goals, club, height, weight , img_id) VALUES (14, 'SWE', 'Peter', 'Wettergren', 13, 'Ass. Coach', 0, '', 191, 75, '');

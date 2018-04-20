@@ -1,0 +1,39 @@
+.player-info {
+  width: 100%;
+    min-height: 200px;
+    border-radius: 10px;
+    background-color: transparent;
+    overflow: auto;
+    position: relative;
+}
+
+.banner {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  margin-top: 70px;
+  position: absolute;
+  height: 50px;
+}
+
+.playername {
+  margin-top: 73px;
+  margin-left: 240px;
+  position: absolute;
+  height: 50px;
+  font-size: 30px;
+  font-weight: bold;
+  color:#fff;
+}
+
+.table-custom{
+  margin-top: 20px;
+}
+
+.profile {
+  width: 200px;
+  margin-left: 20px;
+  margin-top: 20px;
+  /* margin-top: 10%; */
+  position: relative;
+}

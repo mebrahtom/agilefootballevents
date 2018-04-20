@@ -1,12 +1,12 @@
 CREATE TABLE Groups
-	( 
+	(
 	  groupName VARCHAR(1) PRIMARY KEY
 );
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
 	groupName  VARCHAR(1) REFERENCES Groups(groupName )
-     
+
 );
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -17,6 +17,21 @@ CREATE TABLE MatchFixtures(
 	stadium TEXT,
 	CONSTRAINT no_self_match CHECK (team1 <> team2)
 );
+
+CREATE TABLE Players(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	firstname TEXT NOT NULL,
+	surname TEXT NOT NULL,
+	shirtNumber INT NOT NULL,
+	position TEXT,
+	goals INT DEFAULT 0,
+	club TEXT,
+	height INT,
+	weight INT,
+	img_id TEXT
+);
+
 CREATE TABLE MatchResults(
         groupName  VARCHAR(1) REFERENCES Groups(groupName ),
 	matchNumber INT NOT NULL  PRIMARY KEY REFERENCES MatchFixtures(matchNumber),
@@ -29,7 +44,7 @@ CREATE TABLE MatchResults(
 CREATE VIEW LatestMatchResults(matchNnumber,groupName , team1, goals1,terminator, goals2,team2) AS
 	(SELECT M.matchNumber, groupName , M.team1, M.goals1,'-' AS TEXT , M.goals2, M.team2 FROM MatchResults M);
 
-CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS 
+CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS
 (SELECT team1, COUNT(team1), COUNT(matchNumber),0, 0, SUM(goals1), SUM(goals2),SUM(goals1)-SUM(goals2), 3, groupName  FROM MatchResults
     WHERE goals1 > goals2 group BY team1,groupName )
     UNION
@@ -50,48 +65,48 @@ CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName )
 
 
 
-CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS 
-(SELECT team, countryName, COUNT(MP),COUNT(W), COUNT(D),COUNT(L), SUM(GF), SUM(GA),SUM(Diff), 
+CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
+(SELECT team, countryName, COUNT(MP),COUNT(W), COUNT(D),COUNT(L), SUM(GF), SUM(GA),SUM(Diff),
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
  C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, points DESC);
 
-CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
+CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)
 	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 2,1);
 
-	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
+	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 1,1)
-	   UNION ALL 
+	   UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='B' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='B' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='C' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='C' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='D' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='D' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='E' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='E' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='F' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='F' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='G' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='G' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='H' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL 
+	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='H' ORDER BY Diff DESC, points DESC limit 1,1);
 
 CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
@@ -155,6 +170,7 @@ CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
 CREATE VIEW MatchUpcomings(matchNumber,team1,terminator,team2, playingDate,playingTime, stadium) AS
 	(SELECT matchNumber, team1,'Vs' AS TEXT, team2, playingDate, playingTime, stadium FROM MatchFixtures);
 
+
     DELIMITER //
 CREATE TRIGGER matchResult_trriger
 AFTER INSERT ON MatchResults FOR EACH ROW
@@ -171,8 +187,8 @@ DELIMITER ;
 CREATE TRIGGER tr_Round16_QuarterFinals_SemiFinals_ThirdPlaceAnd_Final_Games
 before INSERT ON MatchResults FOR EACH ROW
 BEGIN
-IF EXISTS( SELECT team FROM QualifiedToRound16 WHERE groupName='H' AND W=3) 
-THEN 
+IF EXISTS( SELECT team FROM QualifiedToRound16 WHERE groupName='H' AND W=3)
+THEN
 BEGIN
 	 INSERT INTO MatchFixtures VALUES(49, (select team FROM QualifiedToRound16 where groupName='C' AND position=1),
 	 (select team FROM QualifiedToRound16 where groupName='D' AND position=2),'June 30','15:00','Kazan');
@@ -199,7 +215,7 @@ BEGIN
 		 (select team FROM QualifiedToRound16 where groupName='G' AND position=2),'Jul 03','19:00','Moscow ');
 
 
-	 INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal 
+	 INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal
 		WHERE  matchNumber=50),'Jul 06','15:00','Nizhny Novgorod');
 
 	INSERT INTO MatchFixtures VALUES(58, (select team FROM QualifiedQuarterFinal WHERE matchNumber=53),(select team FROM QualifiedQuarterFinal
@@ -208,22 +224,18 @@ INSERT INTO MatchFixtures VALUES(59, (select team FROM QualifiedQuarterFinal WHE
 	     WHERE  matchNumber=52),'Jul 07','19:00','Sochi');
 INSERT INTO MatchFixtures VALUES(60, (select team FROM QualifiedQuarterFinal WHERE matchNumber=55),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=56),'Jul 07','15:00','Samara');
- 
+
 INSERT INTO MatchFixtures VALUES(61, (select team FROM QualifiedQuarterFinal WHERE matchNumber=57),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=58),'Jul 10','19:00','Saint Petersburg');
 INSERT INTO MatchFixtures VALUES(62, (select team FROM QualifiedQuarterFinal WHERE matchNumber=59),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=60),'Jul 10','19:00','Moscow');
-  
+
 INSERT INTO MatchFixtures VALUES(63, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=62),'Jul 14','15:00','Saint Petersburg');
-   
+
 INSERT INTO MatchFixtures VALUES(64, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=62),'Jul 15','16:00','Moscow');
  END;
 END IF;
 END; //
 DELIMITER ;
-
-
-              
-        

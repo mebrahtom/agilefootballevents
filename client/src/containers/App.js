@@ -10,6 +10,8 @@ import ExplorePage from "../containers/ExplorePage.js"
 import LoginPage from "../containers/LoginPage.js"
 import store from '../store'
 import AdminPage from "../containers/AdminPage.js"
+import TeamPage from "../containers/TeamPage.js"
+import PlayerPage from "../containers/PlayerPage.js"
 
 class App extends Component {
   render() {
@@ -18,10 +20,12 @@ class App extends Component {
     const explore_page = () => (<ExplorePage/>);
     const login_page = () => (<LoginPage/>);
     const admin_page = () => (<AdminPage/>);
+    const team_page = ({match}) => (<TeamPage teamAbr = {match.params.teamAbr}/>);
+    const player_page = ({match}) => (<PlayerPage playerId = {match.params.id}/>);
 
     return (
       <Provider store={store}>
-        <Router>
+        <Router >
         <div className="app">
           <Header/>
           <Route exact path="/" component={home_page} />
@@ -29,6 +33,8 @@ class App extends Component {
           <Route path="/explore" component={explore_page} />
           <Route path="/login" component={login_page} />
           <Route path="/admin" component={admin_page} />
+          <Route path='/team/:teamAbr' component={team_page} />
+          <Route path='/player/:id' component={player_page} />
         </div>
       </Router>
     </Provider>
@@ -36,6 +42,9 @@ class App extends Component {
   }
 }
 
+const Child = ({match})=> console.log(match) || (
+  <h1>HEJ</h1>
+)
 
 class Header extends Component {
   render() {

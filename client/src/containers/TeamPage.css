@@ -1,0 +1,77 @@
+.team-heading {
+  position:relative;
+  height:auto;
+  width: 100%;
+  border-radius: 10px;
+  background-color: transparent;
+  overflow:auto;
+}
+
+.team-heading img{
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  background-size: cover;
+}
+
+.team-heading p{
+  color: #fff;
+  font-size: 40px;
+  position: absolute;
+  top: 52%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+
+}
+
+
+.team-category{
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 20px 0px;
+}
+.team-category p{
+  font-size: 20px;
+  margin: 0px;
+}
+
+.profile-col{
+    margin-bottom: 20px;
+}
+
+.player-profile{
+  max-width: 200px;
+  margin: 0 auto;
+  //border: #e0e0e0 solid 1px;
+}
+
+.player-profile p{
+  margin: 0;
+}
+
+.player-profile img{
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.number-holder span{
+  font-size: 38px;
+}
+.number-holder {
+  padding: 5px !important;
+}
+
+
+.info-holder{
+  padding: 5px !important;
+}
+.player-name {
+  font-size: 20px;
+  padding-left: 0px;
+}
+.row-custom {
+  background-color: #f9f9f9;
+  margin-left: 0 !important;
+  margin-right: 0  !important;
+}
