@@ -54,9 +54,7 @@ function renderResults() {
 function renderGroups() {
   var groups = [];
 
-  for(var i = 0; i < 6; i++){
-    groups.push(<GroupTable key={i}/>);
-  }
+  groups.push(<GroupTable key={1}/>);
 
   return groups;
 }

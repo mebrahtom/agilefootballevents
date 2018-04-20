@@ -44,3 +44,18 @@ export function dispatchGetAllGroups(groups){
     groups
   }
 }
+
+export function getAllgroupresults(){
+  return (dispatch, getState) => {
+    return Fixtures.getAllgroupresults().then((data) => {
+      return dispatch(dispatchGetAllgroupresults(data))
+    })
+  }
+}
+
+export function dispatchGetAllgroupresults(groupresults){
+  return {
+    type: 'GET_ALL_GROUP_RESULTS',
+    groupresults
+  }
+}

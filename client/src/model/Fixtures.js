@@ -21,6 +21,13 @@ class Fixtures {
 		  return groups
 		})
 	}
+
+	static getAllgroupresults(){
+		var route = '/fixtures/groupresults'
+		return Service.get(route).then(function(groupresults){
+		  return groupresults
+		})
+	}
 }
 
 export default Fixtures

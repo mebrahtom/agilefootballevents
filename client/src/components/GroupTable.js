@@ -8,25 +8,32 @@ class GroupTable extends Component {
 
   /* Fetching database information through actionCreators.js */
   componentDidMount() {
-    this.props.getAllMatches().then(() => {
-      //console.log(this.props.matches)
-    })
-    this.props.getAllUpcomingMatches().then(() => {
-     // console.log(this.props.upcomingmatches)
-    })
     this.props.getAllGroups().then(() => {
-      console.log(this.props.groups)
     })
+    this.props.getAllgroupresults()
   }
 
   render() {
-    const grows = renderGroupRows();
-    const tableLabels = createLabels(this.props.groups);
+    const tables = renderTables(this.props.groups, this.props.groupresults);
     return(
       <div className="col-md-6">
+        {tables}
+      </div>
+    );
+  }
+}
+
+function renderTables(groups, groupresults) {
+  var allTables = [];
+
+  for(var i = 0; i < groups.length; i++){
+    {/* Adding the table and label*/}
+    allTables.push(
+      <div>
         <h4>
-          {this.props.label}
-        </h4>
+          {"Group " + groups[i].groupName}
+        </h4>   
+
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -37,44 +44,39 @@ class GroupTable extends Component {
               <th className="col-sm-1">P</th>
             </tr>
           </thead>
-        <tbody>
-          { grows }
-        </tbody>
+          <tbody>
+            {renderGroupRows(groupresults, groups[i].groupName)}
+          </tbody>
         </Table>
       </div>
+
+      
     );
   }
+  return allTables;
 }
 
-
-function createLabels(groups){
-  var tableLabels = [];
-
-  for(var i = 0; i < groups.length; i++){
-    
-    tableLabels.push(<GroupTable key = {i}
-      label = {groups[i].groupName}/>
-    );
-  }
-  return tableLabels;
-
-}
-
-function renderGroupRows() {
+function renderGroupRows(groupresults, currGroupname) {
 
   var grouprow = [];
 
-  for(var i = 0; i < 6; i++){
+  {/* Check if groupresults.groupname is the same as groups.groupname. then go ahead. */}
 
-    grouprow.push(
-      <tr>
-        <td>Team Name</td>
-        <td>#Won</td>
-        <td>#Draws</td>
-        <td>#Losses</td>
-        <td>#Points</td>
-      </tr>
-    );
+  for(var i = 0; i < groupresults.length; i++){
+
+    if(groupresults[i].groupName == currGroupname){
+
+      grouprow.push(
+        <tr>
+          {/* TODO add flags to the team */}
+          <td>{groupresults[i].team}</td>
+          <td>{groupresults[i].W}</td>
+          <td>{groupresults[i].D}</td>
+          <td>{groupresults[i].L}</td>
+          <td>{groupresults[i].points}</td>
+        </tr>
+      );
+    }
   }
 
   return grouprow;
@@ -82,9 +84,8 @@ function renderGroupRows() {
 
 function mapStateToProps(state) {
   return {
-    matches: state.matches,
-    upcomingmatches: state.upcomingmatches,
-    groups : state.groups
+    groups : state.groups,
+    groupresults : state.groupresults
   }
 }
 
