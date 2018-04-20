@@ -32,6 +32,7 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
   })
 })
 
+<<<<<<< HEAD
 router.get('/fixtures/groups1', function(req, res, next) {
   var sql = 'SELECT groupName, GROUP_CONCAT(CONCAT({team:\"\', team, \'\"})) list FROM HelperResultTable GROUP BY groupName;'
   db.query(sql, function(err, result, fields) {
@@ -40,6 +41,30 @@ router.get('/fixtures/groups1', function(req, res, next) {
 
   })
 
+=======
+router.get('/fixtures/matchfixtures', function(req, res, next) {
+  var sql = 'SELECT * FROM MatchFixtures'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
+router.get('/fixtures/groups', function(req, res, next) {
+  var sql = 'SELECT * FROM Groups'
+  db.query(sql, function(err, result, fields) { 
+    if (err) throw err
+    res.json(result)
+  })
+})
+
+router.get('/fixtures/groupresults', function(req, res, next) {
+  var sql = 'SELECT * FROM helperresulttable'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+>>>>>>> FetchResults
 })
 
 module.exports = router

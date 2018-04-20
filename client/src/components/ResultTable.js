@@ -4,17 +4,15 @@ import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-class MatchTable extends Component{
+class ResultTable extends Component{
 
   /* Fetching database information through actionCreators.js */
   componentDidMount() {
-    this.props.getAllUpcomingMatches().then(() => {
-      //console.log(this.props.upcomingmatches)
-    })
+    this.props.getAllMatches()
   }
 
   render(){
-    const gmatches = renderMatchRows(this.props.upcomingmatches);
+    const gmatches = renderMatchRows(this.props.matches);
     return(
       <div className="match-container">
         {gmatches}
@@ -26,17 +24,16 @@ class MatchTable extends Component{
   }
 }
 
-function renderMatchRows(upcomingmatches){
+function renderMatchRows(resultmatches){
   var matches = [];
 
-  for(var i = 0; i < upcomingmatches.length; i++ ){
+  for(var i = 0; i < resultmatches.length; i++ ){
   {/* Push the data from database to the MatchRow and create rows*/}
-    matches.push(<MatchRow key ={i} 
-      date={upcomingmatches[i].playingDate} 
-      time={upcomingmatches[i].PlayingTime}
-      t1={upcomingmatches[i].team1} 
-      t2={upcomingmatches[i].team2} 
-      loc={upcomingmatches[i].stadium}/>);
+    matches.push(<ResultRow key ={i} 
+      t1={resultmatches[i].team1} 
+      t2={resultmatches[i].team2}
+      result1={resultmatches[i].goals1}
+      result2={resultmatches[i].goals2}/>);
   }
 
   return matches;
@@ -49,7 +46,7 @@ function importAll(r) {
   return images;
 }
 
-class MatchRow extends Component {
+class ResultRow extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -64,25 +61,19 @@ class MatchRow extends Component {
     return (
       
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={4}>
-          <br />
-          {this.props.date}
-          <br />
-          {this.props.time}
-        </Col>
-        <Col sm={2}>
+        <Col sm={5}>
           <img src={images[this.props.t1+'.png']} width={35} height={25}/>
           <br />
           <div className="ccodetext" >{this.props.t1}</div>
         </Col>
         <Col sm={2}>
+          <br />
+          {this.props.result1} - {this.props.result2}
+        </Col>
+        <Col sm={5}>
           <img src={images[this.props.t2+'.png']} width={35} height={25}/>
           <br />
           <div className="ccodetext" >{this.props.t2}</div>
-        </Col>
-        <Col sm={4}>
-          <br />
-          {this.props.loc}
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open}>
@@ -100,7 +91,7 @@ class MatchRow extends Component {
 
 function mapStateToProps(state) {
   return {
-    upcomingmatches: state.upcomingmatches
+    matches: state.matches,
   }
 }
 
@@ -108,4 +99,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchTable)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultTable)
