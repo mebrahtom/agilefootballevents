@@ -42,9 +42,6 @@ class App extends Component {
   }
 }
 
-const Child = ({match})=> console.log(match) || (
-  <h1>HEJ</h1>
-)
 
 class Header extends Component {
   render() {

@@ -42,7 +42,7 @@ class TeamPage extends Component {
 const TeamHeading = () => (
 
   <div className="team-heading">
-    <img src={heading}></img>
+    <img src={heading} alt={''}></img>
     <p>Teamname</p>
   </div>
 
@@ -77,7 +77,7 @@ const PlayerProfile = () => (
 
   <Col md={3} className="profile-col">
     <div className="player-profile">
-      <img src={placeholder_profile}></img>
+      <img src={placeholder_profile} alt={''}></img>
       <Row className="row-custom">
         <Col xs={4} className="number-holder">
           <span>XX</span>

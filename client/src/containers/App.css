@@ -64,6 +64,12 @@
   }
 }
 
+/* Country code text */
+.ccodetext{
+  padding:5px;
+}
+
+
 .app-header {
   margin:20px auto;
 }

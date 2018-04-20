@@ -1,13 +1,21 @@
-CREATE TABLE Groups
-	(
-	  groupName VARCHAR(1) PRIMARY KEY
+
+CREATE TABLE Groups(
+	groupName VARCHAR(1) PRIMARY KEY
 );
+
+CREATE TABLE Arenas(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arena TEXT NOT NULL,
+	latitude DOUBLE,
+	longitude DOUBLE
+);
+
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
-	groupName  VARCHAR(1) REFERENCES Groups(groupName )
-
+	groupName VARCHAR(1) REFERENCES Groups(groupName)
 );
+
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
@@ -33,14 +41,15 @@ CREATE TABLE Players(
 );
 
 CREATE TABLE MatchResults(
-        groupName  VARCHAR(1) REFERENCES Groups(groupName ),
+    groupName  VARCHAR(1) REFERENCES Groups(groupName ),
 	matchNumber INT NOT NULL  PRIMARY KEY REFERENCES MatchFixtures(matchNumber),
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	goals1 INT NOT NULL,
 	goals2 INT NOT NULL,
 	CONSTRAINT no_self_match1 CHECK (team1 <> team2)
-	);
+);
+
 CREATE VIEW LatestMatchResults(matchNnumber,groupName , team1, goals1,terminator, goals2,team2) AS
 	(SELECT M.matchNumber, groupName , M.team1, M.goals1,'-' AS TEXT , M.goals2, M.team2 FROM MatchResults M);
 
@@ -63,12 +72,10 @@ CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName )
 (SELECT team2, COUNT(team2),0,0,COUNT(matchNumber), SUM(goals2), SUM(goals1),SUM(goals2)-SUM(goals1), 0 ,groupName  FROM MatchResults
     WHERE goals2 < goals1 group BY team2,groupName );
 
-
-
 CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
-(SELECT team, countryName, COUNT(MP),COUNT(W), COUNT(D),COUNT(L), SUM(GF), SUM(GA),SUM(Diff),
+(SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff),
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
- C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, points DESC);
+C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, SUM(Diff) DESC, points DESC );
 
 CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)
