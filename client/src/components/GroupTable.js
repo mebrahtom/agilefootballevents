@@ -67,11 +67,11 @@ function renderGroupRows(groupresults, currGroupname, images) {
   for(var i = 0; i < groupresults.length; i++){
 
     if(groupresults[i].groupName === currGroupname){
-
+      var link = "/teams/"+ groupresults[i].team;
       grouprow.push(
         <tr key={i}>
           {/* TODO add flags to the team */}
-          <td><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team} </td>
+          <td><a href={link}><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team}</a></td>
           <td>{groupresults[i].MP}</td>
           <td>{groupresults[i].W}</td>
           <td>{groupresults[i].D}</td>

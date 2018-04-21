@@ -14,11 +14,21 @@ class Squad extends Component {
     })
   }
   render(){
-    var players = renderPlayers(this.props.squad);
+    var content = renderPlayers(this.props.squad);
+
+    console.log('content', content);
+
+    if (content.length == 0){
+      content = (
+        <div className="no-teams">
+          <p>No squad have yet been added for this team</p>
+        </div>
+      );
+    }
 
     return (
       <Row>
-        {players}
+        {content}
       </Row>
     )
   }
@@ -29,7 +39,7 @@ const images = importAll(require.context('../img/profiles', false, /\.(png|jpe?g
 function renderPlayers(squad){
   //var players = [];
   const players = squad;
-  const player_elements = players.map((player) => PlayerProfile(player));
+  const player_elements = players.map((player, index) => PlayerProfile(player));
 
   return player_elements;
 }
@@ -41,20 +51,24 @@ function PlayerProfile(player) {
     img_path = placeholder_profile;
   }
 
+  var link = "/player/" + player.id;
+
   return (
-    <Col md={4} className="profile-col" key={player.id}>
-      <div className="player-profile">
-        <img onError={(e)=>{e.target.src=placeholder_profile}} src={img_path} alt={''}></img>
-        <Row className="row-custom">
-          <Col xs={4} className="number-holder">
-            <span>{player.shirtNumber}</span>
-          </Col>
-          <Col xs={8} className="info-holder">
-            <p className="player-name">{player.firstname} {player.surname}</p>
-            <p className="player-position">{player.position}</p>
-          </Col>
-        </Row>
-      </div>
+    <Col md={3} className="profile-col" key={player.id}>
+      <a href={link}>
+        <div className="player-profile">
+          <img onError={(e)=>{e.target.src=placeholder_profile}} src={img_path} alt={''}></img>
+          <Row className="row-custom">
+            <Col xs={4} className="number-holder">
+              <span>{player.shirtNumber}</span>
+            </Col>
+            <Col xs={8} className="info-holder">
+              <p className="player-name">{player.firstname}<br/>{player.surname}</p>
+              <p className="player-position">{player.position}</p>
+            </Col>
+          </Row>
+        </div>
+      </a>
     </Col>
   )
 
