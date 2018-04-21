@@ -18,7 +18,7 @@ class Squad extends Component {
 
     console.log('content', content);
 
-    if (content.length == 0){
+    if (content.length === 0){
       content = (
         <div className="no-teams">
           <p>No squad have yet been added for this team</p>
