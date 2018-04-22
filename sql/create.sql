@@ -1,34 +1,13 @@
-
-CREATE TABLE Groups(
-	groupName VARCHAR(1) PRIMARY KEY
+CREATE TABLE Groups
+	( 
+	  groupName VARCHAR(1) PRIMARY KEY
 );
-
-CREATE TABLE Arenas(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
-	latitude DOUBLE,
-	longitude DOUBLE
-);
-
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
-	groupName VARCHAR(1) REFERENCES Groups(groupName)
+	groupName  VARCHAR(1) REFERENCES Groups(groupName )
+     
 );
-CREATE TABLE Players(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
-	firstname TEXT NOT NULL,
-	surname TEXT NOT NULL,
-	shirtNumber INT NOT NULL,
-	position TEXT,
-	goals INT DEFAULT 0,
-	club TEXT,
-	height INT,
-	weight INT,
-	img_id TEXT
-);
-
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
@@ -56,11 +35,11 @@ CREATE TABLE MatchResults(
 	goals2 INT NOT NULL,
 	CONSTRAINT no_self_match1 CHECK (team1 <> team2)
 	);
-CREATE VIEW Helper1(matchnumber,groupName, abbreviation1, team1,goals1, separe) AS
+CREATE VIEW Helper1(matchnumber,groupName, abbreviation1, team1,goals1, separe) AS 
   (SELECT M.matchNumber, M.groupName,abbreviation,countryName, M.goals1, '-' AS TEXT FROM MatchResults M, Countries C where M.groupName=C.groupName AND team1=abbreviation);
 
 
-CREATE VIEW Helper2(matchnumber,goals2,abbreviation2, team2) AS
+CREATE VIEW Helper2(matchnumber,goals2,abbreviation2, team2) AS 
 (SELECT M.matchNumber, M.goals2 ,abbreviation,countryName FROM MatchResults M, Countries C where M.groupName=C.groupName AND team2=abbreviation);
 
  CREATE VIEW  Helper3 AS select *from  MatchFixturesBackUp WHERE matchNumber IN (SELECT matchNumber from MatchResults);
@@ -70,7 +49,7 @@ CREATE VIEW Helper2(matchnumber,goals2,abbreviation2, team2) AS
  CREATE VIEW LatestMatchResults(playingDate, playingTime,groupName , abbreviation1, team1, goals1,terminator, goals2,abbreviation2,team2,stadium) AS
   SELECT  playingDate, playingTime,L.groupName ,abbreviation1, L.team1, L.goals1,L.separe, L.goals2,abbreviation2,L.team2, stadium FROM LatestResultHelper4  L, Helper3 H where L.matchnumber=H.matchNumber;
 
-CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS
+CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS 
 (SELECT team1, COUNT(team1), COUNT(matchNumber),0, 0, SUM(goals1), SUM(goals2),SUM(goals1)-SUM(goals2), 3, groupName  FROM MatchResults
     WHERE goals1 > goals2 group BY team1,groupName )
     UNION
@@ -89,48 +68,48 @@ CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName )
 (SELECT team2, COUNT(team2),0,0,COUNT(matchNumber), SUM(goals2), SUM(goals1),SUM(goals2)-SUM(goals1), 0 ,groupName  FROM MatchResults
     WHERE goals2 < goals1 group BY team2,groupName );
 
-CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
-(SELECT team, countryName, COUNT(MP),COUNT(W), COUNT(D),COUNT(L), SUM(GF), SUM(GA),SUM(Diff),
+CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS 
+(SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff), 
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
- C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, points DESC);
+ C where H.team=C.abbreviation group BY team, groupName, countryName, Diff, points ORDER BY groupName, Diff, points DESC);
 
-CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
+CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)
 	  UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 2,1);
 
-	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
+	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS 
 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 1,1)
-	   UNION ALL
+	   UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='B' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='B' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='C' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='C' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='D' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='D' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='E' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='E' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='F' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='F' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='G' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='G' ORDER BY Diff DESC, points DESC limit 1,1)
 	 UNION ALL
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='H' ORDER BY Diff DESC, points DESC limit 0,1)
-	  UNION ALL
+	  UNION ALL 
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='H' ORDER BY Diff DESC, points DESC limit 1,1);
 
 CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
@@ -190,10 +169,10 @@ CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
 	UNION
 	(SELECT matchNumber, team2 FROM MatchResults WHERE matchNumber=62 AND goals1<goals2);
 
-CREATE VIEW MatchUpcomingHelper1(matchNumber,abbreviation1, team1, terminator) AS
+CREATE VIEW MatchUpcomingHelper1(matchNumber,abbreviation1, team1, terminator) AS 
 (SELECT M.matchNumber, abbreviation, countryName, 'Vs' AS TEXT FROM MatchFixtures M, Countries C where team1=abbreviation);
 
-CREATE VIEW MatchUpcomingHelper2 (matchnumber,abbreviation2,team2, playingDate,playingTime, stadium) AS
+CREATE VIEW MatchUpcomingHelper2 (matchnumber,abbreviation2,team2, playingDate,playingTime, stadium) AS 
 (SELECT M.matchNumber, abbreviation,countryName, playingDate, playingTime, stadium FROM MatchFixtures M, Countries C where team2=abbreviation);
 
 CREATE VIEW MatchUpcomings(matchNumber,abbreviation1,team1,terminator,abbreviation2,team2, playingDate,playingTime, stadium) AS
@@ -229,8 +208,8 @@ DELIMITER ;
 CREATE TRIGGER tr_Round16_QuarterFinals_SemiFinals_ThirdPlaceAnd_Final_Games
 before INSERT ON MatchResults FOR EACH ROW
 BEGIN
-IF EXISTS( SELECT team FROM QualifiedToRound16 WHERE groupName='H' AND W=3)
-THEN
+IF EXISTS( SELECT team FROM QualifiedToRound16 WHERE groupName='H' AND W=3) 
+THEN 
 BEGIN
 	 INSERT INTO MatchFixtures VALUES(49, (select team FROM QualifiedToRound16 where groupName='C' AND position=1),
 	 (select team FROM QualifiedToRound16 where groupName='D' AND position=2),'June 30','15:00','Kazan');
@@ -257,7 +236,7 @@ BEGIN
 		 (select team FROM QualifiedToRound16 where groupName='G' AND position=2),'Jul 03','19:00','Moscow ');
 
 
-	 INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal
+	 INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal 
 		WHERE  matchNumber=50),'Jul 06','15:00','Nizhny Novgorod');
 
 	INSERT INTO MatchFixtures VALUES(58, (select team FROM QualifiedQuarterFinal WHERE matchNumber=53),(select team FROM QualifiedQuarterFinal
@@ -266,18 +245,123 @@ INSERT INTO MatchFixtures VALUES(59, (select team FROM QualifiedQuarterFinal WHE
 	     WHERE  matchNumber=52),'Jul 07','19:00','Sochi');
 INSERT INTO MatchFixtures VALUES(60, (select team FROM QualifiedQuarterFinal WHERE matchNumber=55),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=56),'Jul 07','15:00','Samara');
-
+ 
 INSERT INTO MatchFixtures VALUES(61, (select team FROM QualifiedQuarterFinal WHERE matchNumber=57),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=58),'Jul 10','19:00','Saint Petersburg');
 INSERT INTO MatchFixtures VALUES(62, (select team FROM QualifiedQuarterFinal WHERE matchNumber=59),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=60),'Jul 10','19:00','Moscow');
-
+  
 INSERT INTO MatchFixtures VALUES(63, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=62),'Jul 14','15:00','Saint Petersburg');
-
+   
 INSERT INTO MatchFixtures VALUES(64, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
 	     WHERE  matchNumber=62),'Jul 15','16:00','Moscow');
  END;
 END IF;
 END; //
 DELIMITER ;
+
+
+              
+       
+
+
+
+
+
+
+
+
+INSERT INTO Groups(groupName) VALUES ('A');
+	INSERT INTO Groups(groupName) VALUES ('B');
+	INSERT INTO Groups(groupName) VALUES ('C');
+	INSERT INTO Groups(groupName) VALUES ('D');
+	INSERT INTO Groups(groupName) VALUES ('E');
+	INSERT INTO Groups(groupName) VALUES ('F');
+	INSERT INTO Groups(groupName) VALUES ('G');
+	INSERT INTO Groups(groupName) VALUES ('H');
+
+
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('RUS','Russia','A');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('KSA','Saudi Arbaia','A');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('EGY','Egypt','A');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('ERY','Uruguay','A');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('POR','Portugal','B');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SPA','Spain','B');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('MOR','Morocco','B');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('IRN','Iran','B');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('FRA','France','C');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('AUS','Australia','C');
+        INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('ARG','Argentia','C');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('ICE','Iceland','C');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('PER','Peru','D');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('DEN','Denmark','D');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('CRO','Croatia','D');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('NGA','Nigeria','D');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('BRA','Brazil','E');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SWI','Switherland','E');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('CRC','Costa Rica','E');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SER','Serbia','E');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('GER','Germany','F');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('MEX','Mexico','F');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SWE','Sweden','F');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('KOR','Korea','F');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('BEL','Belgium','G');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('PAN','Panama','G');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('TUN','Tunisia','G');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('ENG','England','G');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('POL','Poland','H');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('SEN','Sengal','H');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('COL','Colombia','H');
+	INSERT INTO Countries(abbreviation,countryName,groupName ) VALUES ('JPN','Japan','H');
+
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES (1,'RUS','KSA','14 June ','12:00','Luzhniki Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(2,'EGY','ERY','15 June ','14:00','Central Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(3,'MOR','IRN','15 June ','17:00','Saint Petersburg');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(4,'POR','SPA','15 June ','20:00','Fisht Stadium Sochi');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(5,'FRA','AUS','16 JUN ','12:00','Kazan Arena Kazan');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(6,'ARG','ICE','16 JUN ','15:00','Spartak Stadium Moscow');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(7,'PER','DEN','16 JUN ','18:00','Mordovia Arena Saransk');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(8,'CRO','NGA','16 JUN ','21:00','Kaliningrad Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(9,'BRA','SWI','17 June','21:00','Rostov-on-Don');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(10,'CRC','SER','17 June','16:00','Samara, Samara Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(11,'GER','MEX','17 June','18:00','Moscow, Luzhniki stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(12,'SWE','KOR','18 June','15:00','Nizhny Novgorod');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(13,'BEL','PAN','18 June','18:00','ochi, Fisht Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(14,'TUN','ENG','18 June','21:00','Volgograd, Volgograd Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(15,'POL','SEN','19 June','18:00','Otkritie Arena Stadium,');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(16,'COL','JPN','19 June','15:00','Saransk, Mordovia Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(17,'RUS','EGY','19 June','21:00','Saint Petersburg');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(18,'ERY','KSA','20 June','18:00','Rostov-on-Don, Rostov Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(19,'POR','MOR','20 June','15:00','Moscow,');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(20,'IRN','SPA','20 June','21:00','Kazan, Kazan Arena Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(21,'FRA','PER','21 June','20:00','Ekaterinburg, Ekaterinburg ');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(22,'DEN','AUS','21 June','16:00','Samara, Samara Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(23,'ARG','CRO','21 June','21:00','Nizhny Novgorod, Nizhny ');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(24,'NIG','ICA','22 June','18:00','Volgograd, Volgograd Arena');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(25,'BRA','COS','22 June','15:00','Saint Petersburg Stadium');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(26,'SER','SWI','22 June','20:00','Stadium, Solnechnyy bulvar');
+	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(27,'GER','SWE','23 June','21:00','Sochi, Fisht Stadium');
+
+
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('A',1,'RUS','KSA','3','1');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('A',2,'EGY','ERY','2','1');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('B',3,'MOR','IRN','2','1');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('B',4,'POR','SPA','1','3');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('C',5,'FRA','AUS','3','1');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('C',6,'ARG','ICE','2','0');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',7,'PER','DEN','1','2');
+	INSERT INTO MatchResults (groupName ,matchNumber,team1, team2, goals1, goals2) VALUES ('D',8,'CRO','NGA','1','3');
+
+
+
+
+
+
+
+
+
+
+
+
+
