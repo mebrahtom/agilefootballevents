@@ -15,6 +15,13 @@
   margin: 0 auto;
 }
 
+.homepage-background {
+  max-width: 100%;
+}
+
+.homepage-container {
+  margin-top: -20px;
+}
 
 .custom-container{
   background-color: #fff;
