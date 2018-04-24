@@ -8,6 +8,8 @@ import HomePage from "../containers/HomePage.js"
 import FootballPage from "../containers/FootballPage.js"
 import ExplorePage from "../containers/ExplorePage.js"
 import LoginPage from "../containers/LoginPage.js"
+import AdminLoginForm from "../components/AdminLoginForm"
+import AdminRegistrationForm from "../components/AdminRegistrationForm"
 import store from '../store'
 import AdminPage from "../containers/AdminPage.js"
 import TeamPage from "../containers/TeamPage.js"
@@ -32,6 +34,8 @@ class App extends Component {
           <Route path="/explore" component={explore_page} />
           <Route path="/login" component={login_page} />
           <Route path="/admin" component={admin_page} />
+          <Route path="/admin-register" component={AdminRegistrationForm} />
+          <Route path="/admin-login" component={AdminLoginForm} />
           <Route path='/team/:teamAbr' component={team_page} />
           <Route path='/player/:id' component={player_page} />
         </div>
