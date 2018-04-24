@@ -1,7 +1,6 @@
 import mysql from 'mysql'
 import test from 'ava'
 require('dotenv').config()
-//mysql.Promise = global.Promise
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -9,22 +8,6 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: 'gothencupdb_test'
 })
-/*var db  = mysql.createPool({
-  connectionLimit : 10,
-  host            : 'localhost',
-  user            : 'root',
-  password        : process.env.DB_PASSWORD,
-  database        : 'gothencupdb_test'
-});*/
-
-
-
-/*test.before(t => {
-  db.connect(function(err) {
-    if (err) throw err
-    console.log("Connected to test db")
-  })
-})*/
 
 test.before.cb(t => {
   try{
@@ -38,26 +21,24 @@ test.before.cb(t => {
   }
 });
 
+// Assert that there allways are the given amount of teams in the database
 test.cb('Get all countries', t => {
-  console.log('Running test get countries')
-  t.plan(1)
   db.query('SELECT * FROM Countries', function (err, result, fields) {
-    console.log(result[0].abbreviation)
     if (err) throw err
-    t.pass(true)
+    t.is(result.length, 32)
     t.end()
   })
-
-
-  /*const connection = await db.getConnection()
-  console.log(db)
-  const string = await db.query('SELECT * FROM Countries')*/
-  //console.log(asd)
-
 })
 
-test('bar', async t => {
-	const bar = Promise.resolve('bar')
-
-	t.is(await bar, 'bar')
+// Assert that there allways are 8 groups with the name A to H
+test.cb('Test groups are consistent', t => {
+  db.query('SELECT * FROM Groups', function (err, result, fields) {
+    if (err) throw err
+    const groups = []
+    for (let i = 0; i < result.length; i++) {
+      groups[i] = result[i].groupName
+    }
+    t.deepEqual(groups, ['A','B','C','D','E','F','G','H'])
+    t.end()
+  })
 })
