@@ -39,11 +39,10 @@ test.before.cb(t => {
 });
 
 test.cb('Get all countries', t => {
-  let countries
   console.log('Running test get countries')
   t.plan(1)
   db.query('SELECT * FROM Countries', function (err, result, fields) {
-    console.log()
+    console.log(result[0].abbreviation)
     if (err) throw err
     t.pass(true)
     t.end()
