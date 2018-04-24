@@ -18,7 +18,7 @@ class GroupTable extends Component {
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
     const tables = renderTables(this.props.groups, this.props.groupresults, images);
     return(
-      <div className ="hejsan">
+      <div>
         {tables}
       </div>
     );
@@ -43,6 +43,9 @@ function renderTables(groups, groupresults, images) {
               <th className="col-sm-1">W</th>
               <th className="col-sm-1">D</th>
               <th className="col-sm-1">L</th>
+              <th className="col-sm-1">GF</th>
+              <th className="col-sm-1">GA</th>
+              <th className="col-sm-1">Diff</th>
               <th className="col-sm-1">P</th>
             </tr>
           </thead>
@@ -63,19 +66,21 @@ function renderGroupRows(groupresults, currGroupname, images) {
   var grouprow = [];
 
   /* Check if groupresults.groupname is the same as groups.groupname. then go ahead. */
-
-  for(var i = 0; i < groupresults.length; i++){
-
+  
+  for(var i = groupresults.length-1; i >= 0; i--){
     if(groupresults[i].groupName === currGroupname){
-
+      var link = "/teams/"+ groupresults[i].team;
       grouprow.push(
         <tr key={i}>
           {/* TODO add flags to the team */}
-          <td><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team} </td>
+          <td><a href={link}><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team}</a></td>
           <td>{groupresults[i].MP}</td>
           <td>{groupresults[i].W}</td>
           <td>{groupresults[i].D}</td>
           <td>{groupresults[i].L}</td>
+          <td>{groupresults[i].GF}</td>
+          <td>{groupresults[i].GA}</td>
+          <td>{groupresults[i].Diff}</td>
           <td>{groupresults[i].points}</td>
         </tr>
       );

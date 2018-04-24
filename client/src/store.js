@@ -9,8 +9,10 @@ const defaultState = {
   matches: [{groupName : "", matchNumber : 0, team1 : "", team2 : "", goals1 : 0, goals2 : 0}],
   upcomingmatches : [{matchNumber : 0, team1: "", team2 : "", playingDate : "", PlayingTime : "", stadium : ""}],
   groups : [{groupName : ""}],
-  groupresults : [{team : "", MP : 0, W : 0, D : 0, L : 0, points : 0}],
-  squad:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}]
+  groupresults : [{team : "", groupName : "", MP : 0, W : 0, D : 0, L : 0, GF : 0, GA : 0, Diff : 0, points : 0}],
+  squad:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}],
+  countries:[{abbreviation:"", countryName:"", groupName:""}],
+  player:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}]
 }
 
 const store = createStore(

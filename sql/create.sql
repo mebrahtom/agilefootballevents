@@ -15,17 +15,6 @@ CREATE TABLE Countries(
 	countryName TEXT NOT NULL,
 	groupName VARCHAR(1) REFERENCES Groups(groupName)
 );
-
-CREATE TABLE MatchFixtures(
-	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
-	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
-	playingDate TEXT NOT NULL,
-	PlayingTime TEXT NOT NULL,
-	stadium TEXT,
-	CONSTRAINT no_self_match CHECK (team1 <> team2)
-);
-
 CREATE TABLE Players(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
@@ -40,18 +29,46 @@ CREATE TABLE Players(
 	img_id TEXT
 );
 
+CREATE TABLE MatchFixtures(
+	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	playingDate TEXT NOT NULL,
+	PlayingTime TEXT NOT NULL,
+	stadium TEXT,
+	CONSTRAINT no_self_match CHECK (team1 <> team2)
+);
+ CREATE TABLE MatchFixturesBackUp(
+	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	playingDate TEXT NOT NULL,
+	PlayingTime TEXT NOT NULL,
+	stadium TEXT,
+	CONSTRAINT no_self_match CHECK (team1 <> team2)
+);
 CREATE TABLE MatchResults(
-    groupName  VARCHAR(1) REFERENCES Groups(groupName ),
+        groupName  VARCHAR(1) REFERENCES Groups(groupName ),
 	matchNumber INT NOT NULL  PRIMARY KEY REFERENCES MatchFixtures(matchNumber),
 	team1 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	team2 VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
 	goals1 INT NOT NULL,
 	goals2 INT NOT NULL,
 	CONSTRAINT no_self_match1 CHECK (team1 <> team2)
-);
+	);
+CREATE VIEW Helper1(matchnumber,groupName, abbreviation1, team1,goals1, separe) AS
+  (SELECT M.matchNumber, M.groupName,abbreviation,countryName, M.goals1, '-' AS TEXT FROM MatchResults M, Countries C where M.groupName=C.groupName AND team1=abbreviation);
 
-CREATE VIEW LatestMatchResults(matchNnumber,groupName , team1, goals1,terminator, goals2,team2) AS
-	(SELECT M.matchNumber, groupName , M.team1, M.goals1,'-' AS TEXT , M.goals2, M.team2 FROM MatchResults M);
+
+CREATE VIEW Helper2(matchnumber,goals2,abbreviation2, team2) AS
+(SELECT M.matchNumber, M.goals2 ,abbreviation,countryName FROM MatchResults M, Countries C where M.groupName=C.groupName AND team2=abbreviation);
+
+ CREATE VIEW  Helper3 AS select *from  MatchFixturesBackUp WHERE matchNumber IN (SELECT matchNumber from MatchResults);
+
+  CREATE VIEW LatestResultHelper4 AS (SELECT *FROM Helper1 natural JOIN Helper2);
+
+ CREATE VIEW LatestMatchResults(playingDate, playingTime,groupName , abbreviation1, team1, goals1,terminator, goals2,abbreviation2,team2,stadium) AS
+  SELECT  playingDate, playingTime,L.groupName ,abbreviation1, L.team1, L.goals1,L.separe, L.goals2,abbreviation2,L.team2, stadium FROM LatestResultHelper4  L, Helper3 H where L.matchnumber=H.matchNumber;
 
 CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS
 (SELECT team1, COUNT(team1), COUNT(matchNumber),0, 0, SUM(goals1), SUM(goals2),SUM(goals1)-SUM(goals2), 3, groupName  FROM MatchResults
@@ -75,7 +92,7 @@ CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName )
 CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
 (SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff),
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
-C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, SUM(Diff) DESC, points DESC );
+ C where H.team=C.abbreviation group BY team, groupName, countryName, Diff, points ORDER BY groupName, Diff,points DESC);
 
 CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)
@@ -173,9 +190,27 @@ CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
 	UNION
 	(SELECT matchNumber, team2 FROM MatchResults WHERE matchNumber=62 AND goals1<goals2);
 
+CREATE VIEW MatchUpcomingHelper1(matchNumber,abbreviation1, team1, terminator) AS
+(SELECT M.matchNumber, abbreviation, countryName, 'Vs' AS TEXT FROM MatchFixtures M, Countries C where team1=abbreviation);
 
-CREATE VIEW MatchUpcomings(matchNumber,team1,terminator,team2, playingDate,playingTime, stadium) AS
-	(SELECT matchNumber, team1,'Vs' AS TEXT, team2, playingDate, playingTime, stadium FROM MatchFixtures);
+CREATE VIEW MatchUpcomingHelper2 (matchnumber,abbreviation2,team2, playingDate,playingTime, stadium) AS
+(SELECT M.matchNumber, abbreviation,countryName, playingDate, playingTime, stadium FROM MatchFixtures M, Countries C where team2=abbreviation);
+
+CREATE VIEW MatchUpcomings(matchNumber,abbreviation1,team1,terminator,abbreviation2,team2, playingDate,playingTime, stadium) AS
+	(SELECT *FROM MatchUpcomingHelper1 NATURAL JOIN MatchUpcomingHelper2);
+
+
+
+   DELIMITER //
+CREATE TRIGGER matchFixtures_trriger
+AFTER INSERT ON MatchFixtures FOR EACH ROW
+BEGIN
+IF(EXISTS (SELECT matchNumber FROM MatchFixtures WHERE NEW.matchNumber=matchNumber))
+THEN
+  INSERT INTO  MatchFixturesBackUp (matchNumber,team1,team2,playingDate,PlayingTime,stadium) select *from MatchFixtures WHERE  NEW.matchNumber=matchNumber;
+  END IF;
+END; //
+DELIMITER ;
 
 
     DELIMITER //
@@ -184,7 +219,7 @@ AFTER INSERT ON MatchResults FOR EACH ROW
 BEGIN
 IF(EXISTS (SELECT matchNumber FROM MatchResults WHERE NEW.matchNumber=matchNumber))
 THEN
- DELETE FROM MatchUpcomings WHERE matchNumber=NEW.matchNumber;
+  DELETE FROM MatchFixtures WHERE matchNumber=NEW.matchNumber;
 END IF;
 END; //
 DELIMITER ;

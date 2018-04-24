@@ -9,6 +9,18 @@ class Teams {
     })
   }
 
+  static getAllCountries(){
+    var route = '/countries';
+    return Service.get(route).then(function(countries){
+      return countries
+    })
+  }
 
+  static getPlayer(id){
+    var route = '/countries/player/' + id;
+    return Service.get(route).then(function(player){
+      return player
+    })
+  }
 }
 export default Teams

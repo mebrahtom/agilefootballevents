@@ -79,3 +79,33 @@ export function dispatchGetSquad(squad){
     squad
   }
 }
+
+export function getAllCountries(){
+  return (dispatch, getState) => {
+    return Teams.getAllCountries().then((data) => {
+      return dispatch(dispatchGetAllCountries(data))
+    })
+  }
+}
+
+export function dispatchGetAllCountries(countries){
+  return {
+    type: 'GET_ALL_COUNTRIES',
+    countries
+  }
+}
+
+export function getPlayer(id){
+  return (dispatch, getState) => {
+    return Teams.getPlayer(id).then((data) => {
+      return dispatch(dispatchGetPlayer(data))
+    })
+  }
+}
+
+export function dispatchGetPlayer(player){
+  return {
+    type: 'GET_PLAYER',
+    player
+  }
+}
