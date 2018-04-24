@@ -2,12 +2,53 @@ var express = require('express')
 var router = express.Router()
 var db = require('../config/dbconnection')
 var mysql = require('mysql')
-
+var bodyParser=require('body-parser')
+var bcrypt=require('bcrypt')
+var session=require('express-session')
+router.use(bodyParser.urlencoded({extended:true}))
+router.use(bodyParser.json())
+router.use(session({secret:'group8'}))
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' })
 })
-
+router.post('/register',function(req,res,next){
+  const admin={
+    firstname:req.body.fname,
+    lastname:req.body.lname,
+    email:req.body.email,
+    password:bcrypt.hashSync(req.body.password,10)
+  }
+   db.query('INSERT INTO admins SET ?',admin,function(error,results,fields){
+     if(error)
+     throw error;
+     res.end(JSON.stringify(results));
+   });
+ })
+ router.post('/login',function(req,res,next){
+  const email=req.body.email
+  const password=req.body.password
+  var validLogin=req.body.valid
+  db.query('SELECT *FROM admins WHERE email=?', [email],function(error,results,fields){
+    if(error){
+      res.send('Error occured!');
+    }
+    else{
+      if(results.length>0){
+        for(const i in results){
+          const validPassword=bcrypt.compareSync(password,results[i].password)
+          var validLogin=false
+          if(results[i].email===email && validPassword){
+            validLogin=true;
+            console.log("Logged in!");
+            //set session
+            //redirect to admin page
+          }
+        }
+      }
+    }
+  })
+  })
 router.get('/countries',function(req, res, next) {
   db.query('SELECT * FROM Countries', function (err, result, fields) {
     if (err) throw err
