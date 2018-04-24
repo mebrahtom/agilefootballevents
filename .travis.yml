@@ -4,10 +4,9 @@ node_js:
 services:
   - mysql
 before_install:
-  - mysql -e 'CREATE DATABASE gothencupdb_test;'
-  - mysql -e 'use gothencupdb_test;'
-  - mysql -e 'source sql/create.sql;'
-  - mysql -e 'source sql/insert.sql;'
+  - mysql -u root -e 'CREATE DATABASE gothencupdb_test;'
+  - mysql -u root gothencupdb_test < sql/create.sql
+
 jobs:
   include:
     - stage: deploy client production
