@@ -74,15 +74,7 @@ class UpdateForm extends Component {
             </Col>
             <Col sm={7} smOffset={3}> 
             <FormControl componentClass="select" placeHolder="Group:">
-             <option value="A">A</option>
-             <option value="B">B</option>
-             <option value="C">C</option>
-             <option value="D">D</option>
-             <option value="E">E</option>
-             <option value="F">F</option>
-             <option value="G">G</option>
-             <option value="H">H</option>
-             <option value="I">I</option>
+             {renderGroups()}
              </FormControl>
             </Col>
           </FormGroup>
@@ -97,6 +89,16 @@ class UpdateForm extends Component {
       </div>
     );
     }
+  }
+
+
+  function renderGroups(){
+    var groups = 'ABCDEFGH'
+    var options = [];
+    for(var i = 0; i < 8; i++){
+      options.push(<option value={groups[i]}>{groups[i]}</option> )
+    }
+    return options;
   }
 
   function renderForm(){
