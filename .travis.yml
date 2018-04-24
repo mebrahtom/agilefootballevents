@@ -14,5 +14,5 @@ jobs:
       script:
         - cd client && npm install
         - npm run build
-        - cd api && npm install
+        - cd .. && cd api && npm install
         - npm test
