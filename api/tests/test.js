@@ -19,7 +19,7 @@ test.before.cb(t => {
   } catch (e) {
     throw e
   }
-});
+})
 
 // Assert that there allways are the given amount of teams in the database
 test.cb('Get all countries', t => {
