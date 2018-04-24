@@ -1,7 +1,6 @@
 import mysql from 'mysql'
 import test from 'ava'
 require('dotenv').config()
-
 //mysql.Promise = global.Promise
 
 const db = mysql.createConnection({
@@ -27,27 +26,35 @@ const db = mysql.createConnection({
   })
 })*/
 
-test.serial.before(async () => {
-  console.log('Setup start');
-  await db.connect(function(err) {
-    if (err) throw err
-    console.log("Connected to test db")
-  })
-  console.log('Setup complete');
+test.before.cb(t => {
+  try{
+    db.connect(function(err) {
+      if (err) throw err
+      console.log('connected to testDB')
+      t.end()
+    })
+  } catch (e) {
+    throw e
+  }
 });
 
-test('Get all countries', async (t) => {
+test.cb('Get all countries', t => {
   let countries
   console.log('Running test get countries')
-  const asd = await db.query('SELECT * FROM Countries', function(err, result, fields){
-    console.log('aslkdnalsknlkans')
-    return {}
+  t.plan(1)
+  db.query('SELECT * FROM Countries', function (err, result, fields) {
+    console.log()
+    if (err) throw err
+    t.pass(true)
+    t.end()
   })
+
+
   /*const connection = await db.getConnection()
   console.log(db)
-  const string = await db.query('SELECT * FROM Countries')
-  console.log(string)*/
-  t.is(await asd, {})
+  const string = await db.query('SELECT * FROM Countries')*/
+  //console.log(asd)
+
 })
 
 test('bar', async t => {
