@@ -6,6 +6,7 @@ services:
 before_install:
   - mysql -u root -e 'CREATE DATABASE gothencupdb_test;'
   - mysql -u root gothencupdb_test < sql/create.sql
+  - mysql -u root gothencupdb_test < sql/insert.sql
 
 jobs:
   include:
@@ -13,4 +14,5 @@ jobs:
       script:
         - cd client && npm install
         - npm run build
-        - cd -
+        - cd api && npm install
+        - npm test
