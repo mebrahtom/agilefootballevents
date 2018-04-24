@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "ava NODE_ENV=development tests/test.js"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -16,5 +17,7 @@
     "mysql": "^2.15.0",
     "serve-favicon": "~2.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ava": "1.0.0-beta.4"
+  }
 }
