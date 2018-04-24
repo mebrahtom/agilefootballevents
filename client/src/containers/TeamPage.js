@@ -30,7 +30,6 @@ class TeamPage extends Component {
     if(img_path == null){
       img_path = placeholder_banner;
     }
-
     return (
       <div className="container custom-container">
           <TeamHeading teamname={country} image={img_path}/>
@@ -40,9 +39,6 @@ class TeamPage extends Component {
     );
   }
 }
-
-
-
 const TeamHeading = (props) => (
 
   <div className="team-heading">

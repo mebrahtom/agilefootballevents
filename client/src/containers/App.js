@@ -12,7 +12,6 @@ import store from '../store'
 import AdminPage from "../containers/AdminPage.js"
 import TeamPage from "../containers/TeamPage.js"
 import PlayerPage from "../containers/PlayerPage.js"
-
 class App extends Component {
   render() {
     const home_page = () => (<HomePage/>);

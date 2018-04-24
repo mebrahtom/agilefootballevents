@@ -66,8 +66,8 @@ function renderGroupRows(groupresults, currGroupname, images) {
   var grouprow = [];
 
   /* Check if groupresults.groupname is the same as groups.groupname. then go ahead. */
-  
-  for(var i = groupresults.length-1; i >= 0; i--){
+
+  for(var i = 0; i < groupresults.length; i++){
     if(groupresults[i].groupName === currGroupname){
       var link = "/teams/"+ groupresults[i].team;
       grouprow.push(
