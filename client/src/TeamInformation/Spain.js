@@ -22,7 +22,7 @@ class Argentina extends Component {
           <Panel.Collapse>
             <Panel.Body>
                 <img alt=""  height ="auto" width= "auto" src={spain}/><br/>
-                <h1 font color="red"> FIFA World Football Rank: 6 </h1><br/>
+                <h1 font-color="red"> FIFA World Football Rank: 6 </h1><br/>
                 <em>Group: B</em><br/>
                 <em>Group Countries</em><br/>
                 <img alt="" src={groupB}/><br/><br/>

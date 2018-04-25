@@ -22,6 +22,13 @@ CREATE TABLE Countries(
 	countryName TEXT NOT NULL,
 	groupName VARCHAR(1) REFERENCES Groups(groupName)
 );
+
+CREATE TABLE CountryInformation(
+		abbreviation VARCHAR(3) NOT NULL PRIMARY KEY REFERENCES Groups(groupName),
+		worldrank INT NOT NULL,
+		history TEXT
+);
+
 CREATE TABLE Players(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
@@ -100,6 +107,13 @@ CREATE VIEW FinalResultTable (team,countryName, MP,W, D,L,GF, GA, Diff, points, 
 (SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff),
 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
  C where H.team=C.abbreviation group BY team, groupName, countryName, points ORDER BY groupName, points DESC);
+
+CREATE VIEW FinalResultTableAll(team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
+( select team as team, countryName as countryName, SUM(MP) as MP,SUM(W) as W, SUM(D) as D,SUM(L) as L, SUM(GF) as GF, SUM(GA) as GA,SUM(Diff) as diff,
+SUM(points) as points, C.groupName FROM HelperResultTable H LEFT JOIN Countries C on H.team=C.abbreviation group BY H.team, C.groupName, C.countryName, points)
+ 	UNION
+(select COALESCE(team, C.abbreviation) as team, countryName as countryName, COALESCE(SUM(MP),0) as MP,COALESCE(SUM(W),0) AS W, COALESCE(SUM(D),0) AS D, COALESCE(SUM(L),0) as L, COALESCE(SUM(GF),0) as GF, COALESCE(SUM(GA),0) as GA,COALESCE(SUM(Diff),0) as diff,
+COALESCE(SUM(points),0) as points , C.groupName FROM HelperResultTable H RIGHT JOIN Countries C on H.team=C.abbreviation group BY C.abbreviation, C.groupName, C.countryName, points );
 
 CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 1)

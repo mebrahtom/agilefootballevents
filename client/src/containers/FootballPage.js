@@ -3,7 +3,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 import MatchTable from "../components/MatchTable.js"
 import GroupTable from "../components/GroupTable.js"
 import ResultTable from "../components/ResultTable.js"
-import TeamInformation from'../TeamInformation/TeamInformation';
+//import TeamInformation from'../TeamInformation/TeamInformation';
 
 class FootballPage extends Component {
 
@@ -11,7 +11,7 @@ class FootballPage extends Component {
     const results = renderResults();
     const upcoming = renderUpcoming();
     const groups = renderGroups();
-    const teamInfo = renderTeamInfo();
+    //const teamInfo = renderTeamInfo();
 
     return (
         <div className ="container">
@@ -29,10 +29,6 @@ class FootballPage extends Component {
                 { groups }
                 <div className="clearfix"></div>
               </div>
-            </Tab>
-            <Tab eventKey={4} title="Teams Information">
-              { /*Result Content Here */}
-              {teamInfo}
             </Tab>
           </Tabs>
         </div>
@@ -61,11 +57,11 @@ function renderGroups() {
 
   return groups;
 }
-function renderTeamInfo() {
+/*function renderTeamInfo() {
   var teamInfo = [];
 
   teamInfo.push(<TeamInformation key={1}/>);
 
   return teamInfo;
-}
+}*/
 export default FootballPage;

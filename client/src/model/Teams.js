@@ -22,5 +22,12 @@ class Teams {
       return player
     })
   }
+
+  static getCountryInfo(abr){
+    var route = '/countries/info/' + abr;
+    return Service.get(route).then(function(countryinfo){
+      return countryinfo
+    })
+  }
 }
 export default Teams

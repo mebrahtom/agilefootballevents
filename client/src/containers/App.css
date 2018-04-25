@@ -188,3 +188,21 @@
 .horizontalTeam{
   display: block;
 }
+
+.result-small-container{
+  text-align: center;
+  background-color: #fff;
+  padding:3px;
+  margin:5px !important;
+  border-radius: 10px;
+}
+
+.small-match-holder{
+  margin-top: 15px;
+}
+
+.info-heading{
+  font-weight: bold;
+  font-size: 16px;
+
+}
