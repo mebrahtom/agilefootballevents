@@ -50,7 +50,7 @@ class PlayerPage extends Component {
               </tr>
               <tr>
                 <td>Position: {this.props.player[0].position}</td>
-                <td>Weight: {this.props.player[0].weight}</td>
+                <td>Weight: {this.props.player[0].weight} kg</td>
               </tr>
               <tr>
                 <td>Goals: {this.props.player[0].goals}</td>

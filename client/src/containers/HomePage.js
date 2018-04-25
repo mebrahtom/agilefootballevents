@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import background from '../img/homepageBackground.jpg';
-
 class HomePage extends Component {
   render() {
     return (

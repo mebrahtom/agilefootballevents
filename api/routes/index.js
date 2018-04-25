@@ -122,7 +122,7 @@ router.get('/fixtures/groups', function(req, res, next) {
 })
 
 router.get('/fixtures/groupresults', function(req, res, next) {
-  var sql = 'SELECT * FROM finalresulttable'
+  var sql = 'SELECT *FROM FinalResultTable'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
