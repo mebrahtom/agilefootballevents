@@ -150,7 +150,7 @@ router.get('/fixtures/groups', function(req, res, next) {
 })
 
 router.get('/fixtures/groupresults', function(req, res, next) {
-  var sql = 'select * from FinalResultTableAll order by groupname, diff desc, points asc'
+  var sql = 'select * from FinalResultTable order by groupname, diff desc, points asc'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
