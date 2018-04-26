@@ -17,7 +17,7 @@ CREATE TABLE Arenas(
 );
 CREATE TABLE Restaurants(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	resturant TEXT NOT NULL,
+	restaurant TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
