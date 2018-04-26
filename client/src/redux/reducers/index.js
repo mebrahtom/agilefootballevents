@@ -5,6 +5,11 @@ import upcomingmatches from './upcomingmatches'
 import groups from './groups'
 import groupresults from './groupresults'
 import squad from './squad'
-const rootReducer = combineReducers({matches, upcomingmatches, groups, groupresults, routing: routerReducer, squad})
+import countries from './countries'
+import player from './player'
+import matchesteam from './matchesteam'
+import upcomingmatchesteam from './upcomingmatchesteam'
+import countryinfo from './countryinfo'
+const rootReducer = combineReducers({matches, upcomingmatches, groups, groupresults, routing: routerReducer, squad, countries, player, upcomingmatchesteam, matchesteam, countryinfo })
 
 export default rootReducer

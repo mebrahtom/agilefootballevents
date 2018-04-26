@@ -16,14 +16,16 @@
 
 .team-heading p{
   color: #fff;
-  font-size: 40px;
+  font-size: 50px;
   position: absolute;
   top: 52%;
   left: 20%;
   transform: translate(-50%, -50%);
 }
 
-
+.no-teams{
+  margin-left: 20px;
+}
 .team-category{
   background-color: #f9f9f9;
   padding: 10px;
@@ -59,8 +61,14 @@
 }
 .number-holder {
   padding: 5px !important;
+  text-align: center;
 }
 
+.team-information {
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  padding: 10px;
+}
 
 .info-holder{
   padding: 5px !important;
@@ -73,4 +81,10 @@
   background-color: #f9f9f9;
   margin-left: 0 !important;
   margin-right: 0  !important;
+}
+
+.group-container-team{
+    background-color: #fff;
+    padding:10px;
+    border-radius: 10px;
 }

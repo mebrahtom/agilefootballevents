@@ -9,10 +9,24 @@ class Fixtures {
 		})
 	}
 
+	static getPlayedMatchesTeam(abr){
+		var route = '/fixtures/playedMatches/' + abr
+		return Service.get(route).then(function(matchesteam){
+		  return matchesteam
+		})
+	}
+
 	static getUpcomingMatches(){
 		var route = '/fixtures/matchfixtures'
 		return Service.get(route).then(function(upcomingmatches){
 		  return upcomingmatches
+		})
+	}
+
+	static getUpcomingMatchesTeam(abr){
+		var route = '/fixtures/matchfixtures/' + abr
+		return Service.get(route).then(function(upcomingmatchesteam){
+			return upcomingmatchesteam
 		})
 	}
 
