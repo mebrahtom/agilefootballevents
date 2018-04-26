@@ -15,7 +15,24 @@ CREATE TABLE Arenas(
 	latitude DOUBLE,
 	longitude DOUBLE
 );
-
+CREATE TABLE Restaurants(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arena TEXT NOT NULL,
+	latitude DOUBLE,
+	longitude DOUBLE
+);
+CREATE TABLE Cafes(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arena TEXT NOT NULL,
+	latitude DOUBLE,
+	longitude DOUBLE
+);
+CREATE TABLE Attractions(
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arena TEXT NOT NULL,
+	latitude DOUBLE,
+	longitude DOUBLE
+);
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
