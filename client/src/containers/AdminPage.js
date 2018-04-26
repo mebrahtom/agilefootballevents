@@ -93,7 +93,7 @@ class UpdateForm extends Component {
 
 
   function renderGroups(){
-    var groups = 'ABCDEFGH'
+    var groups = 'ABCDEFGH' // Temporary until database is connected.
     var options = [];
     for(var i = 0; i < 8; i++){
       options.push(<option value={groups[i]}>{groups[i]}</option> )
