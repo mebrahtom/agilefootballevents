@@ -185,6 +185,16 @@
   text-align: center;
 }
 
-.horizontalTeam{
-  display: block;
+.mapRow{
+  text-align: center;
+  box-shadow: 1px 1px 25px rgba(0,0,0,0.35);
+  padding: 10px 1em;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.infoBox{
+  border: 0.2px solid gray;
+  padding: 4px;
+  text-align: center;
 }
