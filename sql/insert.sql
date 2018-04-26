@@ -68,7 +68,7 @@
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(26,'SER','SWI','22 June','20:00','Gamla Ullevi');
 	INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(27,'GER','SWE','23 June','21:00','Bravida Arena');
   INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(28,'KOR','MEX','23 June','18:00','Gamla Ullevi');
-  INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(29,'BEL','TUN','23 June','15:00','Moscow, Otkritie Arena');
+  INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(29,'BEL','TUN','23 June','15:00','Valhalla IP');
   INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(30,'ENG','PAN','24 June','15:00','Ullevi');
   INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(31,'POL','COL','24 June','21:00','Ullevi');
   INSERT INTO MatchFixtures (matchnumber,team1, team2, playingDate, playingTime, stadium) VALUES(32,'JPN','SEN','24 June','20:00','Valhalla IP');
@@ -137,3 +137,19 @@ INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('SPA',
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('ARG', 4, 'Argentina is one of the most successful national football teams in the world having won 2 World Cups in 1978 and 1986. Argentina has been runners up three times in the 1930 1990 and 2014. The team was present in all but four of the World Cups being behind only Brazil Italy and Germany in number of appearances. Argentina has also won the Copa América 14 times one less than Uruguay. Moreover Argentina has also won the Confederations Cup and the gold medal at the Olympic football tournament in 2004 and 2008. Prior to that occasion Argentina had obtained two silver medals in the 1928 and 1996 editions. On other levels of international competition Argentina has won the FIFA U-20 World Cup a record six times. The FIFA U-17 World Cup is the only FIFA international competition yet to be obtained.');
 
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('AUS', 39, 'The Australia national soccer team nicknamed the Socceroos has represented Australia at the FIFA World Cup on four occasions: in 1974, 2006, 2010, 2014 and will represent Australia in the 2018 World Cup. In Australias first appearance representing OFC a team made up entirely of amateurs secured a scoreless draw against Chile though eventually departed from the 1974 tournament without a goal to show from their inaugural appearance. Australia made up for lost time at Germany 2006 and qualified for the Round of 16 before narrowly falling to eventual champions Italy.The German theme continued at South Africa 2010 although this time Australia now representing the AFC suffered a 4-0 loss against the European giants in a scoreline which ultimately scuppered their progress.A ten-man 1–1 draw against Ghana and a 2–1 win against Serbia saw Australia eliminated on goal difference three goals off the Africans.');
+
+INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Ullevi', 57.7059, 11.9873);	
+INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Gamla Ullevi', 57.7063, 11.9801);	
+INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Bravida Arena', 57.7192, 11.9305);	
+INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Valhalla IP', 57.7000, 11.9896);
+
+INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('SeaCup Cafe', 57.701911, 11.920242);	
+INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Cafe Biscotti', 57.696201, 11.92845);	
+INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Kafe Vanilj', 57.705144, 11.966963);	
+INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Kultur', 57.69825, 11.93502);	
+INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Alchemist', 57.7222301, 11.94501);	
+
+INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.6962415, 11.990024199999993);
+INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.69553519999999, 11.989406300000041);
+INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 57.6898601, 11.94924560000004);
+
