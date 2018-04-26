@@ -128,9 +128,6 @@ CREATE VIEW QualifiedToRound16GroupA(team, MP,W, D,L,GF, GA, Diff, points, posit
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,2 AS position, groupName from FinalResultTable where groupName='A' ORDER BY position DESC limit 2,1);
 
 
-
-
-
 	CREATE VIEW QualifiedToRound16(team, MP,W, D,L,GF, GA, Diff, points, position, groupName) AS
 	 (select DISTINCT team, MP, W, D, L, GF, GA, Diff, points,1 AS position, groupName from FinalResultTable where groupName='A' ORDER BY Diff DESC, points DESC limit 0,1)
 	  UNION ALL
@@ -243,8 +240,6 @@ CREATE VIEW MatchUpcomings(matchNumber,abbreviation1,team1,terminator,abbreviati
 	    END IF;
 	END
 	//
-
-
 	delimiter //
 	CREATE TRIGGER selfTeam_check_insert_trg
 	BEFORE INSERT ON MatchResults
@@ -257,7 +252,6 @@ CREATE VIEW MatchUpcomings(matchNumber,abbreviation1,team1,terminator,abbreviati
 	    END IF;
 	END
 	//
-
 
    DELIMITER //
 CREATE TRIGGER matchFixtures_trriger

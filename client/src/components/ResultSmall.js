@@ -25,11 +25,7 @@ class ResultSmall extends Component{
       </Row>
     );
   }
-
 }
-
-
-
 function mapStateToProps(state) {
   return {
     matches: state.matches,
