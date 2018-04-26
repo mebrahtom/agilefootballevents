@@ -14,7 +14,6 @@ import store from '../store'
 import AdminPage from "../containers/AdminPage.js"
 import TeamPage from "../containers/TeamPage.js"
 import PlayerPage from "../containers/PlayerPage.js"
-
 class App extends Component {
   render() {
     const home_page = () => (<HomePage/>);
@@ -53,7 +52,7 @@ class Header extends Component {
       <Navbar inverse collapseOnSelect className="navbar-custom">
         <Navbar.Header className="app-header">
           <Navbar.Brand>
-            <a href="#brand" className="navbar-brand-custom"><img alt="" src={logo} /></a>
+            <a href="/" className="navbar-brand-custom"><img alt="" src={logo} /></a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

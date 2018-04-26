@@ -5,7 +5,7 @@ require('dotenv').config()
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: process.env.DB_PASSWORD,
+    password: '',
     database: 'gothencupdb_test'
 })
 
