@@ -149,8 +149,8 @@ INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Kafe Vanilj', 57.705144, 1
 INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Kultur', 57.69825, 11.93502);	
 INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Alchemist', 57.7222301, 11.94501);	
 
-INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.6962415, 11.990024199999993);
-INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.69553519999999, 11.989406300000041);
+INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liseberg', 57.6962415, 11.990024199999993);
+INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Universeum', 57.69553519999999, 11.989406300000041);
 INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 57.6898601, 11.94924560000004);
 
 INSERT INTO Restaurant (restaurant, latitude, longitude) VALUES ('Max', 57.706676, 11.979361);

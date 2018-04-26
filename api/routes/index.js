@@ -157,4 +157,14 @@ router.get('/fixtures/groupresults', function(req, res, next) {
   })
 })
 
+router.get('/locations/:type/:id', function(req, res, next) {
+  const id = req.params.id
+  const type = req.params.type
+  var sql = 'SELECT * FROM ' + type + ' where id = ' + mysql.escape(id)
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 module.exports = router
