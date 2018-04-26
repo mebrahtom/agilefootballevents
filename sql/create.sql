@@ -17,19 +17,19 @@ CREATE TABLE Arenas(
 );
 CREATE TABLE Restaurants(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
+	restaurant TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
 CREATE TABLE Cafes(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
+	cafe TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
 CREATE TABLE Attractions(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
+	attraction TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
