@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import * as actionCreators from '../redux/actions/actionCreators'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 const style = {
   width: '100%',
@@ -7,6 +10,11 @@ const style = {
 }
 
 export class GoogleMap extends Component {
+
+  componentDidMount() {
+    this.props.getLocation("Arenas", 2).then((data) => {
+    })
+  }
   
   state = {
     showingInfoWindow: false,
@@ -31,6 +39,7 @@ export class GoogleMap extends Component {
   };
   
   render() {
+    console.log(this.props.location)
     return (
       <Map 
         google={this.props.google} 
@@ -53,7 +62,18 @@ export class GoogleMap extends Component {
     );
   }
 }
- 
-export default GoogleApiWrapper({
+
+
+function mapStateToProps(state) {
+  return {
+    location: state.location
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleApiWrapper({
   apiKey: ('AIzaSyB0zQvbfo-wBPQWPV_rBwUo3FRQI-O7aEY')
-})(GoogleMap)
+})(GoogleMap))

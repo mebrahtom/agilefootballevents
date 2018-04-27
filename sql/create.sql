@@ -11,25 +11,25 @@ CREATE TABLE admins(
 
 CREATE TABLE Arenas(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
+	locationName TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
 CREATE TABLE Restaurants(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	restaurant TEXT NOT NULL,
+	locationName TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
 CREATE TABLE Cafes(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	cafe TEXT NOT NULL,
+	locationName TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
 CREATE TABLE Attractions(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	attraction TEXT NOT NULL,
+	locationName TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );

@@ -1,5 +1,6 @@
 import Fixtures from '../../model/Fixtures'
 import Teams from '../../model/Teams'
+import Locations from '../../model/Locations'
 // ActionCreator which performs actions requested in containers + components
 
 // Method calling the fixtures model to get all matches then dispatch
@@ -154,5 +155,20 @@ export function dispatchGetCountryInfo(countryinfo){
   return {
     type: 'GET_COUNTRY_INFO',
     countryinfo
+  }
+}
+
+export function getLocation(type, id) {
+  return (dispatch, getState) => {
+    return Locations.getLocation(type, id).then((data) => {
+      return dispatch(dispatchGetLocation(data))
+    })
+  }
+}
+
+export function dispatchGetLocation(location) {
+  return {
+    type: 'GET_LOCATION',
+    location
   }
 }

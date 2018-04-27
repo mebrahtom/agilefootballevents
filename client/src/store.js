@@ -15,7 +15,8 @@ const defaultState = {
   squad:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}],
   countries:[{abbreviation:"", countryName:"", groupName:""}],
   player:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}],
-  countryinfo:[{abrevation:"", worldrank:0, history:""}]
+  countryinfo:[{abrevation:"", worldrank:0, history:""}],
+  location:[{id: 0, locationName:"", latitude:10, longitude:10}]
 }
 
 const store = createStore(
