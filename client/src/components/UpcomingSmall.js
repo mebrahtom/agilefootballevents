@@ -11,7 +11,6 @@ class UpcomingSmall extends Component{
 
 
   render(){
-      console.log(this.props.match)
       const images = importAll(require.context('../img/flags', false, /\.(png)$/));
       var link_t1 = "/team/"+ this.props.match.team1;
       var link_t2 = "/team/"+ this.props.match.team2;

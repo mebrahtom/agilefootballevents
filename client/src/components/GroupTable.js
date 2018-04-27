@@ -27,7 +27,6 @@ class GroupTable extends Component {
 const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
 function renderTables(groups, groupresults, images) {
-  console.log(groups, groupresults);
   var allTables = [];
   for(var i = 0; i < groups.length; i++){
     /* Adding the table and label*/
@@ -67,8 +66,6 @@ function renderTables(groups, groupresults, images) {
 export function renderGroup(group, groupresults) {
 
 
-console.log(group);
-
   if(group.length === 0){
     return <p>No group yet</p>
   }
@@ -101,7 +98,6 @@ function renderGroupRows(groupresults, currGroupname, images) {
   /* Check if groupresults.groupname is the same as groups.groupname. then go ahead. */
 
   for(var i = 0; i < groupresults.length; i++){
-    console.log('yep', currGroupname, groupresults[i].groupName);
     if(groupresults[i].groupName === currGroupname){
 
       var link = "/team/"+ groupresults[i].team;
