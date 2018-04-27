@@ -167,4 +167,13 @@ router.get('/locations/:type/:id', function(req, res, next) {
   })
 })
 
+router.get('/tablesize/:type', function(req, res, next) {
+  const type = req.params.type
+  var sql = 'SELECT COUNT(id) FROM ' + type
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 module.exports = router

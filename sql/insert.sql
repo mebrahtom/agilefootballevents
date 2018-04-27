@@ -153,8 +153,8 @@ INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Liseberg', 5
 INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Universeum', 57.69553519999999, 11.989406300000041);
 INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 57.6898601, 11.94924560000004);
 
-INSERT INTO Restaurant (locationName, latitude, longitude) VALUES ('Max', 57.706676, 11.979361);
-INSERT INTO Restaurant (locationName, latitude, longitude) VALUES ('Hard Rock Cafe', 57.701381, 11.974537);
-INSERT INTO Restaurant (locationName, latitude, longitude) VALUES ("Cuckoo's Nest", 57.707531, 11.940699);
-INSERT INTO Restaurant (locationName, latitude, longitude) VALUES ('View Skybar & Restaurant', 57.70378, 11.956527);
-INSERT INTO Restaurant (locationName, latitude, longitude) VALUES ('Thörnströms KökMax', 57.694099, 11.977736);
+INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Max', 57.706676, 11.979361);
+INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Hard Rock Cafe', 57.701381, 11.974537);
+INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ("Cuckoo's Nest", 57.707531, 11.940699);
+INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('View Skybar & Restaurant', 57.70378, 11.956527);
+INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Thörnströms KökMax', 57.694099, 11.977736);
