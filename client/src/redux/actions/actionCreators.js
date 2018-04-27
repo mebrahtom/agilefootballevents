@@ -19,6 +19,37 @@ export function dispatchGetAllMatches(matches){
   }
 }
 
+export function getAllMatchesTeam(abr){
+  return (dispatch, getState) => {
+    return Fixtures.getPlayedMatchesTeam(abr).then((data) => {
+      return dispatch(dispatchGetAllMatchesTeam(data))
+    })
+  }
+}
+
+// Method sending received data to reducer for showing it within store
+export function dispatchGetAllMatchesTeam(matchesteam){
+  return {
+    type: 'GET_ALL_MATCHES_TEAM',
+    matchesteam
+  }
+}
+
+export function getAllUpcomingMatchesTeam(abr){
+  return (dispatch, getState) => {
+    return Fixtures.getUpcomingMatchesTeam(abr).then((data) => {
+      return dispatch(dispatchGetAllUpcomingMatchesTeam(data))
+    })
+  }
+}
+
+export function dispatchGetAllUpcomingMatchesTeam(upcomingmatchesteam){
+  return {
+    type: 'GET_ALL_UPCOMING_MATCHES_TEAM',
+    upcomingmatchesteam
+  }
+}
+
 export function getAllUpcomingMatches(){
   return (dispatch, getState) => {
     return Fixtures.getUpcomingMatches().then((data) => {
@@ -107,5 +138,21 @@ export function dispatchGetPlayer(player){
   return {
     type: 'GET_PLAYER',
     player
+  }
+}
+
+
+export function getCountryInfo(abr){
+  return (dispatch, getState) => {
+    return Teams.getCountryInfo(abr).then((data) => {
+      return dispatch(dispatchGetCountryInfo(data))
+    })
+  }
+}
+
+export function dispatchGetCountryInfo(countryinfo){
+  return {
+    type: 'GET_COUNTRY_INFO',
+    countryinfo
   }
 }
