@@ -7,6 +7,14 @@ class Locations {
       return location
     })
   }
+
+  static getTableSize(type) {
+    var route = '/tablesize/' + type
+    return Service.get(route).then(function(tablesize) {
+      return tablesize
+    })
+  }
+
 }
 
 export default Locations

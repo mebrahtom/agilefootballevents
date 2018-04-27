@@ -172,3 +172,18 @@ export function dispatchGetLocation(location) {
     location
   }
 }
+
+export function getTableSize(type) {
+  return (dispatch, getState) => {
+    return Locations.getTableSize(type).then((data) => {
+      return dispatch(dispatchGetTableSize(data))
+    })
+  }
+}
+
+export function dispatchGetTableSize(tablesize) {
+  return {
+    type: 'GET_TABLE_SIZE',
+    tablesize
+  }
+}

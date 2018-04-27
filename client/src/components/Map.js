@@ -14,6 +14,8 @@ export class GoogleMap extends Component {
   componentDidMount() {
     this.props.getLocation("Arenas", 2).then((data) => {
     })
+    this.props.getTableSize("Arenas").then((data) => {
+    })
   }
   
   state = {
@@ -39,7 +41,7 @@ export class GoogleMap extends Component {
   };
   
   render() {
-    console.log(this.props.location)
+    console.log(test)
     return (
       <Map 
         google={this.props.google} 
@@ -66,7 +68,8 @@ export class GoogleMap extends Component {
 
 function mapStateToProps(state) {
   return {
-    location: state.location
+    location: state.location,
+    tablesize: state.tablesize
   }
 }
 

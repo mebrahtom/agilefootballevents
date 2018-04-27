@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose} from 'redux'
 import rootReducer from './redux/reducers/index'
 import thunk from 'redux-thunk'
+import tablesize from './redux/reducers/tablesize';
 
 // The default state of the globally accessible store
 // Include what the object should be called in the store + of what type it is
@@ -16,7 +17,8 @@ const defaultState = {
   countries:[{abbreviation:"", countryName:"", groupName:""}],
   player:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}],
   countryinfo:[{abrevation:"", worldrank:0, history:""}],
-  location:[{id: 0, locationName:"", latitude:10, longitude:10}]
+  location:[{id: 0, locationName:"", latitude:10, longitude:10}],
+  tablesize:[{COUNT:""}]
 }
 
 const store = createStore(
