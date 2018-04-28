@@ -49,6 +49,22 @@ router.post('/register',function(req,res,next){
     }
   })
   })
+
+  router.post('/save_results',function(req,res,next){
+    const MatchResult={
+      team1:req.body.team1,
+      goals1:req.body.goals1,
+      team2:req.body.team2,
+      goals2:req.body.goals2,
+      groupName:req.body.groupName
+
+    }
+    db.query('INSERT INTO MatchResults SET ?',MatchResult,function(error,results,fields){
+      if(error)
+      throw error;
+      res.end(JSON.stringify(results));
+    })
+  })
 router.get('/countries',function(req, res, next) {
   db.query('SELECT * FROM Countries', function (err, result, fields) {
     if (err) throw err
@@ -84,7 +100,7 @@ router.get('/countries/group/:groupId', function(req, res, next) {
 })
 
 router.get('/fixtures/playedMatches', function(req, res, next) {
-  var sql = 'SELECT * FROM MatchResults'
+  var sql = 'SELECT * FROM LatestMatchResults'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -93,7 +109,7 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
 
 router.get('/fixtures/playedMatches/:abr', function(req, res, next) {
   const abr = req.params.abr;
-  var sql = 'SELECT * FROM MatchResults where team1 = ' + mysql.escape(abr) + 'OR team2 = ' + mysql.escape(abr);
+  var sql = 'SELECT * FROM LatestMatchResults where team1 = ' + mysql.escape(abr) + 'OR team2 = ' + mysql.escape(abr);
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -102,13 +118,12 @@ router.get('/fixtures/playedMatches/:abr', function(req, res, next) {
 
 router.get('/fixtures/matchfixtures/:abr', function(req, res, next) {
   const abr = req.params.abr;
-  var sql = 'SELECT * FROM MatchFixtures where team1 = ' + mysql.escape(abr) + ' OR team2 = ' + mysql.escape(abr);
+  var sql = 'SELECT * FROM MatchUpcomings where team1 = ' + mysql.escape(abr) + ' OR team2 = ' + mysql.escape(abr);
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
   })
 })
-
 
 router.get('/countries/info/:abr', function(req, res, next) {
   const abr = req.params.abr;
@@ -134,7 +149,7 @@ db.query(sql, function(err, result, fields) {
 })
 */
 router.get('/fixtures/matchfixtures', function(req, res, next) {
-  var sql = 'SELECT * FROM MatchFixtures'
+  var sql = 'SELECT * FROM MatchUpcomings'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -150,7 +165,7 @@ router.get('/fixtures/groups', function(req, res, next) {
 })
 
 router.get('/fixtures/groupresults', function(req, res, next) {
-  var sql = 'select * from FinalResultTable order by groupname, diff desc, points asc'
+  var sql = 'select * from FinalResultTable'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
