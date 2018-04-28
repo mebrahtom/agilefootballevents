@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Button, Col, ControlLabel } from 'react-bootstrap'
-
-
 class AdminPage extends Component {
   render() {
     const updateForm = renderForm();
@@ -18,7 +16,7 @@ class UpdateForm extends Component {
   super(props);
 
   this.handleChange = this.handleChange.bind(this);
-  
+
   this.state = {
     teamOne: '',
     teamTwo: '',
@@ -34,10 +32,8 @@ class UpdateForm extends Component {
   }
 
   getValidation(e){
-    // Handle validation for team names 
+    // Handle validation for team names
   }
-
-
   render() {
     return(
       <div name = "resultForm">
@@ -48,21 +44,20 @@ class UpdateForm extends Component {
               Team 1
             </Col>
             <Col sm={8}>
-             <FormControl type = "text" placeholder="Name: " name="teamOne" 
+             <FormControl type = "text" placeholder="Name: " name="teamOne"
              value={this.state.teamOne} onChange={this.handleChange}/>
-             <FormControl type = "number" placeholder="Goals:" 
+             <FormControl type = "number" placeholder="Goals:"
              name="goalsOne" value={this.state.goalsOne} onChange={this.handleChange} min="0"/>
             </Col>
-          </FormGroup> 
-
+          </FormGroup>
           <FormGroup controlId="formHorizontalTeam">
             <Col componentClass={ControlLabel} sm={4}>
               Team 2
             </Col>
             <Col sm={8}>
-              <FormControl type="text" placeholder="Name:" name="teamTwo" 
+              <FormControl type="text" placeholder="Name:" name="teamTwo"
               value={this.state.teamTwo} onChange={this.handleChange}/>
-              <FormControl type="number" placeholder="Goals:" name="teamTwo" 
+              <FormControl type="number" placeholder="Goals:" name="goalsTwo"
               value={this.state.goalsTwo} onChange={this.handleChange} min="0"/>
             </Col>
           </FormGroup>
@@ -83,5 +78,4 @@ class UpdateForm extends Component {
     return (<UpdateForm/>)
 
   }
-
 export default AdminPage;
