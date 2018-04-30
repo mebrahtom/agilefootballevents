@@ -16,11 +16,34 @@
 }
 
 .homepage-background {
-  max-width: 100%;
+  max-width: 100%
 }
 
 .homepage-container {
-  margin-top: -20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.react-calendar {
+    border: 0px solid #fff !important;
+    border-radius: 10px;
+    line-height: 1.125em;
+}
+
+.react-calendar__tile--active {
+    background: var(--sky-blue-color) !important;
+    border-radius: 10px;
+    color: white;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: var(--red-color) !important;
+}
+
+.react-calendar-custom-dot {
+  border-radius: 2px;
+  height: 5px;
+  width: 10px;
 }
 
 .custom-container{
