@@ -16,11 +16,12 @@
 }
 
 .homepage-background {
-  max-width: 100%;
+  max-width: 100%
 }
 
 .homepage-container {
-  margin-top: -20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .custom-container{
@@ -204,5 +205,45 @@
 .info-heading{
   font-weight: bold;
   font-size: 16px;
+}
+
+
+
+
+
+/* Start calendar custom */
+
+.react-calendar {
+    border: 0px solid #fff !important;
+    border-radius: 10px;
+    line-height: 1.125em;
+}
+
+.react-calendar__tile--active {
+    background: #fff !important;
+    /*border: 1px solid #cecece !important;*/
+    border-radius: 10px;
+    color: var(--breeze-blue-color) !important;
+    text-decoration: underline ;
+    font-weight: bold;
+}
+
+button.react-calendar__tile:enabled:hover{
+  background: #fff !important;
+  text-decoration: underline ;
 
 }
+
+.react-calendar__month-view__days__day--weekend {
+    color: var(--red-color) !important;
+}
+
+.react-calendar-custom-dot {
+  position: absolute;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+  background-color: var(--breeze-blue-color);
+}
+
+/* End Calendar custom*/

@@ -5,10 +5,16 @@
   "dependencies": {
     "ajv": "^6.4.0",
     "bootstrap": "^3.3.7",
+    "moment": "^2.22.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
+<<<<<<< HEAD
     "react-color": "^2.14.1",
+=======
+    "react-calendar": "^2.14.0",
+>>>>>>> ed8fd980017b3b2b3818a33b181ae57f19caa5a9
     "react-dom": "^16.2.0",
+    "react-moment": "^0.7.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
