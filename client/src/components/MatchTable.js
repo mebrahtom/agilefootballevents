@@ -34,9 +34,12 @@ function renderMatchRows(upcomingmatches){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<MatchRow key ={i}
       date={upcomingmatches[i].playingDate}
-      time={upcomingmatches[i].PlayingTime}
+      time={upcomingmatches[i].playingTime}
+      t={upcomingmatches[i].terminator}
       t1={upcomingmatches[i].team1}
       t2={upcomingmatches[i].team2}
+      fn1={upcomingmatches[i].fullName1}
+      fn2={upcomingmatches[i].fullName2}
       loc={upcomingmatches[i].stadium}/>);
   }
 
@@ -67,7 +70,7 @@ class MatchRow extends Component {
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={4}>
+        <Col sm={2}>
           <br />
           {this.props.date}
           <br />
@@ -77,17 +80,20 @@ class MatchRow extends Component {
           <a href={link_team1}>
             <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t1}</div>
+            <div className="ccodetext" >{this.props.fn1}</div>
           </a>
+        </Col>
+        <Col sm={2}>
+          {this.props.t}
         </Col>
         <Col sm={2}>
           <a href={link_team2}>
             <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t2}</div>
+            <div className="ccodetext" >{this.props.fn2}</div>
           </a>
         </Col>
-        <Col sm={4}>
+        <Col sm={3.5}>
           <br />
           {this.props.loc}
         </Col>

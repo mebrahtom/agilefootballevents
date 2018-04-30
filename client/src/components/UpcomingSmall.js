@@ -7,9 +7,6 @@ import {importAll} from '../HelperFunctions.js'
 
 class UpcomingSmall extends Component{
 
-
-
-
   render(){
       const images = importAll(require.context('../img/flags', false, /\.(png)$/));
       var link_t1 = "/team/"+ this.props.match.team1;
@@ -17,9 +14,9 @@ class UpcomingSmall extends Component{
     return(
       <Row className="result-small-container">
         <Col sm={3}>{this.props.match.playingDate}</Col>
-        <Col sm={3}><a href={link_t1}><img src={images[this.props.match.team1+".png"]} alt={''} height={12} /> {this.props.match.team1}</a></Col>
+        <Col sm={3}><a href={link_t1}><img src={images[this.props.match.team1+".png"]} alt={''} height={12} /> <br />{this.props.match.fullName1}</a></Col>
         <Col sm={3}>vs</Col>
-        <Col sm={3}><a href={link_t2}><img src={images[this.props.match.team2+".png"]} alt={''} height={12} /> {this.props.match.team2}</a></Col>
+        <Col sm={3}><a href={link_t2}><img src={images[this.props.match.team2+".png"]} alt={''} height={12} /> <br /> {this.props.match.fullName2}</a></Col>
       </Row>
     );
   }
