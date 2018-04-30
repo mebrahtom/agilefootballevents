@@ -10,6 +10,8 @@ class HomePage extends Component {
 
   onChange = date => this.setState({ date })
 
+
+
   render() {
     return (
       <div className="homepage-container">
@@ -18,13 +20,25 @@ class HomePage extends Component {
             <img className="homepage-background" src={background} alt="" />
           </Col>
           <Col md={4}>
-            <Calendar onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => view === 'month' && date.getDay() === 0 ? <div className="react-calendar-custom-dot"></div> : null} hover={() => console.log('hover')}/>
+            <Calendar onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => markDays(view, date) } hover={() => console.log('hover')}/>
           </Col>
         </Row>
 
       </div>
     );
   }
+}
+
+function markDays(view, date){
+
+  console.log(view, date);
+  if(view === 'month' && date.getDay() === 0){
+    console.log('return element');
+    return <div className="react-calendar-custom-dot"></div>
+
+  }
+  return null;
+
 }
 
 export default HomePage;

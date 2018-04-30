@@ -4,6 +4,7 @@ import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {importAll} from '../HelperFunctions.js'
+import Moment from 'react-moment';
 
 class MatchTable extends Component{
 
@@ -33,8 +34,7 @@ function renderMatchRows(upcomingmatches){
   for(var i = 0; i < upcomingmatches.length; i++ ){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<MatchRow key ={i}
-      date={upcomingmatches[i].playingDate}
-      time={upcomingmatches[i].playingTime}
+      date={upcomingmatches[i].playingDate + ' ' + upcomingmatches[i].playingTime}
       t={upcomingmatches[i].terminator}
       t1={upcomingmatches[i].team1}
       t2={upcomingmatches[i].team2}
@@ -72,9 +72,7 @@ class MatchRow extends Component {
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
         <Col sm={2}>
           <br />
-          {this.props.date}
-          <br />
-          {this.props.time}
+          <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
         </Col>
         <Col sm={2}>
           <a href={link_team1}>
