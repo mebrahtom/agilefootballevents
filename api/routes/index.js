@@ -52,6 +52,7 @@ router.post('/register',function(req,res,next){
 
   router.post('/save_results',function(req,res,next){
     const MatchResult={
+      matchNumber:req.body.matchNumber,
       team1:req.body.team1,
       goals1:req.body.goals1,
       team2:req.body.team2,
@@ -61,8 +62,14 @@ router.post('/register',function(req,res,next){
     }
     db.query('INSERT INTO MatchResults SET ?',MatchResult,function(error,results,fields){
       if(error)
+      {
       throw error;
+      alert('Not correct');
+    }
+      {
       res.end(JSON.stringify(results));
+      alert('Succesfully Saved');
+    }
     })
   })
 router.get('/countries',function(req, res, next) {
