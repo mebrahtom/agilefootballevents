@@ -1,5 +1,5 @@
 CREATE TABLE Groups(
-	groupName VARCHAR(10) PRIMARY KEY NOT NULL DEFAULT  'None'
+	groupName VARCHAR(10) PRIMARY KEY DEFAULT 'None'
 );
 CREATE TABLE admins(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -81,7 +81,7 @@ CREATE TABLE MatchFixtures(
 
 CREATE TABLE MatchResults(
     groupName  VARCHAR(1),
-	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY REFERENCES MatchFixtures(matchNumber),
+	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL ,
 	team2 VARCHAR (3) NOT NULL,
 	goals1 INT NOT NULL,
@@ -90,18 +90,18 @@ CREATE TABLE MatchResults(
  FOREIGN KEY (team2) REFERENCES Countries(abbreviation) ON UPDATE CASCADE ON DELETE RESTRICT,
  FOREIGN KEY (groupName) REFERENCES Groups (groupName) ON UPDATE CASCADE ON DELETE RESTRICT
 	);
-CREATE VIEW Helper1(matchnumber,groupName, team1, fullName1,goals1, separe) AS
-  (SELECT M.matchNumber, M.groupName,abbreviation,countryName, M.goals1, '-' AS TEXT FROM MatchResults M, Countries C where M.groupName=C.groupName AND team1=abbreviation);
+CREATE VIEW Helper1(matchnumber,team1, fullName1,goals1, separe) AS
+  (SELECT M.matchNumber,abbreviation,countryName, M.goals1, '-' AS TEXT FROM MatchResults M, Countries C where team1=abbreviation);
 
 CREATE VIEW Helper2(matchnumber,goals2,team2, fullName2) AS
-(SELECT M.matchNumber, M.goals2 ,abbreviation,countryName FROM MatchResults M, Countries C where M.groupName=C.groupName AND team2=abbreviation);
+(SELECT M.matchNumber, M.goals2 ,abbreviation,countryName FROM MatchResults M, Countries C where team2=abbreviation);
 
  CREATE VIEW  Helper3 AS select *from  MatchFixturesBackUp WHERE matchNumber IN (SELECT matchNumber from MatchResults);
 
   CREATE VIEW LatestResultHelper4 AS (SELECT *FROM Helper1 natural JOIN Helper2);
 
-	CREATE VIEW LatestMatchResults(playingDate, playingTime,groupName , team1, fullName1, goals1,terminator, goals2,team2,fullName2,stadium) AS
-	  SELECT  playingDate, playingTime,L.groupName ,L.team1, L.fullName1, L.goals1,L.separe, L.goals2,L.team2,L.fullName2, stadium FROM LatestResultHelper4  L, Helper3 H where L.matchnumber=H.matchNumber;
+	CREATE VIEW LatestMatchResults(playingDate, playingTime, team1, fullName1, goals1,terminator, goals2,team2,fullName2,stadium) AS
+	  SELECT  playingDate, playingTime,L.team1, L.fullName1, L.goals1,L.separe, L.goals2,L.team2,L.fullName2, stadium FROM LatestResultHelper4  L, Helper3 H where L.matchnumber=H.matchNumber;
 
 	CREATE VIEW HelperResultTable (team, MP,W, D, L,GF, GA, Diff, points,groupName ) AS
 	(SELECT team1, COUNT(team1), COUNT(matchNumber),0, 0, SUM(goals1), SUM(goals2),SUM(goals1)-SUM(goals2), 3, groupName  FROM MatchResults
@@ -121,7 +121,6 @@ CREATE VIEW Helper2(matchnumber,goals2,team2, fullName2) AS
 	    UNION ALL
 	(SELECT team2, COUNT(team2),0,0,COUNT(matchNumber), SUM(goals2), SUM(goals1),SUM(goals2)-SUM(goals1), 0 ,groupName  FROM MatchResults
 	    WHERE goals2 < goals1 group BY team2,groupName , matchNumber);
-
 		CREATE VIEW HelperGroups (team,countryName, MP,W, D,L,GF, GA, Diff, points, groupName ) AS
 	  (SELECT team, countryName, SUM(MP),SUM(W), SUM(D),SUM(L), SUM(GF), SUM(GA),SUM(Diff),
 	 SUM(points), groupName FROM HelperResultTable H NATURAL JOIN Countries
@@ -236,14 +235,14 @@ CREATE VIEW  QualifiedQuarterFinal(matchNumber, team) AS
 	UNION
 	(SELECT matchNumber, team2 FROM MatchResults WHERE matchNumber=62 AND goals1<goals2);
 
-CREATE VIEW MatchUpcomingHelper1(matchNumber,team1, fullName1, terminator) AS
-(SELECT M.matchNumber, abbreviation, countryName, 'Vs' AS TEXT FROM MatchFixtures M, Countries C where team1=abbreviation);
+CREATE VIEW MatchUpcomingHelper1(matchNumber,groupName,team1, fullName1, terminator) AS
+(SELECT M.matchNumber,groupName, abbreviation, countryName,'Vs' AS TEXT FROM MatchFixtures M, Countries C where team1=abbreviation);
 
 CREATE VIEW MatchUpcomingHelper2 (matchnumber,team2,fullName2, playingDate,playingTime, stadium) AS
 (SELECT M.matchNumber, abbreviation,countryName, playingDate, playingTime, stadium FROM MatchFixtures M, Countries C where team2=abbreviation);
 
-CREATE VIEW MatchUpcomings(matchNumber,team1,fullName1,terminator,team2,fullName2, playingDate,playingTime, stadium) AS
-	(SELECT *FROM MatchUpcomingHelper1 NATURAL JOIN MatchUpcomingHelper2);
+CREATE VIEW MatchUpcomings(matchNumber,groupName, team1,fullName1,terminator,team2,fullName2, playingDate,playingTime, stadium) AS
+	(SELECT *FROM MatchUpcomingHelper1 NATURAL JOIN MatchUpcomingHelper2 ORDER BY matchnumber);
 
 	delimiter //
 	CREATE TRIGGER selfTeam_check_insert_trg
@@ -283,9 +282,9 @@ DELIMITER ;
 
   DELIMITER //
 CREATE TRIGGER tr_Round16_QuarterFinals_SemiFinals_ThirdPlaceAnd_Final_Games
-before INSERT ON MatchResults FOR EACH ROW
+AFTER INSERT ON MatchResults FOR EACH ROW
 BEGIN
-IF EXISTS( SELECT team FROM QualifiedToRound16 WHERE groupName='H' AND W=3)
+IF EXISTS(select matchNumber from MatchFixturesBackUp where matchNumber IN (SELECT matchNumber FROM MatchResults WHERE matchnumber=48 AND matchNumber= NEW.matchNumber))
 THEN
 BEGIN
 	 INSERT INTO MatchFixtures VALUES(49, (select team FROM QualifiedToRound16 where groupName='C' AND position=1),
@@ -311,29 +310,39 @@ BEGIN
 
 	INSERT INTO MatchFixtures VALUES(56, (select team FROM QualifiedToRound16 where groupName='H' AND position=1),
 		 (select team FROM QualifiedToRound16 where groupName='G' AND position=2),'Jul 03','19:00','Moscow ');
+ END;
+END IF;
+END; //
+DELIMITER ;
 
 
-	 INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal
-		WHERE  matchNumber=50),'Jul 06','15:00','Nizhny Novgorod');
-
-	INSERT INTO MatchFixtures VALUES(58, (select team FROM QualifiedQuarterFinal WHERE matchNumber=53),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=54),'Jul 06','19:00','Kazan');
+DELIMITER //
+CREATE TRIGGER tr_Qualified_Quarter_Final
+AFTER INSERT ON MatchResults FOR EACH ROW
+BEGIN
+IF EXISTS( SELECT team FROM  QualifiedQuarterFinal WHERE matchnumber=62)
+THEN
+BEGIN
+ INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal
+	WHERE  matchNumber=50),'Jul 06','15:00','Nizhny Novgorod');
+INSERT INTO MatchFixtures VALUES(58, (select team FROM QualifiedQuarterFinal WHERE matchNumber=53),(select team FROM QualifiedQuarterFinal
+		 WHERE  matchNumber=54),'Jul 06','19:00','Kazan');
 INSERT INTO MatchFixtures VALUES(59, (select team FROM QualifiedQuarterFinal WHERE matchNumber=51),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=52),'Jul 07','19:00','Sochi');
+		 WHERE  matchNumber=52),'Jul 07','19:00','Sochi');
 INSERT INTO MatchFixtures VALUES(60, (select team FROM QualifiedQuarterFinal WHERE matchNumber=55),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=56),'Jul 07','15:00','Samara');
+		 WHERE  matchNumber=56),'Jul 07','15:00','Samara');
 
 INSERT INTO MatchFixtures VALUES(61, (select team FROM QualifiedQuarterFinal WHERE matchNumber=57),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=58),'Jul 10','19:00','Saint Petersburg');
+		 WHERE  matchNumber=58),'Jul 10','19:00','Saint Petersburg');
 INSERT INTO MatchFixtures VALUES(62, (select team FROM QualifiedQuarterFinal WHERE matchNumber=59),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=60),'Jul 10','19:00','Moscow');
+		 WHERE  matchNumber=60),'Jul 10','19:00','Moscow');
 
 INSERT INTO MatchFixtures VALUES(63, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=62),'Jul 14','15:00','Saint Petersburg');
+		 WHERE  matchNumber=62),'Jul 14','15:00','Saint Petersburg');
 
 INSERT INTO MatchFixtures VALUES(64, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
-	     WHERE  matchNumber=62),'Jul 15','16:00','Moscow');
- END;
+		 WHERE  matchNumber=62),'Jul 15','16:00','Moscow');
+END;
 END IF;
 END; //
 DELIMITER ;

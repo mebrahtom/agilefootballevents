@@ -14,7 +14,13 @@ class HomePage extends Component {
 
   render() {
     return (
+
       <div className="homepage-container">
+<<<<<<< HEAD
+
+
+        <img className="homepage-background" src={background} alt="" />
+=======
         <Row>
           <Col md={8}>
             <img className="homepage-background" src={background} alt="" />
@@ -24,6 +30,7 @@ class HomePage extends Component {
           </Col>
         </Row>
 
+>>>>>>> ed8fd980017b3b2b3818a33b181ae57f19caa5a9
       </div>
     );
   }
