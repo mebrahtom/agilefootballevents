@@ -16,11 +16,6 @@ class HomePage extends Component {
     return (
 
       <div className="homepage-container">
-<<<<<<< HEAD
-
-
-        <img className="homepage-background" src={background} alt="" />
-=======
         <Row>
           <Col md={8}>
             <img className="homepage-background" src={background} alt="" />
@@ -29,8 +24,6 @@ class HomePage extends Component {
             <Calendar onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => markDays(view, date) } hover={() => console.log('hover')}/>
           </Col>
         </Row>
-
->>>>>>> ed8fd980017b3b2b3818a33b181ae57f19caa5a9
       </div>
     );
   }
