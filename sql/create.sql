@@ -245,19 +245,6 @@ CREATE VIEW MatchUpcomingHelper2 (matchnumber,team2,fullName2, playingDate,playi
 CREATE VIEW MatchUpcomings(matchNumber,team1,fullName1,terminator,team2,fullName2, playingDate,playingTime, stadium) AS
 	(SELECT *FROM MatchUpcomingHelper1 NATURAL JOIN MatchUpcomingHelper2);
 
-
-	delimiter //
-	CREATE TRIGGER self_Team_check_insert_trg
-	BEFORE INSERT ON MatchFixtures
-	FOR EACH ROW
-	BEGIN
-	    DECLARE msg varchar(255);
-	    IF NEW.team1 = NEW.team2 THEN
-	        SET msg = 'A team can not play againest itself';
-	        SIGNAL SQLSTATE '45000' SET message_text = msg;
-	    END IF;
-	END
-	//
 	delimiter //
 	CREATE TRIGGER selfTeam_check_insert_trg
 	BEFORE INSERT ON MatchResults
