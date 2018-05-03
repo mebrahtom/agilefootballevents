@@ -1,33 +1,44 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 
-class ExploreMap extends React.PureComponent {
-  state = {
-    isMarkerShown: false,
+class ExploreMap extends PureComponent {
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+      isMarkerShown: true
+    }
   }
 
-  renderMarkers(locations) {
+  renderMarkers(mapType) {
+    var locations = []
+    console.log(this.props.mapType)
+    if (mapType.length > 0) {
+      this.props.getLocation(mapType).then((data) => {})
+    }
+    locations = this.props.location
+    console.log(locations)
     var markers = []
-    locations.forEach(element => {
-      markers.push(
-        <Marker position={{ lat: element.latitude, lng: element.longitude }} onClick={this.props.onMarkerClick}>
-          <InfoWindow onCloseClick={this.props.onToggleOpen}>
-            <h3> {element.locationName} </h3>
-          </InfoWindow>
-        </Marker>
-      )
-    });
-    return markers
+    if (locations.length > 1) {
+      locations.forEach(element => {
+        markers.push(
+          <Marker position={{ lat: element.latitude, lng: element.longitude }} onClick={this.props.onMarkerClick}>
+            <InfoWindow onCloseClick={this.props.onToggleOpen}>
+              <h3> {element.locationName} </h3>
+            </InfoWindow>
+          </Marker>
+        )
+      });
+      return markers
+    } 
   }
 
   componentDidMount() {
     this.delayedShowMarker()
-    this.props.getLocation("Arenas").then((data) => {
-    })
   }
 
   delayedShowMarker = () => {
@@ -42,6 +53,7 @@ class ExploreMap extends React.PureComponent {
   }
 
   render() {
+    console.log(this.state.mapType)
     const Map = compose(
       withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
@@ -54,9 +66,9 @@ class ExploreMap extends React.PureComponent {
     )((props) =>
       <GoogleMap
         defaultZoom={13}
-        defaultCenter={{ lat: 57.6959, lng: 11.9873 }}
+        defaultCenter={{ lat: 57.6959, lng: 11.9873 }} 
       >
-        {this.renderMarkers(this.props.location)}
+        {this.renderMarkers(this.props.mapType)}
       </GoogleMap>
     )
     return (
