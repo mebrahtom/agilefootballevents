@@ -23,32 +23,32 @@ router.post('/register',function(req,res,next){
      if(error)
      throw error;
      res.end(JSON.stringify(results));
-   });
- })
- router.post('/login',function(req,res,next){
-  const email=req.body.email
+   })
+})
+
+router.post('/login',function(req,res,next){
+  const email=req.body.username
   const password=req.body.password
-  var validLogin=req.body.valid
-  db.query('SELECT *FROM admins WHERE email=?', [email],function(error,results,fields){
+  let sql = 'SELECT * FROM admins WHERE email = ' + mysql.escape(email)
+
+  db.query(sql, function(error,results,fields){
     if(error){
       res.send('Error occured!');
     }
-    else{
-      if(results.length>0){
-        for(const i in results){
-          const validPassword=bcrypt.compareSync(password,results[i].password)
-          var validLogin=false
-          if(results[i].email===email && validPassword){
-            validLogin=true;
-            console.log("Logged in!");
-            //set session
-            //redirect to admin page
-          }
+    if(results.length>0){
+      for(const i in results){
+        const validPassword=bcrypt.compareSync(password,results[i].password)
+        var validLogin=false
+        if(results[i].email===email && validPassword){
+          validLogin=true;
+          res.json(results[i].email)
+        } else {
+          res.json('')
         }
       }
     }
   })
-  })
+})
 
   router.post('/save_results',function(req,res,next){
     const MatchResult={
