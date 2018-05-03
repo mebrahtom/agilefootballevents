@@ -1,8 +1,8 @@
 import Service from '../service/Service'
 
 class Locations {
-  static getLocation(type, id) {
-    var route = '/locations/' + type + '/' + id
+  static getLocation(type) {
+    var route = '/locations/' + type
     return Service.get(route).then(function(location) {
       return location
     })

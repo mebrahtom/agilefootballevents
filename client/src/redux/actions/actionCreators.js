@@ -158,9 +158,9 @@ export function dispatchGetCountryInfo(countryinfo){
   }
 }
 
-export function getLocation(type, id) {
+export function getLocation(type) {
   return (dispatch, getState) => {
-    return Locations.getLocation(type, id).then((data) => {
+    return Locations.getLocation(type).then((data) => {
       return dispatch(dispatchGetLocation(data))
     })
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleMap from '../components/Map.js';
+import ExploreMap from '../components/Map.js';
 import {Button, Row, Grid, FormGroup, Checkbox, ControlLabel, Col, FormControl, ButtonGroup} from 'react-bootstrap';
 import {importAll} from '../HelperFunctions.js'
 
@@ -9,7 +9,7 @@ class ExplorePage extends Component {
     return (
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
-          {<GoogleMap/>}
+          {<ExploreMap/>}
         </Col>
         <Col xs={3} md={3} lg={3}>
           <Row bsClass="mapRow">

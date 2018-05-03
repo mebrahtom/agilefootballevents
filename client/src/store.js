@@ -18,7 +18,7 @@ const defaultState = {
   player:[{id: 0, country: "", firstname: "", surname: "", shirtNumber: 0, position:"", goals: 0, club:"", height:0, weight:0, img_id:""}],
   countryinfo:[{abrevation:"", worldrank:0, history:""}],
   location:[{id: 0, locationName:"", latitude:10, longitude:10}],
-  tablesize:[{COUNT:""}]
+  tablesize:[{COUNT: 0}]
 }
 
 const store = createStore(

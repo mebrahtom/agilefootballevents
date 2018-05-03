@@ -157,10 +157,10 @@ router.get('/fixtures/groupresults', function(req, res, next) {
   })
 })
 
-router.get('/locations/:type/:id', function(req, res, next) {
-  const id = req.params.id
+router.get('/locations/:type', function(req, res, next) {
+  //const id = req.params.id
   const type = req.params.type
-  var sql = 'SELECT * FROM ' + type + ' where id = ' + mysql.escape(id)
+  var sql = 'SELECT * FROM ' + type //' where id = ' + mysql.escape(id)
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -169,7 +169,7 @@ router.get('/locations/:type/:id', function(req, res, next) {
 
 router.get('/tablesize/:type', function(req, res, next) {
   const type = req.params.type
-  var sql = 'SELECT COUNT(id) FROM ' + type
+  var sql = 'SELECT COUNT(id) as COUNT FROM ' + type
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
