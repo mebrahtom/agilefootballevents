@@ -156,3 +156,35 @@ export function dispatchGetCountryInfo(countryinfo){
     countryinfo
   }
 }
+
+export function getPlayerStats(){
+  return (dispatch, getState) => {
+    return Fixtures.getPlayerStats().then((data) => {
+      return dispatch(dispatchGetPlayerStats(data))
+    })
+  }
+}
+
+export function dispatchGetPlayerStats(playerstats){
+  return {
+    type: 'GET_PLAYER_STATS',
+    playerstats
+  }
+}
+
+export function getTeamStats(){
+  return (dispatch, getState) => {
+    return Fixtures.getTeamStats().then((data) => {
+      return dispatch(dispatchGetTeamStats(data))
+    })
+  }
+}
+
+export function dispatchGetTeamStats(teamstats){
+  return {
+    type: 'GET_TEAM_STATS',
+    teamstats
+  }
+}
+
+

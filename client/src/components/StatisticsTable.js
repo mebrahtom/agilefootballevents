@@ -17,37 +17,31 @@ class StatisticsTable extends Component {
   }
   render() {
    { /* const tables = renderTables(this.props.groups, this.props.groupresults, images); */ }
-   const playerstats = renderPlayerGoalTable(this.props.playerstats);
-   const teamstats = renderTeamGoalTable(this.props.teamstats);
+   const playergoals = renderPlayerGoalTable(this.props.playerstats);
+   const playerassists = renderPlayerAssTable(this.props.playerstats);
+   const teamgoals = renderTeamGoalTable(this.props.teamstats);
+   const teampossesion = renderTeamPossTable(this.props.teamstats);
     return(
       <div>
         <h3>Player Statistics</h3>
         <h4 className="col-sm-6">Top Scores</h4>
         <h4 className="col-md-6">Assists</h4>
           <ListGroup className="col-md-6">
-            { playerstats }
+            { playergoals }
           </ListGroup>
           <ListGroup className="col-md-6">
-            <ListGroupItem><h4>Name 1 <span className="pull-right score-margin">38</span></h4>Country 1</ListGroupItem>
-            <ListGroupItem><h4>Name 1 <span className="pull-right score-margin">38</span></h4>Country 2</ListGroupItem>
-            <ListGroupItem><h4>Name 1 <span className="pull-right score-margin">38</span></h4>Country 3</ListGroupItem>
-            <ListGroupItem><h4>Name 1 <span className="pull-right score-margin">38</span></h4>Country 1</ListGroupItem>
-            <ListGroupItem><h4>Name 1 <span className="pull-right score-margin">38</span></h4>Country 2</ListGroupItem>
+            { playerassists }
           </ListGroup>
         
         <h3>Team Statistics</h3>
         <h4 className="col-sm-6">Goals Scored</h4>
         <h4 className="col-md-6">Possesion</h4>     
         <ListGroup className="col-md-6">
-          { teamstats }
+          { teamgoals }
         </ListGroup>
 
         <ListGroup className="col-md-6">
-          <ListGroupItem header="Name 1">Country 1</ListGroupItem>
-          <ListGroupItem header="Name 2">Country 2</ListGroupItem>
-          <ListGroupItem header="Name 3">Country 3</ListGroupItem>
-          <ListGroupItem header="Name 2">Country 2</ListGroupItem>
-          <ListGroupItem header="Name 3">Country 3</ListGroupItem>
+          { teampossesion }
         </ListGroup>
         {/* tables */}
       </div>
@@ -65,6 +59,20 @@ function renderPlayerGoalTable(stats) {
         goals={stats[i].goals}
         countryName={stats[i].countryName}
         image={stats[i].img_id}/>);
+
+    }
+  }
+
+  return allRows;
+}
+
+function renderPlayerAssTable(stats) {
+  var allRows = [];
+  for(var i = 0; i < stats.length; i++){
+    if(i < 5){                            //Very ugly code, how to fix?
+      allRows.push(<PlayerAssistRow key={i}      
+        image={stats[i].img_id}/>);
+      
     }
   }
 
@@ -77,43 +85,74 @@ function renderTeamGoalTable(stats) {
     if(i < 5){                            //Very ugly code, how to fix?
       allRows.push(<TeamGoalRow key={i}      
         goals={stats[i].goals}
-        countryName={stats[i].countryName}/>);
+        countryName={stats[i].countryName}
+        abr={stats[i].abbreviation}/>);
     }
   }
 
   return allRows;
 }
 
-// Exported to another class
-export function renderStatistics(group, groupresults) {
-
-console.log(group);
-
-  if(group.length === 0){
-    return <p>No group yet</p>
+function renderTeamPossTable(stats) {
+  var allRows = [];
+ for(var i = 0; i < stats.length; i++){
+    if(i < 5){                            //Very ugly code, how to fix?
+      allRows.push(<TeamPossRow key={i}      
+        countryName={stats[i].countryName} //Not used yet (should be)
+        abr={stats[i].abbreviation}/>); //Not used yet (should be)
+    }
   }
-  return (
-    <p> test </p>
 
-  );
+  return allRows;
 }
 
 class PlayerGoalRow extends Component {
+
   render() {
     const images = importAll(require.context('../img/profiles', false, /\.(png)$/));
 
     return (
-      <ListGroupItem><img src={images[this.props.image+'.png']} alt={''} width={35} height={25}/><h4>{this.props.name}<span className="pull-right score-margin">{this.props.goals}</span></h4>{this.props.countryName}</ListGroupItem>
+      <ListGroupItem><h4><img className="stats-images" src={images[this.props.image+'.png']} alt={''} width={35} height={35}/>{this.props.name}<span className="pull-right score-margin">{this.props.goals}</span></h4>{this.props.countryName}</ListGroupItem>
     );
   }
 }
 
-class TeamGoalRow extends Component {
+class PlayerAssistRow extends Component {
   render() {
+    const images = importAll(require.context('../img/profiles', false, /\.(png)$/));
+
+    return (
+      <ListGroupItem><h4><img className="stats-images" src={images['dummy.png']} alt={''} width={35} height={35}/>Player Name<span className="pull-right score-margin">6</span></h4>Country Name</ListGroupItem>
+    );
+  }
+}
+
+
+class TeamGoalRow extends Component {
+
+
+  render() {
+    const link_team = "/team/" + this.props.abr;
+
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
     return (
-      <ListGroupItem><img src={images[this.props.countryName+'.png']} alt={''} width={35} height={25}/><h4>{this.props.countryName}<span className="pull-right">{this.props.goals}</span></h4></ListGroupItem>
+      <ListGroupItem><img className="stats-images" src={images[this.props.countryName+'.png']} alt={''} width={35} height={25}/><h4><span className="pull-right">{this.props.goals}</span><a href={link_team}>{this.props.countryName}</a></h4></ListGroupItem>
+    );
+  }
+}
+
+class TeamPossRow extends Component {
+
+  
+
+  render() {
+    const link_team = "/team/" + this.props.abr;
+    
+    const images = importAll(require.context('../img/flags', false, /\.(png)$/));
+
+    return (
+      <ListGroupItem><img src={images['dummy.png']} alt={''} width={35} height={25}/><h4>Country Name<span className="pull-right">Possesion Value</span></h4></ListGroupItem>
     );
   }
 }

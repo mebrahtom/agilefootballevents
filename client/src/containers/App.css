@@ -206,3 +206,19 @@
   font-size: 16px;
 
 }
+
+.statstable{
+  background-color: #fff;
+}
+
+.stats-list{
+  list-style-type: none;
+}
+
+.score-margin{
+  margin-top:10px;
+}
+
+.stats-images{
+  margin-right:10px;
+}

@@ -27,7 +27,6 @@ class GroupTable extends Component {
 const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
 function renderTables(groups, groupresults, images) {
-  console.log(groups, groupresults);
   var allTables = [];
   for(var i = 0; i < groups.length; i++){
     /* Adding the table and label*/
@@ -108,7 +107,7 @@ function renderGroupRows(groupresults, currGroupname, images) {
       grouprow.push(
         <tr key={i}>
           {/* TODO add flags to the team */}
-          <td><a href={link}><img src={images[groupresults[i].team+".png"]} alt={''} width={15} height={10} /> {groupresults[i].team}</a></td>
+          <td><a href={link}><img src={images[groupresults[i].countryName+".png"]} alt={''} width={15} height={10} /> {groupresults[i].countryName}</a></td>
           <td>{groupresults[i].MP}</td>
           <td>{groupresults[i].W}</td>
           <td>{groupresults[i].D}</td>

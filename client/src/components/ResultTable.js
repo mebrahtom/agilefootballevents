@@ -31,10 +31,14 @@ function renderMatchRows(resultmatches){
   for(var i = 0; i < resultmatches.length; i++ ){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<ResultRow key ={i}
+      date={resultmatches[i].playingDate}
       t1={resultmatches[i].team1}
       t2={resultmatches[i].team2}
       result1={resultmatches[i].goals1}
-      result2={resultmatches[i].goals2}/>);
+      result2={resultmatches[i].goals2}
+      stadium={resultmatches[i].stadium}
+      abr1={resultmatches[i].abbreviation1}
+      abr2={resultmatches[i].abbreviation2}/>);
   }
 
   return matches;
@@ -53,13 +57,17 @@ class ResultRow extends Component {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
-    const link_team1 = "/team/" + this.props.t1;
-    const link_team2 = "/team/" + this.props.t2;
+    const link_team1 = "/team/" + this.props.abr1;
+    const link_team2 = "/team/" + this.props.abr2;
 
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={5}>
+        <Col sm={3}>
+          <br />
+          {this.props.date}
+        </Col>
+        <Col sm={2}>
           <a href={link_team1}>
             <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
             <br />
@@ -70,12 +78,16 @@ class ResultRow extends Component {
           <br />
           {this.props.result1} - {this.props.result2}
         </Col>
-        <Col sm={5}>
+        <Col sm={2}>
           <a href={link_team2}>
             <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
             <br />
             <div className="ccodetext" >{this.props.t2}</div>
           </a>
+        </Col>
+        <Col sm={3}>
+          <br />
+          {this.props.stadium}
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open}>

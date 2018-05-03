@@ -34,10 +34,12 @@ function renderMatchRows(upcomingmatches){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<MatchRow key ={i}
       date={upcomingmatches[i].playingDate}
-      time={upcomingmatches[i].PlayingTime}
+      time={upcomingmatches[i].playingTime}
       t1={upcomingmatches[i].team1}
       t2={upcomingmatches[i].team2}
-      loc={upcomingmatches[i].stadium}/>);
+      loc={upcomingmatches[i].stadium}
+      abr1={upcomingmatches[i].abbreviation1}
+      abr2={upcomingmatches[i].abbreviation2}/>);
   }
 
   return matches;
@@ -54,15 +56,13 @@ class MatchRow extends Component {
       open: false
     };
   }
-
-
-
+  
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
-    const link_team1 = "/team/" + this.props.t1;
-    const link_team2 = "/team/" + this.props.t2;
+    const link_team1 = "/team/" + this.props.abr1;
+    const link_team2 = "/team/" + this.props.abr2;
 
     return (
 
