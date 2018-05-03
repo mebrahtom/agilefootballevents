@@ -117,6 +117,7 @@ router.get('/fixtures/playedMatches', function(req, res, next) {
 router.get('/fixtures/playedMatches/:abr', function(req, res, next) {
   const abr = req.params.abr;
   var sql = 'SELECT * FROM LatestMatchResults where team1 = ' + mysql.escape(abr) + 'OR team2 = ' + mysql.escape(abr);
+
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -126,6 +127,7 @@ router.get('/fixtures/playedMatches/:abr', function(req, res, next) {
 router.get('/fixtures/matchfixtures/:abr', function(req, res, next) {
   const abr = req.params.abr;
   var sql = 'SELECT * FROM MatchUpcomings where team1 = ' + mysql.escape(abr) + ' OR team2 = ' + mysql.escape(abr);
+
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)
@@ -173,6 +175,22 @@ router.get('/fixtures/groups', function(req, res, next) {
 
 router.get('/fixtures/groupresults', function(req, res, next) {
   var sql = 'select * from FinalResultTable'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
+router.get('/fixtures/teamstats', function(req, res, next) {
+  var sql = 'SELECT * FROM TeamGoals'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
+router.get('/fixtures/playerstats', function(req, res, next) {
+  var sql = 'SELECT * FROM PlayerGoals'
   db.query(sql, function(err, result, fields) {
     if (err) throw err
     res.json(result)

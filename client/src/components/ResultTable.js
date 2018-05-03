@@ -39,8 +39,7 @@ function renderMatchRows(resultmatches){
       fn2={resultmatches[i].fullName2}
       result1={resultmatches[i].goals1}
       result2={resultmatches[i].goals2}
-      loc={resultmatches[i].stadium}
-    />);
+      loc={resultmatches[i].stadium}/>);
   }
 
   return matches;
@@ -59,7 +58,7 @@ class ResultRow extends Component {
 
     const link_team1 = "/team/" + this.props.t1;
     const link_team2 = "/team/" + this.props.t2;
-console.log(this.props.date)
+
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
@@ -69,7 +68,7 @@ console.log(this.props.date)
         </Col>
         <Col sm={2}>
           <a href={link_team1}>
-            <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn1+'.png']} alt={''} width={35} height={25}/>
             <br />
             <div className="ccodetext" >{this.props.fn1}</div>
           </a>
@@ -80,12 +79,12 @@ console.log(this.props.date)
         </Col>
         <Col sm={2}>
           <a href={link_team2}>
-            <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn2+'.png']} alt={''} width={35} height={25}/>
             <br />
             <div className="ccodetext" >{this.props.fn2}</div>
           </a>
         </Col>
-        <Col sm={3.5}>
+        <Col sm={3}>
           <br />
           {this.props.loc}
         </Col>

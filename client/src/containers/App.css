@@ -238,6 +238,22 @@ button.react-calendar__tile:enabled:hover{
     color: var(--red-color) !important;
 }
 
+.statstable{
+  background-color: #fff;
+}
+
+.stats-list{
+  list-style-type: none;
+}
+
+.score-margin{
+  margin-top:10px;
+}
+
+.stats-images{
+  margin-right:10px;
+}
+
 .react-calendar-custom-dot {
   position: absolute;
   border-radius: 50%;

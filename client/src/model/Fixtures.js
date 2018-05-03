@@ -43,6 +43,20 @@ class Fixtures {
 		  return groupresults
 		})
 	}
+
+	static getPlayerStats(){
+		var route = '/fixtures/playerstats'
+		return Service.get(route).then(function(playerstats){
+		  return playerstats
+		})
+	}
+
+	static getTeamStats(){
+		var route = '/fixtures/teamstats'
+		return Service.get(route).then(function(teamstats){
+		  return teamstats
+		})
+	}
 }
 
 export default Fixtures

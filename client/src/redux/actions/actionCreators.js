@@ -162,9 +162,11 @@ export function loginAdmin(username, password) {
   return (dispatch, getState) => {
     return Admin.loginAdmin(username, password).then((data) => {
       return dispatch(dispatchLoginAdmin(data))
-    })
+  	})
   }
 }
+
+
 
 export function dispatchLoginAdmin(user) {
   return {
@@ -172,3 +174,34 @@ export function dispatchLoginAdmin(user) {
     user
   }
 }
+
+export function getPlayerStats(){
+  return (dispatch, getState) => {
+    return Fixtures.getPlayerStats().then((data) => {
+      return dispatch(dispatchGetPlayerStats(data))
+    })
+  }
+}
+
+export function dispatchGetPlayerStats(playerstats){
+  return {
+    type: 'GET_PLAYER_STATS',
+    playerstats
+  }
+}
+
+export function getTeamStats(){
+  return (dispatch, getState) => {
+    return Fixtures.getTeamStats().then((data) => {
+      return dispatch(dispatchGetTeamStats(data))
+    })
+  }
+}
+
+export function dispatchGetTeamStats(teamstats){
+  return {
+    type: 'GET_TEAM_STATS',
+    teamstats
+  }
+}
+

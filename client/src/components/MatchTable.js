@@ -57,9 +57,7 @@ class MatchRow extends Component {
       open: false
     };
   }
-
-
-
+  
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
@@ -70,13 +68,13 @@ class MatchRow extends Component {
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={2}>
+        <Col sm={3}>
           <br />
           <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
         </Col>
         <Col sm={2}>
           <a href={link_team1}>
-            <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn1+'.png']} alt={''} width={35} height={25}/>
             <br />
             <div className="ccodetext" >{this.props.fn1}</div>
           </a>
@@ -86,12 +84,12 @@ class MatchRow extends Component {
         </Col>
         <Col sm={2}>
           <a href={link_team2}>
-            <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn2+'.png']} alt={''} width={35} height={25}/>
             <br />
             <div className="ccodetext" >{this.props.fn2}</div>
           </a>
         </Col>
-        <Col sm={3.5}>
+        <Col sm={3}>
           <br />
           {this.props.loc}
         </Col>
