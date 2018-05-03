@@ -1,5 +1,6 @@
 import Fixtures from '../../model/Fixtures'
 import Teams from '../../model/Teams'
+import Admin from '../../model/Admin'
 // ActionCreator which performs actions requested in containers + components
 
 // Method calling the fixtures model to get all matches then dispatch
@@ -154,5 +155,20 @@ export function dispatchGetCountryInfo(countryinfo){
   return {
     type: 'GET_COUNTRY_INFO',
     countryinfo
+  }
+}
+
+export function loginAdmin(username, password) {
+  return (dispatch, getState) => {
+    return Admin.loginAdmin(username, password).then((data) => {
+      return dispatch(dispatchLoginAdmin(data))
+    })
+  }
+}
+
+export function dispatchLoginAdmin(user) {
+  return {
+    type: 'LOGIN_ADMIN',
+    user
   }
 }
