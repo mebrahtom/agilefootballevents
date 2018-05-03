@@ -17,8 +17,6 @@ class Squad extends Component {
     var content = renderPlayers(this.props.squad);
 
 
-    console.log('content', content);
-
     if (content.length === 0){
       content = (
         <div className="no-teams">

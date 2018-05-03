@@ -28,7 +28,6 @@ class TeamPage extends Component {
   }
   render() {
     //const {match:{params}} = this.props;
-    console.log(this.props.countryinfo);
     const abr = this.props.teamAbr ;
     var country = "";
     var country_group = [];
@@ -38,8 +37,6 @@ class TeamPage extends Component {
         country_group.push({groupName:entry.groupName});
       }
     });
-
-    console.log(country_group);
 
     const images = importAll(require.context('../img/headings', false, /\.(png)$/));
     var img_path = images[abr.toUpperCase() + "_heading.png"];
@@ -109,7 +106,7 @@ function renderUpComingGames(matches){
 
   var match_elements = [];
   if(matches != null){
-    match_elements = matches.map((match, index) => <UpcomingSmall match={match}/>);
+    match_elements = matches.map((match, index) => <UpcomingSmall key={index} match={match}/>);
   }
 
     if(match_elements.length === 0 ){
@@ -123,7 +120,7 @@ function renderResults(matches){
 
   var match_elements = [];
   if(matches != null){
-    match_elements = matches.map((match, index) => <ResultSmall match={match}/>);
+    match_elements = matches.map((match, index) => <ResultSmall key={index} match={match}/>);
   }
 
   if(match_elements.length === 0 ){

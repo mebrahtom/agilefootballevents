@@ -48,7 +48,6 @@ CREATE TABLE CountryInformation(
 CREATE TABLE Players(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
-	countryName TEXT NOT NULL,
 	firstname TEXT NOT NULL,
 	surname TEXT NOT NULL,
 	shirtNumber INT NOT NULL,
@@ -59,7 +58,6 @@ CREATE TABLE Players(
 	weight INT,
 	img_id TEXT
 );
-
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL,
@@ -246,20 +244,20 @@ CREATE VIEW MatchUpcomingHelper2 (matchnumber,team2,fullName2, playingDate,playi
 CREATE VIEW MatchUpcomings(matchNumber,groupName, team1,fullName1,terminator,team2,fullName2, playingDate,playingTime, stadium) AS
 	(SELECT *FROM MatchUpcomingHelper1 NATURAL JOIN MatchUpcomingHelper2 ORDER BY matchnumber);
 
-	delimiter //
-	CREATE TRIGGER selfTeam_check_insert_trg
-	BEFORE INSERT ON MatchResults
-	FOR EACH ROW
-	BEGIN
-	    DECLARE msg varchar(255);
-	    IF NEW.team1 = NEW.team2 THEN
-	        SET msg = 'A team can not play againest itself';
-	        SIGNAL SQLSTATE '45000' SET message_text = msg;
-	    END IF;
-	END
-	//
+delimiter //
+CREATE TRIGGER selfTeam_check_insert_trg
+BEFORE INSERT ON MatchResults
+FOR EACH ROW
+BEGIN
+    DECLARE msg varchar(255);
+    IF NEW.team1 = NEW.team2 THEN
+        SET msg = 'A team can not play againest itself';
+        SIGNAL SQLSTATE '45000' SET message_text = msg;
+    END IF;
+END
+//
 
-   DELIMITER //
+DELIMITER //
 CREATE TRIGGER matchFixtures_trriger
 AFTER INSERT ON MatchFixtures FOR EACH ROW
 BEGIN
@@ -267,84 +265,5 @@ IF(EXISTS (SELECT matchNumber FROM MatchFixtures WHERE NEW.matchNumber=matchNumb
 THEN
   INSERT INTO  MatchFixturesBackUp (matchNumber,team1,team2,playingDate,PlayingTime,stadium) select *from MatchFixtures WHERE  NEW.matchNumber=matchNumber;
   END IF;
-END; //
-DELIMITER ;
-
-
-    DELIMITER //
-CREATE TRIGGER matchResult_trriger
-AFTER INSERT ON MatchResults FOR EACH ROW
-BEGIN
-IF(EXISTS (SELECT matchNumber FROM MatchResults WHERE NEW.matchNumber=matchNumber))
-THEN
-  DELETE FROM MatchFixtures WHERE matchNumber=NEW.matchNumber;
-END IF;
-END; //
-DELIMITER ;
-
-  DELIMITER //
-CREATE TRIGGER tr_Round16_QuarterFinals_SemiFinals_ThirdPlaceAnd_Final_Games
-AFTER INSERT ON MatchResults FOR EACH ROW
-BEGIN
-IF EXISTS(select matchNumber from MatchFixturesBackUp where matchNumber IN (SELECT matchNumber FROM MatchResults WHERE matchnumber=48 AND matchNumber= NEW.matchNumber))
-THEN
-BEGIN
-	 INSERT INTO MatchFixtures VALUES(49, (select team FROM QualifiedToRound16 where groupName='C' AND position=1),
-	 (select team FROM QualifiedToRound16 where groupName='D' AND position=2),'June 30','15:00','Kazan');
-
-	 INSERT INTO MatchFixtures VALUES(50, (select team FROM QualifiedToRound16 where groupName='A' AND position=1),
-	 (select team FROM QualifiedToRound16 where groupName='B' AND position=2),'June 30','19:00','Sochi');
-
-	 INSERT INTO MatchFixtures VALUES(51, (select team FROM QualifiedToRound16 where groupName='B' AND position=1),
-	 (select team FROM QualifiedToRound16 where groupName='A' AND position=2),'Jul 01','15:00','Moscow');
-
-	INSERT INTO MatchFixtures VALUES(52, (select team FROM QualifiedToRound16 where groupName='D' AND position=1),
-		 (select team FROM QualifiedToRound16 where groupName='C' AND position=2),'Jul 01','19:00','Nizhny Novgorod');
-
-	INSERT INTO MatchFixtures VALUES(53, (select team FROM QualifiedToRound16 where groupName='E' AND position=1),
-		 (select team FROM QualifiedToRound16 where groupName='F' AND position=2),'Jul 02','15:00','Samara');
-
-	INSERT INTO MatchFixtures VALUES(54, (select team FROM QualifiedToRound16 where groupName='G' AND position=1),
-		 (select team FROM QualifiedToRound16 where groupName='H' AND position=2),'Jul 02','19:00','Rostov-on-Don');
-
-	INSERT INTO MatchFixtures VALUES(55, (select team FROM QualifiedToRound16 where groupName='F' AND position=1),
-		 (select team FROM QualifiedToRound16 where groupName='E' AND position=2),'Jul 03','15:00','Saint Petersburg');
-
-	INSERT INTO MatchFixtures VALUES(56, (select team FROM QualifiedToRound16 where groupName='H' AND position=1),
-		 (select team FROM QualifiedToRound16 where groupName='G' AND position=2),'Jul 03','19:00','Moscow ');
- END;
-END IF;
-END; //
-DELIMITER ;
-
-
-DELIMITER //
-CREATE TRIGGER tr_Qualified_Quarter_Final
-AFTER INSERT ON MatchResults FOR EACH ROW
-BEGIN
-IF EXISTS( SELECT team FROM  QualifiedQuarterFinal WHERE matchnumber=62)
-THEN
-BEGIN
- INSERT INTO MatchFixtures VALUES(57, (select team FROM QualifiedQuarterFinal WHERE matchNumber=49),(select team FROM QualifiedQuarterFinal
-	WHERE  matchNumber=50),'Jul 06','15:00','Nizhny Novgorod');
-INSERT INTO MatchFixtures VALUES(58, (select team FROM QualifiedQuarterFinal WHERE matchNumber=53),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=54),'Jul 06','19:00','Kazan');
-INSERT INTO MatchFixtures VALUES(59, (select team FROM QualifiedQuarterFinal WHERE matchNumber=51),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=52),'Jul 07','19:00','Sochi');
-INSERT INTO MatchFixtures VALUES(60, (select team FROM QualifiedQuarterFinal WHERE matchNumber=55),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=56),'Jul 07','15:00','Samara');
-
-INSERT INTO MatchFixtures VALUES(61, (select team FROM QualifiedQuarterFinal WHERE matchNumber=57),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=58),'Jul 10','19:00','Saint Petersburg');
-INSERT INTO MatchFixtures VALUES(62, (select team FROM QualifiedQuarterFinal WHERE matchNumber=59),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=60),'Jul 10','19:00','Moscow');
-
-INSERT INTO MatchFixtures VALUES(63, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=62),'Jul 14','15:00','Saint Petersburg');
-
-INSERT INTO MatchFixtures VALUES(64, (select team FROM QualifiedQuarterFinal WHERE matchNumber=61),(select team FROM QualifiedQuarterFinal
-		 WHERE  matchNumber=62),'Jul 15','16:00','Moscow');
-END;
-END IF;
 END; //
 DELIMITER ;

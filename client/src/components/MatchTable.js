@@ -4,6 +4,7 @@ import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {importAll} from '../HelperFunctions.js'
+import Moment from 'react-moment';
 
 class MatchTable extends Component{
 
@@ -33,13 +34,13 @@ function renderMatchRows(upcomingmatches){
   for(var i = 0; i < upcomingmatches.length; i++ ){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<MatchRow key ={i}
-      date={upcomingmatches[i].playingDate}
-      time={upcomingmatches[i].playingTime}
+      date={upcomingmatches[i].playingDate + ' ' + upcomingmatches[i].playingTime}
+      t={upcomingmatches[i].terminator}
       t1={upcomingmatches[i].team1}
       t2={upcomingmatches[i].team2}
-      loc={upcomingmatches[i].stadium}
-      abr1={upcomingmatches[i].abbreviation1}
-      abr2={upcomingmatches[i].abbreviation2}/>);
+      fn1={upcomingmatches[i].fullName1}
+      fn2={upcomingmatches[i].fullName2}
+      loc={upcomingmatches[i].stadium}/>);
   }
 
   return matches;
@@ -61,33 +62,34 @@ class MatchRow extends Component {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
-    const link_team1 = "/team/" + this.props.abr1;
-    const link_team2 = "/team/" + this.props.abr2;
+    const link_team1 = "/team/" + this.props.t1;
+    const link_team2 = "/team/" + this.props.t2;
 
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
-        <Col sm={4}>
+        <Col sm={3}>
           <br />
-          {this.props.date}
-          <br />
-          {this.props.time}
+          <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
         </Col>
         <Col sm={2}>
           <a href={link_team1}>
-            <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn1+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t1}</div>
+            <div className="ccodetext" >{this.props.fn1}</div>
           </a>
         </Col>
         <Col sm={2}>
+          {this.props.t}
+        </Col>
+        <Col sm={2}>
           <a href={link_team2}>
-            <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn2+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t2}</div>
+            <div className="ccodetext" >{this.props.fn2}</div>
           </a>
         </Col>
-        <Col sm={4}>
+        <Col sm={3}>
           <br />
           {this.props.loc}
         </Col>

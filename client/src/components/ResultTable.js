@@ -4,6 +4,7 @@ import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {importAll} from '../HelperFunctions.js'
+import Moment from 'react-moment';
 
 class ResultTable extends Component{
 
@@ -31,20 +32,18 @@ function renderMatchRows(resultmatches){
   for(var i = 0; i < resultmatches.length; i++ ){
   /* Push the data from database to the MatchRow and create rows*/
     matches.push(<ResultRow key ={i}
-      date={resultmatches[i].playingDate}
+      date={resultmatches[i].playingDate + ' ' + resultmatches[i].playingTime}
       t1={resultmatches[i].team1}
       t2={resultmatches[i].team2}
+      fn1={resultmatches[i].fullName1}
+      fn2={resultmatches[i].fullName2}
       result1={resultmatches[i].goals1}
       result2={resultmatches[i].goals2}
-      stadium={resultmatches[i].stadium}
-      abr1={resultmatches[i].abbreviation1}
-      abr2={resultmatches[i].abbreviation2}/>);
+      loc={resultmatches[i].stadium}/>);
   }
 
   return matches;
 }
-
-
 class ResultRow extends Component {
   constructor(props, context) {
     super(props, context);
@@ -57,21 +56,21 @@ class ResultRow extends Component {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 
-    const link_team1 = "/team/" + this.props.abr1;
-    const link_team2 = "/team/" + this.props.abr2;
+    const link_team1 = "/team/" + this.props.t1;
+    const link_team2 = "/team/" + this.props.t2;
 
     return (
 
       <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
         <Col sm={3}>
-          <br />
-          {this.props.date}
+          <br/>
+          <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
         </Col>
         <Col sm={2}>
           <a href={link_team1}>
-            <img src={images[this.props.t1+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn1+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t1}</div>
+            <div className="ccodetext" >{this.props.fn1}</div>
           </a>
         </Col>
         <Col sm={2}>
@@ -80,14 +79,14 @@ class ResultRow extends Component {
         </Col>
         <Col sm={2}>
           <a href={link_team2}>
-            <img src={images[this.props.t2+'.png']} alt={''} width={35} height={25}/>
+            <img src={images[this.props.fn2+'.png']} alt={''} width={35} height={25}/>
             <br />
-            <div className="ccodetext" >{this.props.t2}</div>
+            <div className="ccodetext" >{this.props.fn2}</div>
           </a>
         </Col>
         <Col sm={3}>
           <br />
-          {this.props.stadium}
+          {this.props.loc}
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open}>

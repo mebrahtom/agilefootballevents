@@ -16,11 +16,12 @@
 }
 
 .homepage-background {
-  max-width: 100%;
+  max-width: 100%
 }
 
 .homepage-container {
-  margin-top: -20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .custom-container{
@@ -175,18 +176,18 @@
 }
 
 .formUpdate {
-  box-shadow: 1px 1px 25px rgba(0,0,0,0.35);
+  box-shadow: 1px 1px 25px rgba(10,25,0,0.35);
   border-radius: 5px;
-  border: 6px solid rgb(178, 194, 204);
+  border: 4px solid rgb(178, 194, 204);
 
-  padding: 2em;
-  margin: 3em 10vw auto;
-  width: 80%;
-  text-align: center;
+  margin: auto;
+      width: 60%;
+      padding: 10px;
 }
 
 .horizontalTeam{
   display: block;
+    font-size: 16px;
 }
 
 .result-small-container{
@@ -204,7 +205,37 @@
 .info-heading{
   font-weight: bold;
   font-size: 16px;
+}
 
+
+
+
+
+/* Start calendar custom */
+
+.react-calendar {
+    border: 0px solid #fff !important;
+    border-radius: 10px;
+    line-height: 1.125em;
+}
+
+.react-calendar__tile--active {
+    background: #fff !important;
+    /*border: 1px solid #cecece !important;*/
+    border-radius: 10px;
+    color: var(--breeze-blue-color) !important;
+    text-decoration: underline ;
+    font-weight: bold;
+}
+
+button.react-calendar__tile:enabled:hover{
+  background: #fff !important;
+  text-decoration: underline ;
+
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: var(--red-color) !important;
 }
 
 .statstable{
@@ -222,3 +253,13 @@
 .stats-images{
   margin-right:10px;
 }
+
+.react-calendar-custom-dot {
+  position: absolute;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+  background-color: var(--breeze-blue-color);
+}
+
+/* End Calendar custom*/
