@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ExploreMap from '../components/Map.js';
-import {Button, Row, Grid, FormGroup, Checkbox, ControlLabel, Col, FormControl, ButtonGroup} from 'react-bootstrap';
+import {Button, Row, Grid, Col, FormControl, ButtonGroup} from 'react-bootstrap';
 import {importAll} from '../HelperFunctions.js'
+import * as actionCreators from '../redux/actions/actionCreators'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 class ExplorePage extends Component {
   constructor(props) {
@@ -10,10 +13,17 @@ class ExplorePage extends Component {
       mapType: ''
     }
   }
+
+  componentDidMount() {
+    this.props.getLocations()
+  }
+
   filterMap(type) {
     this.setState({ mapType: type })
   }
+
   render() {
+    console.log(this.state.mapType)
     const images = importAll(require.context('../img/icons', false, /\.(png)$/));
     return (
       <Grid fluid >
@@ -27,15 +37,15 @@ class ExplorePage extends Component {
             <Row bsClass="mapRow">
             <h4>Show Me:</h4>
             <ButtonGroup block vertical>
-            <Button onClick={() => this.filterMap('Arenas')}><img alt="Stadium" src={images["football.png"]} width={20} height={20} /> Stadiums</Button>
-            <Button onClick={() => this.filterMap('Cafes')}><img alt="Cafes" src={images["cafe.png"]} width={20} height={20}/> Cafes &amp; Bars</Button>
-            <Button onClick={() => this.filterMap('Restaurants')}><img alt="Restaurants" src={images["restaurant.png"]} width={20} height={20}/> Restaurants</Button>
-            <Button onClick={() => this.filterMap('Attractions')}><img alt="Attractions" src={images["attractions.png"]} width={20} height={20}/> Attractions </Button>
+            <Button onClick={() => this.filterMap('Arena')}><img alt="Stadium" src={images["football.png"]} width={20} height={20} /> Stadiums</Button>
+            <Button onClick={() => this.filterMap('Cafe')}><img alt="Cafes" src={images["cafe.png"]} width={20} height={20}/> Cafes &amp; Bars</Button>
+            <Button onClick={() => this.filterMap('Restaurant')}><img alt="Restaurants" src={images["restaurant.png"]} width={20} height={20}/> Restaurants</Button>
+            <Button onClick={() => this.filterMap('Attraction')}><img alt="Attractions" src={images["attractions.png"]} width={20} height={20}/> Attractions </Button>
             </ButtonGroup>
             </Row>
           <Row bsClass="mapRow">
             <h4>Information:</h4>
-            {markerInfo()}
+            {markerInfo(this.props.locations, this.state.mapType)}
             </Row>
         </Col>
       </Grid>
@@ -43,20 +53,24 @@ class ExplorePage extends Component {
   }
 }
 
-function markerInfo() {
+function markerInfo(locations, type) {
   var info = [];
-  for (var i = 1; i < 5; i++){
-    info.push(
-      <Row bsClass="infoBox"> Marker {i} </Row>);
-  }
+  locations.forEach(element => {
+    if (element.locationType === type) {
+      info.push( <Row bsClass="infoBox"> {element.locationName} </Row> )
+    }
+  })
   return info;
 }
 
-
-
-function renderMap(){
-
-  
+function mapStateToProps(state) {
+  return {
+    locations: state.locations
+  }
 }
 
-export default ExplorePage;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExplorePage)

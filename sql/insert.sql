@@ -138,23 +138,21 @@ INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('ARG',
 
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('AUS', 39, 'The Australia national soccer team nicknamed the Socceroos has represented Australia at the FIFA World Cup on four occasions: in 1974, 2006, 2010, 2014 and will represent Australia in the 2018 World Cup. In Australias first appearance representing OFC a team made up entirely of amateurs secured a scoreless draw against Chile though eventually departed from the 1974 tournament without a goal to show from their inaugural appearance. Australia made up for lost time at Germany 2006 and qualified for the Round of 16 before narrowly falling to eventual champions Italy.The German theme continued at South Africa 2010 although this time Australia now representing the AFC suffered a 4-0 loss against the European giants in a scoreline which ultimately scuppered their progress.A ten-man 1–1 draw against Ghana and a 2–1 win against Serbia saw Australia eliminated on goal difference three goals off the Africans.');
 
-INSERT INTO Arenas(locationName, latitude, longitude) VALUES ('Ullevi', 57.7059, 11.9873);	
-INSERT INTO Arenas(locationName, latitude, longitude) VALUES ('Gamla Ullevi', 57.7063, 11.9801);	
-INSERT INTO Arenas(locationName, latitude, longitude) VALUES ('Bravida Arena', 57.7192, 11.9305);	
-INSERT INTO Arenas(locationName, latitude, longitude) VALUES ('Valhalla IP', 57.7000, 11.9896);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Ullevi', 'Arena', 57.7059, 11.9873);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Gamla Ullevi', 'Arena', 57.7063, 11.9801);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Bravida Arena', 'Arena', 57.7192, 11.9305);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Valhalla IP', 'Arena', 57.7000, 11.9896);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('SeaCup Cafe', 'Cafe', 57.701911, 11.920242);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Cafe Biscotti', 'Cafe', 57.696201, 11.92845);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Kafe Vanilj', 'Cafe', 57.705144, 11.966963);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Café Kultur', 'Cafe', 57.69825, 11.93502);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Café Alchemist', 'Cafe', 57.7222301, 11.94501);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Liseberg', 'Attraction', 57.6962415, 11.990024199999993);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Universeum', 'Attraction', 57.69553519999999, 11.989406300000041);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 'Attraction', 57.6898601, 11.94924560000004);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Max', 'Restaurant', 57.706676, 11.979361);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Hard Rock Cafe', 'Restaurant', 57.701381, 11.974537);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ("Cuckoo's Nest", 'Restaurant', 57.707531, 11.940699);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('View Skybar & Restaurant', 'Restaurant', 57.70378, 11.956527);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Thörnströms KökMax', 'Restaurant', 57.694099, 11.977736);
 
-INSERT INTO Cafes(locationName, latitude, longitude) VALUES ('SeaCup Cafe', 57.701911, 11.920242);	
-INSERT INTO Cafes(locationName, latitude, longitude) VALUES ('Cafe Biscotti', 57.696201, 11.92845);	
-INSERT INTO Cafes(locationName, latitude, longitude) VALUES ('Kafe Vanilj', 57.705144, 11.966963);	
-INSERT INTO Cafes(locationName, latitude, longitude) VALUES ('Café Kultur', 57.69825, 11.93502);	
-INSERT INTO Cafes(locationName, latitude, longitude) VALUES ('Café Alchemist', 57.7222301, 11.94501);	
-
-INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Liseberg', 57.6962415, 11.990024199999993);
-INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Universeum', 57.69553519999999, 11.989406300000041);
-INSERT INTO Attractions(locationName, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 57.6898601, 11.94924560000004);
-
-INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Max', 57.706676, 11.979361);
-INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Hard Rock Cafe', 57.701381, 11.974537);
-INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ("Cuckoo's Nest", 57.707531, 11.940699);
-INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('View Skybar & Restaurant', 57.70378, 11.956527);
-INSERT INTO Restaurants(locationName, latitude, longitude) VALUES ('Thörnströms KökMax', 57.694099, 11.977736);

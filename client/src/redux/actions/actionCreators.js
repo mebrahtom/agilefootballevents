@@ -158,18 +158,18 @@ export function dispatchGetCountryInfo(countryinfo){
   }
 }
 
-export function getLocation(type) {
+export function getLocations() {
   return (dispatch, getState) => {
-    return Locations.getLocation(type).then((data) => {
-      return dispatch(dispatchGetLocation(data))
+    return Locations.getLocations().then((data) => {
+      return dispatch(dispatchGetLocations(data))
     })
   }
 }
 
-export function dispatchGetLocation(location) {
+export function dispatchGetLocations(locations) {
   return {
-    type: 'GET_LOCATION',
-    location
+    type: 'GET_LOCATIONS',
+    locations
   }
 }
 

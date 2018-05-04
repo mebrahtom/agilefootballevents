@@ -2,46 +2,42 @@ import React, { PureComponent } from 'react';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { compose, withProps } from "recompose"
+import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 
 class ExploreMap extends PureComponent {
   
-  constructor(props) {
+  /*constructor(props) {
     super(props)
     this.state = {
       isMarkerShown: true
     }
-  }
+  }*/
 
-  renderMarkers(mapType) {
-    var locations = []
-    console.log(this.props.mapType)
-    if (mapType.length > 0) {
-      this.props.getLocation(mapType).then((data) => {})
-    }
-    locations = this.props.location
-    console.log(locations)
+  renderMarkers(locations) {
     var markers = []
-    if (locations.length > 1) {
-      locations.forEach(element => {
+    locations.forEach(element => {
+      if (element.locationType === this.props.mapType) {
         markers.push(
-          <Marker position={{ lat: element.latitude, lng: element.longitude }} onClick={this.props.onMarkerClick}>
+          <Marker position={{ lat: element.latitude, lng: element.longitude }} 
+                  onClick={this.props.onToggleOpen}>
             <InfoWindow onCloseClick={this.props.onToggleOpen}>
-              <h3> {element.locationName} </h3>
+              <div>{element.locationName}</div>
             </InfoWindow>
           </Marker>
         )
-      });
-      return markers
-    } 
+      }
+    });
+    return markers 
   }
+  
 
   componentDidMount() {
-    this.delayedShowMarker()
+    //this.delayedShowMarker()
+    this.props.getLocations()
   }
 
-  delayedShowMarker = () => {
+  /*delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
     }, 3000)
@@ -50,10 +46,9 @@ class ExploreMap extends PureComponent {
   handleMarkerClick = () => {
     this.setState({ isMarkerShown: false })
     this.delayedShowMarker()
-  }
+  }*/
 
   render() {
-    console.log(this.state.mapType)
     const Map = compose(
       withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
@@ -61,20 +56,27 @@ class ExploreMap extends PureComponent {
         containerElement: <div style={{ height: `550px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
       }),
+      withStateHandlers(() => ({
+        isOpen: false,
+      }), {
+        onToggleOpen: ({ isOpen }) => () => ({
+          isOpen: !isOpen,
+        })
+      }),
       withScriptjs,
       withGoogleMap
-    )((props) =>
+    )(props =>
       <GoogleMap
         defaultZoom={13}
         defaultCenter={{ lat: 57.6959, lng: 11.9873 }} 
       >
-        {this.renderMarkers(this.props.mapType)}
+        {this.renderMarkers(this.props.locations)}
       </GoogleMap>
     )
     return (
       <Map
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick}
+        //isMarkerShown={this.state.isMarkerShown}
+        //onMarkerClick={this.handleMarkerClick}
       />
     )
   }
@@ -82,7 +84,7 @@ class ExploreMap extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    location: state.location
+    locations: state.locations
   }
 }
 
