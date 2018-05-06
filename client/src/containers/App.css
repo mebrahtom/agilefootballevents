@@ -179,15 +179,35 @@
   box-shadow: 1px 1px 25px rgba(10,25,0,0.35);
   border-radius: 5px;
   border: 4px solid rgb(178, 194, 204);
-
   margin: auto;
-      width: 60%;
-      padding: 10px;
+  width: 75%;
+  padding: 10px;
+}
+
+.formInfo{
+  box-shadow: 1px 1px 25px rgba(10,25,0,0.35);
+  border-radius: 5px;
+  border: 4px solid rgb(178, 194, 204);
+  margin: auto;
+  width: 100%;
+}
+
+.upcomingInfo{
+  text-align: center;
+  padding-bottom: 1.5vh;
+  margin-bottom: 1.8vh;
+}
+
+.updateHeader{
+  padding-bottom: 20px;
 }
 
 .horizontalTeam{
-  display: block;
-    font-size: 16px;
+  font-size: 16px;
+  text-align: center;
+  margin: auto;
+  padding-left: 20%;
+  max-width: 80%;
 }
 
 .mapRow{

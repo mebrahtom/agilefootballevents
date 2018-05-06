@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Form, FormGroup, FormControl, Button, Col, ControlLabel } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Button, Col, ControlLabel, Row } from 'react-bootstrap'
 class InsertResult extends Component{
   /* Fetching database information through actionCreators.js */
   componentDidMount() {
@@ -13,7 +13,7 @@ class InsertResult extends Component{
   render(){
     const gmatches = renderMatchRows(this.props.upcomingmatches);
     return(
-      <div className="match-container">
+      <div className='container'>
         {gmatches}
       </div>
     );
@@ -74,71 +74,58 @@ class MatchRow extends Component {
           });
 
         return (
-
-          <div name = "resultForm">
+        <div>
+          <Col align='center' xs={12} md={12} lg={12}> <h1 className='updateHeader'> Update Results </h1> </Col>
+          <Col  xs={9} md={9} lg={9}>
             <Form horizontal className="formUpdate">
-                  <FormGroup controlId="formHorizontalTeam">
-                        <h1  align= 'center'>  Upcoming Match Number is: {this.props.matchnum} </h1>
-                      <Col componentClass={ControlLabel} sm={2}>
-                          Match Number
-                      </Col>
-                      <Col sm={2}>
-                          <FormControl type="number" placeholder="matchNumber" value={this.state.matchNumbe} onChange={e=>this.setState({matchNumber:e.target.value})} min={this.props.matchnum}/>
-
-                      </Col>
-                  </FormGroup>
-                    <FormGroup controlId="formHorizontalTeam" align='center'>
-                      <h1 align= 'center'>  Upcoming team1 is: {this.props.t1} </h1>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Team1
-                        </Col>
-                        <Col sm={2}>
-                            <FormControl type="text" placeholder="Team1"   defaultValue = {this.state.t1} onChange={e=>this.setState({team1:e.target.value})}/>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup controlId="horizontalTeam">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Goals1
-                        </Col>
-                        <Col sm={2}>
-                            <FormControl type="number" placeholder="Goals1" value={this.state.goals1} onChange={e=>this.setState({goals1:e.target.value})} min="0" />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup controlId="horizontalTeam">
-                      <h1 align= 'center'>  Upcoming team2 is: {this.props.t2} </h1>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Team2
-                        </Col>
-                        <Col sm={2}>
-                            <FormControl type="text" placeholder="Team2" value={this.state.team2} onChange={e=>this.setState({team2:e.target.value})}  min="0"/>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup controlId="horizontalTeam">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            goals2
-                        </Col>
-                        <Col sm={2}>
-                            <FormControl type="number" placeholder="Goals2" value={this.state.goals2} onChange={e=>this.setState({goals2:e.target.value})} min='0'/>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup controlId="horizontalTeam">
-                      <h1 align= 'center' color='red'>  Upcoming group is: {this.props.g} </h1>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Group
-                        </Col>
-                        <Col sm={1}>
+                <FormGroup className="horizontalTeam" align='center'>
+                    <ControlLabel> Team 1 </ControlLabel>
+                    <FormControl type="text" placeholder="Team Abbreviation"   defaultValue = {this.state.t1} onChange={e=>this.setState({team1:e.target.value})}/>
+                    <FormControl type="number" placeholder="Goals" value={this.state.goals1} onChange={e=>this.setState({goals1:e.target.value})} min="0" />
+                </FormGroup>
+                <FormGroup className="horizontalTeam" align='center'>
+                    <ControlLabel>Team 2</ControlLabel>
+                    <FormControl type="text" placeholder="Team Abbreviation" value={this.state.team2} onChange={e=>this.setState({team2:e.target.value})}  min="0"/>
+                    <FormControl type="number" placeholder="Goals" value={this.state.goals2} onChange={e=>this.setState({goals2:e.target.value})} min='0'/>
+                </FormGroup>
+                    <FormGroup className="horizontalTeam" align='center'>
+                        <ControlLabel>Group</ControlLabel>
+                        <br></br>
                         <select ref="group" placeholder="group" value= {this.state.groupName} onChange={e=>this.setState({groupName:e.target.value})}>
-                              {groupOption}
-                            </select><br/>
-                        </Col>
+                            {groupOption}
+                        </select>
                     </FormGroup>
-                    <FormGroup>
-                        <Col smOffset={2} sm={2}>
-                            <Button type="submit" id="submit" onClick={()=>this.Insert()}> Save</Button>
-                        </Col>
+                    <FormGroup className="horizontalTeam">
+                        <FormControl type="number" placeholder="Match Number" value={this.state.matchNumbe} onChange={e=>this.setState({matchNumber:e.target.value})} min={this.props.matchnum}/>
                     </FormGroup>
+                    <FormGroup className="horizontalTeam" align='center'>
+                        <Button type="submit" id="submit" onClick={()=>this.Insert()}> Save</Button>
+                    </FormGroup>
+
                 </Form>
-            </div>
+            </Col>
+            <Col className="formInfo" xs={3} md={3} lg={3}>
+                <Row className='upcomingInfo'>
+                    <h2> Next Fixture </h2>
+                </Row>
+                <Row className='upcomingInfo'>
+                    <h4>  Match Number</h4>    
+                    {this.props.matchnum}
+                </Row>        
+                <Row className='upcomingInfo'>
+                    <h4>  Team 1 </h4> 
+                    {this.props.t1}
+                </Row> 
+                <Row className='upcomingInfo'>          
+                    <h4>  Team 2</h4>   
+                    {this.props.t2} 
+                </Row>      
+                <Row className='upcomingInfo'>   
+                    <h4>  Group </h4>
+                    {this.props.g}
+                </Row>
+            </Col>
+        </div>
         );
     }
 }
