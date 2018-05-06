@@ -179,29 +179,25 @@ INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('SPA',
 
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('ARG', 4, 'Argentina is one of the most successful national football teams in the world having won 2 World Cups in 1978 and 1986. Argentina has been runners up three times in the 1930 1990 and 2014. The team was present in all but four of the World Cups being behind only Brazil Italy and Germany in number of appearances. Argentina has also won the Copa América 14 times one less than Uruguay. Moreover Argentina has also won the Confederations Cup and the gold medal at the Olympic football tournament in 2004 and 2008. Prior to that occasion Argentina had obtained two silver medals in the 1928 and 1996 editions. On other levels of international competition Argentina has won the FIFA U-20 World Cup a record six times. The FIFA U-17 World Cup is the only FIFA international competition yet to be obtained.');
 
-
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('AUS', 39, 'The Australia national soccer team nicknamed the Socceroos has represented Australia at the FIFA World Cup on four occasions: in 1974, 2006, 2010, 2014 and will represent Australia in the 2018 World Cup. In Australias first appearance representing OFC a team made up entirely of amateurs secured a scoreless draw against Chile though eventually departed from the 1974 tournament without a goal to show from their inaugural appearance. Australia made up for lost time at Germany 2006 and qualified for the Round of 16 before narrowly falling to eventual champions Italy.The German theme continued at South Africa 2010 although this time Australia now representing the AFC suffered a 4-0 loss against the European giants in a scoreline which ultimately scuppered their progress.A ten-man 1–1 draw against Ghana and a 2–1 win against Serbia saw Australia eliminated on goal difference three goals off the Africans.');
-
 
 INSERT INTO CountryInformation (abbreviation, worldrank, history) VALUES ('BRA', 2, 'Brazil is the most successful national team in the history of the World Cup having won five titles earning second-place third-place and fourth-place finishes twice each. Brazil is one of the countries besides Argentina Spain and Germany to win a FIFA World Cup away from its continent (Sweden 1958 Mexico 1970 USA 1994 and South Korea/Japan 2002). Brazil is the only national team to have played in all FIFA World Cup editions without any absence or need for playoffs. Brazil also has the best overall performance in World Cup history in both proportional and absolute terms with a record of 70 victories in 104 matches played 119 goal difference 227 points and only 17 losses. Traditionally Brazils greatest rival is Argentina. The two countries have met each other four times in the history of the FIFA World Cup with two wins for Brazil (West Germany 1974 and Spain 1982) one for Argentina (Italy 1990) and a draw (Argentina 1978). The country that played most against Brazil in the finals is Sweden: 7 times with five wins for Brazil and two draws. Three other historical rivals are Italy which lost two World Cup finals against Brazil and eliminated the Brazilians in two tournaments (France 1938 and Spain 1982) France which has eliminated Brazil on three occasions (Mexico 1986 France, 1998 and Germany 2006) and the Netherlands which has eliminated Brazil at two of their five meetings (West Germany 1974 and South Africa 2010) and won the third place match in Brazil 2014.');
 
-INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Ullevi', 57.7059, 11.9873);
-INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Gamla Ullevi', 57.7063, 11.9801);
-INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Bravida Arena', 57.7192, 11.9305);
-INSERT INTO Arenas(arena, latitude, longitude) VALUES ('Valhalla IP', 57.7000, 11.9896);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Ullevi', 'Arena', 57.7059, 11.9873);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Gamla Ullevi', 'Arena', 57.7063, 11.9801);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Bravida Arena', 'Arena', 57.7192, 11.9305);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Valhalla IP', 'Arena', 57.7000, 11.9896);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('SeaCup Cafe', 'Cafe', 57.701911, 11.920242);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Cafe Biscotti', 'Cafe', 57.696201, 11.92845);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Kafe Vanilj', 'Cafe', 57.705144, 11.966963);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Café Kultur', 'Cafe', 57.69825, 11.93502);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Café Alchemist', 'Cafe', 57.7222301, 11.94501);	
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Liseberg', 'Attraction', 57.6962415, 11.990024199999993);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Universeum', 'Attraction', 57.69553519999999, 11.989406300000041);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 'Attraction', 57.6898601, 11.94924560000004);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Max', 'Restaurant', 57.706676, 11.979361);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Hard Rock Cafe', 'Restaurant', 57.701381, 11.974537);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ("Cuckoo's Nest", 'Restaurant', 57.707531, 11.940699);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('View Skybar & Restaurant', 'Restaurant', 57.70378, 11.956527);
+INSERT INTO Locations(locationName, locationType, latitude, longitude) VALUES ('Thörnströms KökMax', 'Restaurant', 57.694099, 11.977736);
 
-INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('SeaCup Cafe', 57.701911, 11.920242);
-INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Cafe Biscotti', 57.696201, 11.92845);
-INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Kafe Vanilj', 57.705144, 11.966963);
-INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Kultur', 57.69825, 11.93502);
-INSERT INTO Cafes(cafe, latitude, longitude) VALUES ('Café Alchemist', 57.7222301, 11.94501);
-
-INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.6962415, 11.990024199999993);
-INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Liserberg', 57.69553519999999, 11.989406300000041);
-INSERT INTO Attractions(attraction, latitude, longitude) VALUES ('Gothenburg Museum of Natural History', 57.6898601, 11.94924560000004);
-
-INSERT INTO Restaurants (restaurant, latitude, longitude) VALUES ('Max', 57.706676, 11.979361);
-INSERT INTO Restaurants (restaurant, latitude, longitude) VALUES ('Hard Rock Cafe', 57.701381, 11.974537);
-INSERT INTO Restaurants (restaurant, latitude, longitude) VALUES ("Cuckoo's Nest", 57.707531, 11.940699);
-INSERT INTO Restaurants (restaurant, latitude, longitude) VALUES ('View Skybar & Restaurant', 57.70378, 11.956527);
-INSERT INTO Restaurants (restaurant, latitude, longitude) VALUES ('Thörnströms KökMax', 57.694099, 11.977736);

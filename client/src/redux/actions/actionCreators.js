@@ -1,6 +1,7 @@
 import Fixtures from '../../model/Fixtures'
 import Teams from '../../model/Teams'
 import Admin from '../../model/Admin'
+import Locations from '../../model/Locations'
 // ActionCreator which performs actions requested in containers + components
 
 // Method calling the fixtures model to get all matches then dispatch
@@ -166,8 +167,6 @@ export function loginAdmin(username, password) {
   }
 }
 
-
-
 export function dispatchLoginAdmin(user) {
   return {
     type: 'LOGIN_ADMIN',
@@ -179,6 +178,14 @@ export function getPlayerStats(){
   return (dispatch, getState) => {
     return Fixtures.getPlayerStats().then((data) => {
       return dispatch(dispatchGetPlayerStats(data))
+    })
+  }
+}
+
+export function getLocations() {
+  return (dispatch, getState) => {
+    return Locations.getLocations().then((data) => {
+      return dispatch(dispatchGetLocations(data))
     })
   }
 }
@@ -198,6 +205,21 @@ export function getTeamStats(){
   }
 }
 
+export function dispatchGetLocations(locations) {
+  return {
+    type: 'GET_LOCATIONS',
+    locations
+  }
+}
+
+export function getTableSize(type) {
+  return (dispatch, getState) => {
+    return Locations.getTableSize(type).then((data) => {
+      return dispatch(dispatchGetTableSize(data))
+    })
+  }
+}
+
 export function dispatchGetTeamStats(teamstats){
   return {
     type: 'GET_TEAM_STATS',
@@ -205,3 +227,9 @@ export function dispatchGetTeamStats(teamstats){
   }
 }
 
+export function dispatchGetTableSize(tablesize) {
+  return {
+    type: 'GET_TABLE_SIZE',
+    tablesize
+  }
+}

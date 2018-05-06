@@ -18,7 +18,9 @@ const defaultState = {
   countryinfo:[{abrevation:"", worldrank:0, history:""}],
   admin: '',
   teamstats: [{abbreviation: "", countryName: "", goals: 0}],
-  playerstats: [{id: 0, country: "", countryName: "", firstname: "", surname: "", goals: 0, img_id: ""}]
+  playerstats: [{id: 0, country: "", countryName: "", firstname: "", surname: "", goals: 0, img_id: ""}],
+  locations:[{id: 0, locationName:"", locationType:"", latitude:10, longitude:10}],
+  tablesize:[{COUNT: 0}]
 }
 
 const store = createStore(

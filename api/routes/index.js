@@ -197,4 +197,23 @@ router.get('/fixtures/playerstats', function(req, res, next) {
   })
 })
 
+router.get('/locations', function(req, res, next) {
+  //const id = req.params.id
+  const type = req.params.type
+  var sql = 'SELECT * FROM Locations'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
+router.get('/tablesize/:type', function(req, res, next) {
+  const type = req.params.type
+  var sql = 'SELECT COUNT(id) as COUNT FROM ' + type
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 module.exports = router
