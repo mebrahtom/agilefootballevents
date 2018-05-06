@@ -14,20 +14,32 @@ class ExploreMap extends PureComponent {
     }
   }*/
 
-  renderMarkers(locations) {
+  renderMarkers(locations) {  
     var markers = []
-    locations.forEach(element => {
-      if (element.locationType === this.props.mapType) {
-        markers.push(
-          <Marker position={{ lat: element.latitude, lng: element.longitude }} 
-                  onClick={this.props.onToggleOpen}>
-            <InfoWindow onCloseClick={this.props.onToggleOpen}>
-              <div>{element.locationName}</div>
-            </InfoWindow>
-          </Marker>
-        )
-      }
-    });
+    if (this.props.whatToRender === 0) {
+      locations.forEach(element => {
+        if (element.locationType === this.props.mapType) {
+          markers.push(
+            <Marker position={{ lat: element.latitude, lng: element.longitude }} 
+                    onClick={this.props.onToggleOpen}>
+              <InfoWindow onCloseClick={this.props.onToggleOpen}>
+                <div>{element.locationName}</div>
+              </InfoWindow>
+            </Marker>
+          )
+        }
+      });
+    }
+    else {
+      markers.push(
+        <Marker position={{ lat: this.props.locLat, lng: this.props.locLng }} 
+                onClick={this.props.onToggleOpen}>
+          <InfoWindow onCloseClick={this.props.onToggleOpen}>
+            <div>{this.props.locName}</div>
+          </InfoWindow>
+        </Marker>    
+      )
+    }
     return markers 
   }
   

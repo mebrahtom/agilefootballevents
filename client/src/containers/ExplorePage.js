@@ -10,7 +10,11 @@ class ExplorePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mapType: ''
+      mapType: '',
+      locName: '',
+      locLat: 0,
+      locLng: 0,
+      whatToRender: 0
     }
   }
 
@@ -19,16 +23,33 @@ class ExplorePage extends Component {
   }
 
   filterMap(type) {
-    this.setState({ mapType: type })
+    this.setState({ mapType: type, whatToRender: 0 })
+  }
+
+  filterLocation(name, lat, lng) {
+    this.setState({ locName: name, locLat: lat, locLng: lng, whatToRender: 1  })
+  }
+
+  markerInfo(locations, type) {
+  
+    var info = [];
+    locations.forEach(element => {
+      if (element.locationType === type) {
+        info.push( 
+          <Button onClick={() => this.filterLocation(element.locationName, element.latitude, element.longitude)}> {element.locationName}</Button>
+        )
+      }
+    })
+    return info;
   }
 
   render() {
-    console.log(this.state.mapType)
     const images = importAll(require.context('../img/icons', false, /\.(png)$/));
     return (
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
-          {<ExploreMap mapType={this.state.mapType}/>}
+          {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}
+                       locLat={this.state.locLat} locLng={this.state.locLng} />}
         </Col>
         <Col xs={3} md={3} lg={3}>
           <Row bsClass="mapRow">
@@ -45,22 +66,14 @@ class ExplorePage extends Component {
             </Row>
           <Row bsClass="mapRow">
             <h4>Information:</h4>
-            {markerInfo(this.props.locations, this.state.mapType)}
+            <ButtonGroup block vertical>
+              {this.markerInfo(this.props.locations, this.state.mapType)}
+            </ButtonGroup>
             </Row>
         </Col>
       </Grid>
     );
   }
-}
-
-function markerInfo(locations, type) {
-  var info = [];
-  locations.forEach(element => {
-    if (element.locationType === type) {
-      info.push( <Row bsClass="infoBox"> {element.locationName} </Row> )
-    }
-  })
-  return info;
 }
 
 function mapStateToProps(state) {
