@@ -1,7 +1,4 @@
 import React, { PureComponent } from 'react';
-import * as actionCreators from '../redux/actions/actionCreators'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 
@@ -44,12 +41,11 @@ class ExploreMap extends PureComponent {
   }
   
 
-  componentDidMount() {
+  /*componentDidMount() {
     //this.delayedShowMarker()
-    this.props.getLocations()
   }
 
-  /*delayedShowMarker = () => {
+  delayedShowMarker = () => {
     setTimeout(() => {
       this.setState({ isMarkerShown: true })
     }, 3000)
@@ -94,14 +90,4 @@ class ExploreMap extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    locations: state.locations
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExploreMap)
+export default ExploreMap

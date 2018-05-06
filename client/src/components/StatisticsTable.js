@@ -16,7 +16,7 @@ class StatisticsTable extends Component {
 
   }
   render() {
-   { /* const tables = renderTables(this.props.groups, this.props.groupresults, images); */ }
+   //{ /* const tables = renderTables(this.props.groups, this.props.groupresults, images); */ }
    const playergoals = renderPlayerGoalTable(this.props.playerstats);
    const playerassists = renderPlayerAssTable(this.props.playerstats);
    const teamgoals = renderTeamGoalTable(this.props.teamstats);
@@ -147,7 +147,7 @@ class TeamPossRow extends Component {
   
 
   render() {
-    const link_team = "/team/" + this.props.abr;
+    //const link_team = "/team/" + this.props.abr;
     
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
 

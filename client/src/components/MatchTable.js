@@ -91,7 +91,9 @@ class MatchRow extends Component {
         </Col>
         <Col sm={3}>
           <br />
+          <a href="/explore">
           {this.props.loc}
+          </a>
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open} >

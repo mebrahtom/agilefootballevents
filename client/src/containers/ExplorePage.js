@@ -14,7 +14,8 @@ class ExplorePage extends Component {
       locName: '',
       locLat: 0,
       locLng: 0,
-      whatToRender: 0
+      whatToRender: 0,
+      locations: []
     }
   }
 
@@ -49,7 +50,7 @@ class ExplorePage extends Component {
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
           {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}
-                       locLat={this.state.locLat} locLng={this.state.locLng} />}
+                       locLat={this.state.locLat} locLng={this.state.locLng} locations={this.props.locations} />}
         </Col>
         <Col xs={3} md={3} lg={3}>
           <Row bsClass="mapRow">
