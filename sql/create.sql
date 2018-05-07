@@ -13,6 +13,7 @@ CREATE TABLE Locations(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	locationName TEXT NOT NULL,
 	locationType TEXT NOT NULL,
+	info TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );

@@ -224,6 +224,23 @@
   text-align: center;
 }
 
+.markerInfo{
+  text-align: justify;
+  display: block;
+  margin: auto;
+  padding: 2px;
+  background: white;
+  border: 0.8px solid grey;
+  width: 100%;
+}
+
+.markerInfoGroup:hover{
+  background: grey;
+}
+.markerInfoGroup{
+  border-radius: 5px; 
+}
+
 .result-small-container{
   text-align: center;
   background-color: #fff;

@@ -32,7 +32,9 @@ class ExploreMap extends PureComponent {
         <Marker position={{ lat: this.props.locLat, lng: this.props.locLng }} 
                 onClick={this.props.onToggleOpen}>
           <InfoWindow onCloseClick={this.props.onToggleOpen}>
-            <div>{this.props.locName}</div>
+            <div><h3 align='center'>{this.props.locName}</h3>
+                 <p align='center'>{this.props.locInfo}</p>
+            </div>
           </InfoWindow>
         </Marker>    
       )

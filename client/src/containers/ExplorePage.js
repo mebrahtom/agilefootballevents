@@ -15,6 +15,7 @@ class ExplorePage extends Component {
       locLat: 0,
       locLng: 0,
       whatToRender: 0,
+      locInfo: "",
       locations: []
     }
   }
@@ -27,8 +28,8 @@ class ExplorePage extends Component {
     this.setState({ mapType: type, whatToRender: 0 })
   }
 
-  filterLocation(name, lat, lng) {
-    this.setState({ locName: name, locLat: lat, locLng: lng, whatToRender: 1  })
+  filterLocation(name, lat, lng, info) {
+    this.setState({ locName: name, locLat: lat, locLng: lng, whatToRender: 1, locInfo: info })
   }
 
   markerInfo(locations, type) {
@@ -37,7 +38,7 @@ class ExplorePage extends Component {
     locations.forEach(element => {
       if (element.locationType === type) {
         info.push( 
-          <Button onClick={() => this.filterLocation(element.locationName, element.latitude, element.longitude)}> {element.locationName}</Button>
+          <Button onClick={() => this.filterLocation(element.locationName, element.latitude, element.longitude, element.info)}> {element.locationName}</Button>
         )
       }
     })
@@ -50,12 +51,9 @@ class ExplorePage extends Component {
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
           {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}
-                       locLat={this.state.locLat} locLng={this.state.locLng} locations={this.props.locations} />}
+                       locLat={this.state.locLat} locLng={this.state.locLng} locations={this.props.locations} locInfo={this.state.locInfo} />}
         </Col>
         <Col xs={3} md={3} lg={3}>
-          <Row bsClass="mapRow">
-          <FormControl type="text" placeholder="Search"/>
-          </Row>
             <Row bsClass="mapRow">
             <h4>Show Me:</h4>
             <ButtonGroup block vertical>
