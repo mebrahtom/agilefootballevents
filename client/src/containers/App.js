@@ -16,7 +16,6 @@ import AdminLoginPage from "../containers/AdminLoginPage.js"
 
 class App extends Component {
   render() {
-    const home_page = () => (<HomePage/>)
     const football_page = () => (<FootballPage/>)
     const admin_page = () => (<AdminPage/>)
     const team_page = ({match}) => (<TeamPage teamAbr = {match.params.teamAbr}/>)
@@ -27,7 +26,7 @@ class App extends Component {
         <Router >
         <div className="app">
           <Header/>
-          <Route exact path="/" component={home_page} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/football" component={football_page} />
           <Route path="/explore" component={ExplorePage} />
           <Route path="/admin" component={admin_page} />

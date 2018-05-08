@@ -42,6 +42,12 @@ function renderMatchRows(resultmatches){
       loc={resultmatches[i].stadium}/>);
   }
 
+  matches.sort(function(a, b) {
+    const ad = new Date(a.props.date);
+    const bd = new Date(b.props.date);
+    return ad>bd ? -1 : ad<bd ? 1 : 0;
+});
+
   return matches;
 }
 class ResultRow extends Component {

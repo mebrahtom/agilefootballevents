@@ -20,8 +20,9 @@
 }
 
 .homepage-container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 20px;
 }
 
 .custom-container{
@@ -238,7 +239,7 @@
   background: grey;
 }
 .markerInfoGroup{
-  border-radius: 5px; 
+  border-radius: 5px;
 }
 
 .result-small-container{
@@ -259,7 +260,9 @@
 }
 
 
-
+.vertical-spacing{
+  margin-top:20px;
+}
 
 
 /* Start calendar custom */
@@ -305,12 +308,21 @@ button.react-calendar__tile:enabled:hover{
   margin-right:10px;
 }
 
-.react-calendar-custom-dot {
+.react-calendar-custom-dot-blue {
   position: absolute;
   border-radius: 50%;
   height: 7px;
   width: 7px;
   background-color: var(--breeze-blue-color);
 }
+
+.react-calendar-custom-dot-green {
+  position: absolute;
+  border-radius: 50%;
+  height: 7px;
+  width: 7px;
+  background-color: var(--brown-color);
+}
+
 
 /* End Calendar custom*/

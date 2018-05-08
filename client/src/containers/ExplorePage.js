@@ -37,11 +37,11 @@ class ExplorePage extends Component {
   }
 
   markerInfo(locations, type) {
-  
+
     var info = [];
     locations.forEach(element => {
       if (element.locationType === type) {
-        info.push( 
+        info.push(
           <Button onClick={() => this.filterLocation(element.locationName, element.latitude, element.longitude, element.info)}> {element.locationName}</Button>
         )
       }
