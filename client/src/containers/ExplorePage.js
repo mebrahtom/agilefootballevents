@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ExploreMap from '../components/Map.js';
-import {Button, Row, Grid, Col, FormControl, ButtonGroup} from 'react-bootstrap';
+import {Button, Row, Grid, Col, ButtonGroup} from 'react-bootstrap';
 import {importAll} from '../HelperFunctions.js'
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+const querystring = require('query-string')
 
 class ExplorePage extends Component {
   constructor(props) {
@@ -21,7 +22,10 @@ class ExplorePage extends Component {
   }
 
   componentDidMount() {
-    this.props.getLocations()
+    this.props.getLocations().then((data) => {
+      this.renderArena(querystring.parse(this.props.location.search).locationName, this.props.locations)
+    })
+    
   }
 
   filterMap(type) {
@@ -45,9 +49,19 @@ class ExplorePage extends Component {
     return info;
   }
 
+  renderArena(arena, locations) {
+    locations.forEach(element => {
+      if (element.locationType === 'Arena' && element.locationName === arena) {
+        this.filterLocation(element.locationName, element.latitude, element.longitude, element.info)
+      }
+    })
+  }
+
   render() {
     const images = importAll(require.context('../img/icons', false, /\.(png)$/));
+  
     return (
+      
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
           {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}

@@ -18,7 +18,6 @@ class App extends Component {
   render() {
     const home_page = () => (<HomePage/>)
     const football_page = () => (<FootballPage/>)
-    const explore_page = () => (<ExplorePage/>)
     const admin_page = () => (<AdminPage/>)
     const team_page = ({match}) => (<TeamPage teamAbr = {match.params.teamAbr}/>)
     const player_page = ({match}) => (<PlayerPage playerId = {match.params.id}/>)
@@ -30,7 +29,7 @@ class App extends Component {
           <Header/>
           <Route exact path="/" component={home_page} />
           <Route path="/football" component={football_page} />
-          <Route path="/explore" component={explore_page} />
+          <Route path="/explore" component={ExplorePage} />
           <Route path="/admin" component={admin_page} />
           <Route path="/admin-register" component={AdminRegistrationForm} />
           <Route path="/login" component={AdminLoginPage} />

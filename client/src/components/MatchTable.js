@@ -15,7 +15,8 @@ class MatchTable extends Component{
     })
   }
 
-  render(){
+  render() {
+
     const gmatches = renderMatchRows(this.props.upcomingmatches);
     return(
       <div className="match-container">
@@ -61,6 +62,7 @@ class MatchRow extends Component {
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
+    const arena = "/explore?locationName=" + this.props.loc;
 
     const link_team1 = "/team/" + this.props.t1;
     const link_team2 = "/team/" + this.props.t2;
@@ -91,7 +93,7 @@ class MatchRow extends Component {
         </Col>
         <Col sm={3}>
           <br />
-          <a href="/explore">
+          <a href={arena}>
           {this.props.loc}
           </a>
         </Col>

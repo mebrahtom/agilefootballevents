@@ -55,6 +55,7 @@ class ResultRow extends Component {
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
+    const arena = "/explore?locationName=" + this.props.loc;
 
     const link_team1 = "/team/" + this.props.t1;
     const link_team2 = "/team/" + this.props.t2;
@@ -86,7 +87,9 @@ class ResultRow extends Component {
         </Col>
         <Col sm={3}>
           <br />
-          {this.props.loc}
+          <a href={arena}>
+            {this.props.loc}
+          </a>
         </Col>
         {/* Collapse Div*/}
         <Panel id="collapseable-panel" expanded={this.state.open}>
