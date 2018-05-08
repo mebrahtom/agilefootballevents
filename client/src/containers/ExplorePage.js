@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ExploreMap from '../components/Map.js';
-import {Button, Row, Grid, Col, FormControl, ButtonGroup} from 'react-bootstrap';
+import {Button, Row, Grid, Col, ButtonGroup} from 'react-bootstrap';
 import {importAll} from '../HelperFunctions.js'
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
@@ -33,11 +33,11 @@ class ExplorePage extends Component {
   }
 
   markerInfo(locations, type) {
-  
+
     var info = [];
     locations.forEach(element => {
       if (element.locationType === type) {
-        info.push( 
+        info.push(
           <Button onClick={() => this.filterLocation(element.locationName, element.latitude, element.longitude, element.info)}> {element.locationName}</Button>
         )
       }

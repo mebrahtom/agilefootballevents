@@ -64,11 +64,9 @@ router.post('/login',function(req,res,next){
       if(error)
       {
       throw error;
-      alert('Not correct');
     }
       {
       res.end(JSON.stringify(results));
-      alert('Succesfully Saved');
     }
     })
   })

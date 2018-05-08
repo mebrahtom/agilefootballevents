@@ -8,17 +8,18 @@ import { connect } from 'react-redux'
 class HomePage extends Component {
   componentDidMount() {
     this.props.getAllUpcomingMatches().then(() => {
-      //console.log(this.props.upcomingmatches)
       this.props.upcomingmatches.map((element) =>
-
-
-        this.state.days_to_mark.push(new Date (element.playingDate))
-
+        this.state.days_to_mark.push({played:false, date:new Date (element.playingDate)})
       );
-
     })
-    console.log(this.props.upcomingmatches);
-    console.log(this.state.days_to_mark);
+    this.props.getAllUpcomingMatches().then(() => {
+      //console.log(this.props.upcomingmatches)
+    })
+    this.props.getAllMatches().then(() => {
+      this.props.matches.map((element) =>
+        this.state.days_to_mark.push({played:true, date:new Date (element.playingDate)})
+      );
+    })
   }
 
   state = {
@@ -28,19 +29,21 @@ class HomePage extends Component {
 
   onChange = date => this.setState({ date })
 
-
+  onClickDay = date => {
+    this.props.history.push('/football');
+  }
 
   render() {
-    console.log(this.props.upcomingmatches);
     return (
 
       <div className="homepage-container">
-        <Row>
-          <Col md={8}>
+
+        <Row className="vertical-spacing">
+          <Col mdOffset={2} md={8}>
             <img className="homepage-background" src={background} alt="" />
           </Col>
-          <Col md={4}>
-            <Calendar onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => markDays(view, date, this.state.days_to_mark) } hover={() => console.log('hover')}/>
+          <Col md={2}>
+            <Calendar onClickDay={this.onClickDay} onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => markDays(view, date, this.state.days_to_mark) } hover={() => console.log('hover')}/>
           </Col>
         </Row>
       </div>
@@ -49,17 +52,33 @@ class HomePage extends Component {
 }
 
 function markDays(view, date, days_to_mark){
-console.log('days_to_mark', days_to_mark, date);
 
-  var mark_day = days_to_mark.some((element) => {
+// Bad coding, should be done in an another way. Will fix later /Emil
 
-    return element.getFullYear() === date.getFullYear() &&
-      element.getMonth() === date.getMonth() &&
-      element.getDate() === date.getDate()
+  var mark_day = {
+    mark:false,
+    played:false
+  };
+  days_to_mark.forEach((element) => {
+
+    if(element.date.getFullYear() === date.getFullYear() &&
+    element.date.getMonth() === date.getMonth() &&
+    element.date.getDate() === date.getDate()){
+      mark_day =  {
+        mark: true,
+        played: element.played
+      }
+    }
+
+
   });
 
-  if(view === 'month' && mark_day){
-    return <div className="react-calendar-custom-dot"></div>
+
+  if(view === 'month' && mark_day.mark){
+    if(mark_day.played){
+      return <div className="react-calendar-custom-dot-green"></div>
+    }
+    return <div className="react-calendar-custom-dot-blue"></div>
   }
 
   return null;
@@ -68,6 +87,7 @@ console.log('days_to_mark', days_to_mark, date);
 
 function mapStateToProps(state) {
   return {
+    matches: state.matches,
     upcomingmatches: state.upcomingmatches
   }
 }
