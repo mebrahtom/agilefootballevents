@@ -72,6 +72,27 @@ router.post('/login',function(req,res,next){
     }
     })
   })
+
+router.post('/update_results',function(req,res,next){
+      const  matchNumber= req.body.matchNumber
+      const team1=req.body.team1
+      const goals1=req.body.goals1
+      const team2=req.body.team2
+      const goals2=req.body.goals2
+      const  groupName=req.body.groupName
+    var sql ='UPDATE MatchResults SET goals1='+ mysql.escape(goals1)+', goals2='+ mysql.escape(goals1)+
+    ', team1='+ mysql.escape(team1)+
+    ', team2='+ mysql.escape(team2)+
+    ', groupName='+ mysql.escape(groupName)+
+    'WHERE matchNumber='+mysql.escape(matchNumber);
+    db.query(sql,function(error,results,fields){
+      if(error)
+      throw error;
+      res.end(JSON.stringify(results));
+    })
+  })
+
+
 router.get('/countries',function(req, res, next) {
   db.query('SELECT * FROM Countries', function (err, result, fields) {
     if (err) throw err
