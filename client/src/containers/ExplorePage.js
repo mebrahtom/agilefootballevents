@@ -17,7 +17,12 @@ class ExplorePage extends Component {
       locLng: 0,
       whatToRender: 0,
       locInfo: "",
-      locations: []
+      locations: [],
+      currentLocation :  { // Default location if browser position isn't available
+        lat: 57.7089,     
+        lng: 11.9746,
+        set: false
+      }
     }
   }
 
@@ -25,6 +30,19 @@ class ExplorePage extends Component {
     this.props.getLocations().then((data) => {
       this.renderArena(querystring.parse(this.props.location.search).locationName, this.props.locations)
     })
+
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+          const coords = pos.coords;
+          this.setState({
+              currentLocation: {
+                  lat: coords.latitude,
+                  lng: coords.longitude,
+                  set: true
+              }
+          })
+      })
+  }
     
   }
 
@@ -65,9 +83,12 @@ class ExplorePage extends Component {
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
           {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}
-                       locLat={this.state.locLat} locLng={this.state.locLng} locations={this.props.locations} locInfo={this.state.locInfo} />}
+                       locLat={this.state.locLat} locLng={this.state.locLng} locations={this.props.locations} locInfo={this.state.locInfo} currentLocation={this.state.currentLocation} />}
         </Col>
         <Col xs={3} md={3} lg={3}>
+            <Row bsClass='mapRow'>
+              <img src={images["currentPosition.png"]} width={20} height={20} /> You are here
+            </Row>
             <Row bsClass="mapRow">
             <h4>Show Me:</h4>
             <ButtonGroup block vertical>
