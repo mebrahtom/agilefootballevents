@@ -51,14 +51,7 @@ function renderMatchRows(upcomingmatches){
 
 
 class MatchRow extends Component {
-  constructor(props, context) {
-    super(props, context);
 
-    this.state = {
-      open: false
-    };
-  }
-  
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
@@ -69,7 +62,7 @@ class MatchRow extends Component {
 
     return (
 
-      <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
+      <Row className="match-cell">
         <Col sm={3}>
           <br />
           <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
@@ -82,6 +75,7 @@ class MatchRow extends Component {
           </a>
         </Col>
         <Col sm={2}>
+          <br />
           {this.props.t}
         </Col>
         <Col sm={2}>
@@ -97,14 +91,6 @@ class MatchRow extends Component {
           {this.props.loc}
           </a>
         </Col>
-        {/* Collapse Div*/}
-        <Panel id="collapseable-panel" expanded={this.state.open} >
-          <Panel.Collapse>
-            <Panel.Body>
-              Information about the game....
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
       </Row>
 
     );
