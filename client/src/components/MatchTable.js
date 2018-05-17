@@ -58,7 +58,7 @@ class MatchRow extends Component {
       open: false
     };
   }
-  
+
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));

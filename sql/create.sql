@@ -1,5 +1,5 @@
 CREATE TABLE Groups(
-	groupName VARCHAR(10) PRIMARY KEY DEFAULT 'None'
+	groupName VARCHAR(1) PRIMARY KEY
 );
 CREATE TABLE admins(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -25,7 +25,7 @@ CREATE TABLE Countries(
 );
 
 CREATE TABLE CountryInformation(
-		abbreviation VARCHAR(3) NOT NULL PRIMARY KEY REFERENCES Groups(groupName),
+		abbreviation VARCHAR(3) NOT NULL PRIMARY KEY REFERENCES Countries(abbreviation),
 		worldrank INT NOT NULL,
 		history TEXT
 );
@@ -77,6 +77,19 @@ CREATE TABLE MatchResults(
  FOREIGN KEY (team2) REFERENCES Countries(abbreviation) ON UPDATE CASCADE ON DELETE RESTRICT,
  FOREIGN KEY (groupName) REFERENCES Groups (groupName) ON UPDATE CASCADE ON DELETE RESTRICT
 	);
+
+CREATE TABLE OnGoingMatchs(
+		  groupName  VARCHAR(1),
+			matchNumber INT NOT NULL PRIMARY KEY,
+			team1 VARCHAR (3) NOT NULL ,
+			goals1 INT NOT NULL  DEFAULT 0,
+			goals2 INT NOT NULL DEFAULT 0,
+			team2 VARCHAR (3) NOT NULL,
+			FOREIGN KEY (team1) REFERENCES Countries(abbreviation) ON UPDATE CASCADE ON DELETE RESTRICT,
+		  FOREIGN KEY (team2) REFERENCES Countries(abbreviation) ON UPDATE CASCADE ON DELETE RESTRICT,
+		  FOREIGN KEY (groupName) REFERENCES Groups (groupName) ON UPDATE CASCADE ON DELETE RESTRICT
+			);
+
 CREATE VIEW Helper1(matchnumber,team1, fullName1,goals1, separe) AS
   (SELECT M.matchNumber,abbreviation,countryName, M.goals1, '-' AS TEXT FROM MatchResults M, Countries C where team1=abbreviation);
 
@@ -256,6 +269,7 @@ END; //
 DELIMITER ;
 
 
+
     DELIMITER //
 CREATE TRIGGER matchResult_trriger
 AFTER INSERT ON MatchResults FOR EACH ROW
@@ -263,6 +277,7 @@ BEGIN
 IF(EXISTS (SELECT matchNumber FROM MatchResults WHERE NEW.matchNumber=matchNumber))
 THEN
   DELETE FROM MatchFixtures WHERE matchNumber=NEW.matchNumber;
+  DELETE FROM OnGoingMatchs WHERE matchNumber=NEW.matchNumber;
 END IF;
 END; //
 DELIMITER ;
