@@ -48,6 +48,7 @@ CREATE TABLE CountryInformation(
 CREATE TABLE Players(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	countryName TEXT NOT NULL,
 	firstname TEXT NOT NULL,
 	surname TEXT NOT NULL,
 	shirtNumber INT NOT NULL,
