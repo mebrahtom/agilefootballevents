@@ -8,7 +8,7 @@ import store from '../store'
 class AdminPage extends Component {
   render() {
     const token=localStorage.getItem('jwtToken');
-    if(token===undefined){
+    if(token==undefined){
       return <Redirect to="/login" />
     }
     return (
