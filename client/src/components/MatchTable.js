@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Col, Panel} from 'react-bootstrap';
+import { Button, Row, Col} from 'react-bootstrap';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -51,14 +51,15 @@ function renderMatchRows(upcomingmatches){
 
 
 class MatchRow extends Component {
-  constructor(props, context) {
-    super(props, context);
 
+<<<<<<< HEAD
     this.state = {
       open: false
     };
   }
 
+=======
+>>>>>>> 4295eae122909f77a379e5073bc07f542239811c
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));
@@ -69,7 +70,7 @@ class MatchRow extends Component {
 
     return (
 
-      <Row className="match-cell" onClick={() => this.setState({ open: !this.state.open })}>
+      <Row className="match-cell">
         <Col sm={3}>
           <br />
           <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
@@ -82,6 +83,7 @@ class MatchRow extends Component {
           </a>
         </Col>
         <Col sm={2}>
+          <br />
           {this.props.t}
         </Col>
         <Col sm={2}>
@@ -97,14 +99,6 @@ class MatchRow extends Component {
           {this.props.loc}
           </a>
         </Col>
-        {/* Collapse Div*/}
-        <Panel id="collapseable-panel" expanded={this.state.open} >
-          <Panel.Collapse>
-            <Panel.Body>
-              Information about the game....
-            </Panel.Body>
-          </Panel.Collapse>
-        </Panel>
       </Row>
 
     );

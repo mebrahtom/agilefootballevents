@@ -44,6 +44,14 @@ class HomePage extends Component {
           </Col>
           <Col md={2}>
             <Calendar onClickDay={this.onClickDay} onChange={this.onChange} value={this.state.date} tileContent={({ date, view }) => markDays(view, date, this.state.days_to_mark) } hover={() => console.log('hover')}/>
+            <div style={{backgroundColor: '#fff', paddingLeft:'4px', paddingTop:'20px'}}>
+              <div style={{marginTop:'6px'}}className="react-calendar-custom-dot-green"></div>
+              <span style={{marginLeft:'10px'}}>Played games</span>
+            </div>
+            <div style={{backgroundColor: '#fff', borderRadius:'0 0 5px 5px', paddingLeft:'4px'}}>
+              <div style={{marginTop:'6px', }}className="react-calendar-custom-dot-blue"></div>
+              <span style={{marginLeft:'10px'}}>Upcoming games</span>
+            </div>
           </Col>
         </Row>
       </div>

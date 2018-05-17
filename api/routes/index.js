@@ -4,10 +4,9 @@ var db = require('../config/dbconnection')
 var mysql = require('mysql')
 var bodyParser=require('body-parser')
 var bcrypt=require('bcrypt')
-var session=require('express-session')
+var jwt=require('jsonwebtoken')
 router.use(bodyParser.urlencoded({extended:true}))
 router.use(bodyParser.json())
-router.use(session({secret:'group8'}))
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' })
@@ -27,10 +26,10 @@ router.post('/register',function(req,res,next){
 })
 
 router.post('/login',function(req,res,next){
-  const email=req.body.username
+  const email=req.body.email
   const password=req.body.password
+  let validLogin=false;
   let sql = 'SELECT * FROM admins WHERE email = ' + mysql.escape(email)
-
   db.query(sql, function(error,results,fields){
     if(error){
       res.send('Error occured!');
@@ -38,12 +37,12 @@ router.post('/login',function(req,res,next){
     if(results.length>0){
       for(const i in results){
         const validPassword=bcrypt.compareSync(password,results[i].password)
-        var validLogin=false
         if(results[i].email===email && validPassword){
+          const token=jwt.sign({email},'secretekey');
           validLogin=true;
-          res.json(results[i].email)
+          res.json({token:token,validLogin:validLogin})
         } else {
-          res.json('')
+          res.json({validLogin:validLogin})
         }
       }
     }
