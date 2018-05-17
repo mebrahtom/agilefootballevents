@@ -268,7 +268,7 @@
 
 .react-calendar {
     border: 0px solid #fff !important;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0 ;
     line-height: 1.125em;
 }
 

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import {importAll} from '../HelperFunctions.js'
 
 class ExploreMap extends PureComponent {
   
@@ -10,6 +11,15 @@ class ExploreMap extends PureComponent {
       isMarkerShown: true
     }
   }*/
+  
+  currentMarker(coords){
+    const images = importAll(require.context('../img/icons', false, /\.(png)$/));
+    if(coords.set){
+    return <Marker name="Current Position" position={{lat: coords.lat, lng: coords.lng}}
+             icon = {images['currentPosition.png']}>
+          </Marker>
+    }
+  }
 
   renderMarkers(locations) {  
     var markers = []
@@ -78,8 +88,9 @@ class ExploreMap extends PureComponent {
     )(props =>
       <GoogleMap
         defaultZoom={13}
-        defaultCenter={{ lat: 57.6959, lng: 11.9873 }} 
+        defaultCenter={{ lat: this.props.currentLocation.lat, lng: this.props.currentLocation.lng }} 
       >
+        {this.currentMarker(this.props.currentLocation)}
         {this.renderMarkers(this.props.locations)}
       </GoogleMap>
     )

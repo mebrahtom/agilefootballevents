@@ -1,57 +1,112 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, Button, Col, ControlLabel } from 'react-bootstrap'
 class AdminRegistrationForm extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            fname:'',
-            lname:'',
-            email:'',
-            password:'',
-            passwordconf:'',
-            message:'',
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            fname: '',
+            lname: '',
+            email: '',
+            password: '',
+            passwordconf: '',
+            message: '',
+            errors: {}
         }
-        //this.handleSubmit=this.handleSubmit().bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.adminRegister = this.adminRegister.bind(this);
     }
-    
-    adminRegister(){
-       //e.preventDefault()                                                                                           `````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````   `
-        var data={
-            fname:this.state.fname,
-            lname:this.state.lname,
-            email:this.state.email,
-            password:this.state.password,
-            passwordconf:this.state.passwordconf
+    validateInput(){
+        let errors = {};
+        let formIsValid = true;
+        if (!this.state.fname) {
+            formIsValid = false;
+            errors["fname"] = "First name is required";
         }
-        fetch("http://localhost:8000/register",{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(data)
-        }).then(response=>response.json()).then(response=>{
-            console.log('Response',response);
-            /*if(response.success){
-                this.setState({
-
-                })
+        if (!this.state.lname) {
+            formIsValid = false;
+            errors["lname"] = "Last name is required";
+        }
+        if (!this.state.email) {
+            formIsValid = false;
+            errors["email"] = "Email is required";
+        }
+        if (!this.state.password) {
+            formIsValid = false;
+            errors["password"] = "Password is required";
+        }
+        if (!this.state.passwordconf) {
+            formIsValid = false;
+            errors["passwordconf"] = "Confirm password";
+        }
+        if (this.state.password !== this.state.passwordconf) {
+            formIsValid = false;
+            errors["match"] = "Password does not match";
+        }
+        if (typeof this.state.email !== "undefined") {
+            let lastAtPos = this.state.email.lastIndexOf('@');
+            let lastDosPos = this.state.email.lastIndexOf('.');
+            if (!(lastAtPos < lastDosPos && lastAtPos > 0 && this.state.email.indexOf('@@') === -1 && lastDosPos > 2 && (this.state.email.length - lastDosPos) > 2)) {
+                formIsValid = false;
+                errors["email"] = "Email is not valid";
             }
-            else{
-                this.setState({
+        }
+        if (typeof this.state.fname !== "undefined") {
+            if (!this.state.fname.match(/^[a-zA-Z]+$/)) {
+                formIsValid = false;
+                errors["fname"] = "First name must contain only letters";
+            }
+        }
+        if (typeof this.state.lname !== "undefined") {
+            if (!this.state.lname.match(/^[a-zA-Z]+$/)) {
+                formIsValid = false;
+                errors["lname"] = "Last name must contain only letters";
+            }
+        }
+        this.setState({ errors: errors });
+        return formIsValid;
+    }
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+    adminRegister(e) {
+        e.preventDefault();
+        const data = {
+            fname: this.state.fname,
+            lname: this.state.lname,
+            email: this.state.email,
+            password: this.state.password,
+            passwordconf: this.state.passwordconf
+        }
 
+        if (this.validateInput()) {
+            fetch("http://localhost:8000/register", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(response => {
+                    if (response) {
+                        this.setState({ message: "Successfully Registered!" });
+                    }
                 })
-            }*/
-        })
+        }
     }
     render() {
+        const successMessage = {
+            color: '#3CB371'
+        };
         return (
             <div className="container">
-                <Form horizontal>
+                <h2 style={successMessage}>{this.state.message}</h2>
+                <Form horizontal onSubmit={this.adminRegister}>
                     <FormGroup controlId="formHorizontalFName">
                         <Col componentClass={ControlLabel} sm={2}>
                             First Name
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="text" placeholder="First name" value={this.state.fname} onChange={e=>this.setState({fname:e.target.value})} />
+                            <FormControl type="text" name="fname" placeholder="First name" value={this.state.fname} onChange={this.onChange} />
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["fname"]}</span>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="formHorizontalLName">
@@ -59,7 +114,8 @@ class AdminRegistrationForm extends Component {
                             Last Name
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="text" placeholder="Last name" value={this.state.lname} onChange={e=>this.setState({lname:e.target.value})} />
+                            <FormControl type="text" name="lname" placeholder="Last name" value={this.state.lname} onChange={this.onChange} />
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["lname"]}</span>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="formHorizontalEmail">
@@ -67,7 +123,8 @@ class AdminRegistrationForm extends Component {
                             Email
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="email" placeholder="Email" value={this.state.email} onChange={e=>this.setState({email:e.target.value})} />
+                            <FormControl type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.onChange} />
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["email"]}</span>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="formHorizontalPassword">
@@ -75,7 +132,8 @@ class AdminRegistrationForm extends Component {
                             Password
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="password" placeholder="Enter password" value={this.state.password} onChange={e=>this.setState({password:e.target.value})} />
+                            <FormControl type="password" name="password" placeholder="Enter password" value={this.state.password} onChange={this.onChange} />
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["password"]}</span>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="formHorizontalConfirmPassword">
@@ -83,12 +141,14 @@ class AdminRegistrationForm extends Component {
                             Confirm Password
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="password" placeholder="Repeat password"  onChange={e=>this.setState({passwordconf:e.target.value})} />
+                            <FormControl type="password" name="passwordconf" placeholder="Repeat password" onChange={this.onChange} />
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["passwordconf"]}</span>
+                            <span style={{ color: "#cc0000" }}>{this.state.errors["match"]}</span>
                         </Col>
                     </FormGroup>
                     <FormGroup>
                         <Col smOffset={2} sm={6}>
-                            <Button type="submit" id="submit" onClick={()=>this.adminRegister()}> Register</Button>
+                            <Button type="submit" id="submit"> Register</Button>
                         </Col>
                     </FormGroup>
                 </Form>

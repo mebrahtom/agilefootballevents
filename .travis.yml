@@ -12,7 +12,7 @@ jobs:
   include:
     - stage: deploy client production
       script:
-        - cd client && npm install
+        - cd client && npm i npm@latest -g && npm install
         - npm run build
         - cd .. && cd api && npm install
         - npm test
