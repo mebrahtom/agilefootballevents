@@ -9,30 +9,15 @@ CREATE TABLE admins(
 	password VARCHAR(60)
 );
 
-CREATE TABLE Arenas(
+CREATE TABLE Locations(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	arena TEXT NOT NULL,
+	locationName TEXT NOT NULL,
+	locationType TEXT NOT NULL,
+	info TEXT NOT NULL,
 	latitude DOUBLE,
 	longitude DOUBLE
 );
-CREATE TABLE Restaurants(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	restaurant TEXT NOT NULL,
-	latitude DOUBLE,
-	longitude DOUBLE
-);
-CREATE TABLE Cafes(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	cafe TEXT NOT NULL,
-	latitude DOUBLE,
-	longitude DOUBLE
-);
-CREATE TABLE Attractions(
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	attraction TEXT NOT NULL,
-	latitude DOUBLE,
-	longitude DOUBLE
-);
+
 CREATE TABLE Countries(
 	abbreviation VARCHAR(3) NOT NULL PRIMARY KEY,
 	countryName TEXT NOT NULL,
@@ -48,6 +33,7 @@ CREATE TABLE CountryInformation(
 CREATE TABLE Players(
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	country VARCHAR (3) NOT NULL REFERENCES Countries(abbreviation),
+	countryName TEXT NOT NULL,
 	firstname TEXT NOT NULL,
 	surname TEXT NOT NULL,
 	shirtNumber INT NOT NULL,
@@ -58,6 +44,7 @@ CREATE TABLE Players(
 	weight INT,
 	img_id TEXT
 );
+
 CREATE TABLE MatchFixtures(
 	matchNumber INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team1 VARCHAR (3) NOT NULL,

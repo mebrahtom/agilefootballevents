@@ -19,7 +19,7 @@ class ExplorePage extends Component {
       locInfo: "",
       locations: [],
       currentLocation :  { // Default location if browser position isn't available
-        lat: 57.7089,     
+        lat: 57.7089,
         lng: 11.9746,
         set: false
       }
@@ -43,7 +43,7 @@ class ExplorePage extends Component {
           })
       })
   }
-    
+
   }
 
   filterMap(type) {
@@ -77,9 +77,9 @@ class ExplorePage extends Component {
 
   render() {
     const images = importAll(require.context('../img/icons', false, /\.(png)$/));
-  
+
     return (
-      
+
       <Grid fluid >
         <Col xs={9} md={9} lg={9}>
           {<ExploreMap mapType={this.state.mapType} whatToRender={this.state.whatToRender} locName={this.state.locName}
@@ -87,7 +87,7 @@ class ExplorePage extends Component {
         </Col>
         <Col xs={3} md={3} lg={3}>
             <Row bsClass='mapRow'>
-              <img src={images["currentPosition.png"]} width={20} height={20} /> You are here
+              <img src={images["currentPosition.png"]} width={20} height={20} alt={'currPosition'}/> You are here
             </Row>
             <Row bsClass="mapRow">
             <h4>Show Me:</h4>
