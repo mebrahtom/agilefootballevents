@@ -20,7 +20,6 @@ class App extends Component {
     const admin_page = () => (<AdminPage/>)
     const team_page = ({match}) => (<TeamPage teamAbr = {match.params.teamAbr}/>)
     const player_page = ({match}) => (<PlayerPage playerId = {match.params.id}/>)
-
     return (
       <Provider store={store}>
         <Router >
@@ -42,7 +41,22 @@ class App extends Component {
 }
 
 class Header extends Component {
+  logOut(e){
+    localStorage.removeItem('jwtToken');
+  }
   render() {
+    const logOutStyle={
+      color:'#FFFFFF',
+      fontWeight:'bold'
+    };
+    let logInStatus='';
+    const token=localStorage.getItem('jwtToken');
+    if(token==null){
+      logInStatus='';
+    }
+    else{
+      logInStatus='Logout';
+    }
     return (
       <Navbar inverse collapseOnSelect className="navbar-custom">
         <Navbar.Header className="app-header">
@@ -62,11 +76,13 @@ class Header extends Component {
             <NavItem eventKey={2} href="/explore">
               Explore Gothenburg
             </NavItem>
+            <NavItem eventKey={3} href="/login">
+              <a style={logOutStyle} onClick={this.logOut}>{logInStatus}</a>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     )
   }
 }
-
-export default App
+export default App;
