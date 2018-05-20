@@ -52,6 +52,14 @@ function renderMatchRows(upcomingmatches){
 
 class MatchRow extends Component {
 
+<<<<<<< HEAD
+    this.state = {
+      open: false
+    };
+  }
+
+=======
+>>>>>>> 4295eae122909f77a379e5073bc07f542239811c
   render() {
 
     const images = importAll(require.context('../img/flags', false, /\.(png)$/));

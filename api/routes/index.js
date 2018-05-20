@@ -48,7 +48,6 @@ router.post('/login',function(req,res,next){
     }
   })
 })
-
   router.post('/save_results',function(req,res,next){
     const MatchResult={
       matchNumber:req.body.matchNumber,
@@ -61,15 +60,27 @@ router.post('/login',function(req,res,next){
     }
     db.query('INSERT INTO MatchResults SET ?',MatchResult,function(error,results,fields){
       if(error)
-      {
       throw error;
-    }
-      {
       res.end(JSON.stringify(results));
-    }
     })
   })
 
+  router.post('/save_ongoing',function(req,res,next){
+    const MatchResult={
+      matchNumber:req.body.matchNumber,
+      team1:req.body.team1,
+      goals1:req.body.goals1,
+      team2:req.body.team2,
+      goals2:req.body.goals2,
+      groupName:req.body.groupName
+
+    }
+    db.query('INSERT INTO OnGoingMatchs SET ?',MatchResult,function(error,results,fields){
+      if(error)
+      throw error;
+      res.end(JSON.stringify(results));
+    })
+  })
 router.post('/update_results',function(req,res,next){
       const  matchNumber= req.body.matchNumber
       const team1=req.body.team1
@@ -77,18 +88,28 @@ router.post('/update_results',function(req,res,next){
       const team2=req.body.team2
       const goals2=req.body.goals2
       const  groupName=req.body.groupName
-    var sql ='UPDATE MatchResults SET goals1='+ mysql.escape(goals1)+', goals2='+ mysql.escape(goals1)+
-    ', team1='+ mysql.escape(team1)+
-    ', team2='+ mysql.escape(team2)+
-    ', groupName='+ mysql.escape(groupName)+
-    'WHERE matchNumber='+mysql.escape(matchNumber);
+    var sql ='UPDATE MatchResults SET goals1='+ mysql.escape(goals1)+', goals2='+ mysql.escape(goals2)+'WHERE matchNumber='+mysql.escape(matchNumber);
     db.query(sql,function(error,results,fields){
       if(error)
       throw error;
       res.end(JSON.stringify(results));
     })
   })
-
+  router.post('/update_ongoing',function(req,res,next){
+        const  matchNumber= req.body.matchNumber
+        const team1=req.body.team1
+        const goals1=req.body.goals1
+        const team2=req.body.team2
+        const goals2=req.body.goals2
+        const  groupName=req.body.groupName
+       var sql ='UPDATE OnGoingMatchs SET goals1='+ mysql.escape(goals1)+', goals2='+ mysql.escape(goals2)+'WHERE matchNumber='+mysql.escape(matchNumber);
+      console.log(sql);
+      db.query(sql,function(error,results,fields){
+        if(error)
+        throw error;
+        res.end(JSON.stringify(results));
+      })
+    })
 
 router.get('/countries',function(req, res, next) {
   db.query('SELECT * FROM Countries', function (err, result, fields) {
@@ -182,6 +203,15 @@ router.get('/fixtures/matchfixtures', function(req, res, next) {
     res.json(result)
   })
 })
+
+router.get('/fixtures/ongoingmatchs', function(req, res, next) {
+  var sql = 'SELECT * FROM OnGoingMatchs'
+  db.query(sql, function(err, result, fields) {
+    if (err) throw err
+    res.json(result)
+  })
+})
+
 
 router.get('/fixtures/groups', function(req, res, next) {
   var sql = 'SELECT * FROM Groups'

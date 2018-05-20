@@ -1,10 +1,9 @@
 var mysql = require('mysql');
 const pw = process.env.DB_PASSWORD
-
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: process.env.DB_PASSWORD,
+    password: 'Tsige_mit01',
     database: 'gothencupdb'
 });
 connection.connect(function(err) {
