@@ -7,12 +7,29 @@ import {importAll} from '../HelperFunctions.js'
 import Moment from 'react-moment';
 class UpcomingSmall extends Component{
 
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showComponent: false,
+    };
+
+
+    this._onButtonClick = this.props.onClick;
+  }
+
+
+  handleClick = () => {
+      this.props.onMatchClicked();
+  }
+
   render(){
       const images = importAll(require.context('../img/flags', false, /\.(png)$/));
       var link_t1 = "/team/"+ this.props.match.team1;
       var link_t2 = "/team/"+ this.props.match.team2;
     return(
-      <Row className="result-small-container">
+      <Row className="result-small-container" onClick={this.handleClick}>
         <Col sm={3}><Moment parse="YYYY-MM-DD" format="DD MMM">{this.props.match.playingDate}</Moment></Col>
         <Col sm={3}><a href={link_t1}><img src={images[this.props.match.fullName1+".png"]} alt={''} height={12} /> {this.props.match.team1}</a></Col>
         <Col sm={3}>vs</Col>

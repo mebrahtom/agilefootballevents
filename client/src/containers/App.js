@@ -77,7 +77,7 @@ class Header extends Component {
               Explore Gothenburg
             </NavItem>
             <NavItem eventKey={3} href="/login">
-              <a style={logOutStyle} onClick={this.logOut}>{logInStatus}</a>
+              <span style={logOutStyle} onClick={this.logOut}>{logInStatus}</span>
             </NavItem>
           </Nav>
         </Navbar.Collapse>

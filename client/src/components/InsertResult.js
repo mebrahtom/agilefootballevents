@@ -2,60 +2,97 @@ import React, { Component } from 'react'
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {importAll} from '../HelperFunctions.js'
-import Moment from 'react-moment';
 import { Form, FormGroup, FormControl, Button, Col, ControlLabel, Row} from 'react-bootstrap'
+import UpcomingSmall from '../components/UpcomingSmall.js'
 
 class InsertResult extends Component{
+
+  constructor(props){
+      super(props);
+      this.state={
+        matchNumber: '',
+        team1: 'Team 1',
+        team2: 'Team 2',
+        goals1:  '',
+        goals2: '',
+        group: ''
+      }
+      //this.handleSubmit=this.handleSubmit().bind(this);
+  }
+
   /* Fetching database information through actionCreators.js */
   componentDidMount() {
     this.props.getAllUpcomingMatches().then(() => {
       //console.log(this.props.upcomingmatches)
     })
   }
+
+
   render(){
-    const gmatches = renderMatchRows(this.props.upcomingmatches);
+    //const gmatches = renderMatchRows(this.props.upcomingmatches);
     return(
       <div className='container'>
-        {gmatches}
+        <Row>
+          <Col md={8}>
+            <Form horizontal className="formUpdate">
+              <FormGroup className="horizontalTeam" align='center'>
+                  <ControlLabel> {this.state.team1} </ControlLabel>
+                  <FormControl type="number" placeholder="Goals" value={this.state.goals1} onChange={e=>this.setState({goals1:e.target.value})} min="0" />
+              </FormGroup>
+                <FormGroup className="horizontalTeam" align='center'>
+                    <ControlLabel>{this.state.team2}</ControlLabel>
+                    <FormControl type="number" placeholder="Goals" value={this.state.goals2} onChange={e=>this.setState({goals2:e.target.value})} min='0'/>
+                </FormGroup>
+                    <FormGroup className="horizontalTeam" align='center'>
+                        <ControlLabel>Group: {this.state.groupName}</ControlLabel>
+                        <br></br>
+                    </FormGroup>
+                    <FormGroup className="horizontalTeam" align='center'>
+
+                        <Button type="submit" id="submit" onClick={()=>this.Insert()}> Save Result</Button>
+
+                    </FormGroup>
+                </Form>
+          </Col>
+          <Col md ={4}>
+            <div>
+              <p className="info-heading">Games</p>
+              {this.renderUpComingGames(this.props.upcomingmatches)}
+            </div>
+          </Col>
+        </Row>
+
       </div>
     );
   }
-}
+/*  <Button type="submit" id="submit" onClick={()=>this.InsertOnGoing()}> Start Game </Button>
+    <Button type="submit" id="submit" onClick={()=>this.UpdateOnGoing()}> Update OnGoing </Button>
+  <Button type="submit" id="submit" onClick={()=>this.UpdateFinal()}> Update Final </Button><br/>
+  <Button type="submit" id="submit" onClick={()=>this.Clear()}> Clear </Button>*/
 
-function renderMatchRows(upcomingmatches){
-  var matches = [];
-  var counter=0;
-for(var i = 0; i< upcomingmatches.length; i++  ){
-  /* Push the data from database to the MatchRow and create rows*/
-     matches.push(<Upcomings key ={i}
-      date={upcomingmatches[i].playingDate + ' ' + upcomingmatches[i].playingTime}
-      matchnum={upcomingmatches[i].matchNumber}
-      g={upcomingmatches[i].groupName}
-      t={upcomingmatches[i].terminator}
-      t1={upcomingmatches[i].team1}
-      t2={upcomingmatches[i].team2}
-      fn1={upcomingmatches[i].fullName1}
-      fn2={upcomingmatches[i].fullName2}
-      loc={upcomingmatches[i].stadium}
-     />);
-     counter++;
-     if(counter===2)
-     return matches;
+  setForm(match){
+    this.setState({
+      matchNumber: match.matchNumber,
+      team1: match.team1,
+      team2: match.team2,
+      goals1: match.goals1 != null ? match.goals1 : 0,
+      goals2:  match.goals1 != null ? match.goals1 : 0,
+      groupName: match.groupName});
+
+    console.log('clicked', match)
   }
-}
-class Upcomings extends Component {
-  constructor(props){
-      super(props)
-      this.state={
-        matchNumber: '',
-        team1: '',
-        team2: '',
-        goals1: 0,
-        goals2: 0,
-        groups: ['  ', 'GroupName', 'A','B','C','D','E','F','G','H']
+
+  renderUpComingGames(matches){
+
+    var match_elements = [];
+    if(matches != null){
+      match_elements = matches.map((match, index) => <UpcomingSmall key={index} match={match} onMatchClicked={() => this.setForm(match)}/>);
+    }
+
+      if(match_elements.length === 0 ){
+        match_elements.push(<p>No upcoming matches yet</p>);
       }
-      //this.handleSubmit=this.handleSubmit().bind(this);
+    return match_elements;
   }
 
   Insert(){
@@ -67,6 +104,11 @@ class Upcomings extends Component {
           goals2:this.state.goals2,
           groupName:this.state.groupName
       }
+
+      if(data.matchNumber === ''){
+        return;
+      }
+
       fetch("http://localhost:8000/save_results",{
           method:'POST',
           headers:{'Content-Type':'application/json'},
@@ -85,6 +127,11 @@ class Upcomings extends Component {
           goals2:this.state.goals2,
           groupName:this.state.groupName
       }
+
+      if(data.matchNumber === ''){
+        return;
+      }
+
       fetch("http://localhost:8000/update_results",{
           method:'POST',
           headers:{'Content-Type':'application/json'},
@@ -103,6 +150,11 @@ class Upcomings extends Component {
           goals2:this.state.goals2,
           groupName:this.state.groupName
       }
+
+      if(data.matchNumber === ''){
+        return;
+      }
+
       fetch("http://localhost:8000/save_ongoing",{
           method:'POST',
           headers:{'Content-Type':'application/json'},
@@ -121,6 +173,11 @@ class Upcomings extends Component {
           goals2:this.state.goals2,
           groupName:this.state.groupName
       }
+
+      if(data.matchNumber === ''){
+        return;
+      }
+
       fetch("http://localhost:8000/update_ongoing",{
           method:'POST',
           headers:{'Content-Type':'application/json'},
@@ -129,89 +186,16 @@ class Upcomings extends Component {
           console.log('Response',response);
       })
   }
-    handleOnClick(e) {
-     this.setState({team1:(this.props.t1)});
-     this.setState({team2:(this.props.t2)});
-     this.setState({matchNumber:(this.props.matchnum)});
-     this.setState({groupName:(this.props.g)});
-     //this.setState({team2:e.target.value});
-    }
-    Clear(e) {
-     this.setState({team1:' '});
-     this.setState({team2:' '});
-     this.setState({matchNumber:' '});
-     this.setState({groupName:' '});
-     //this.setState({team2:e.target.value});
-    }
-    render() {
-      let groupOption=this.state.groups.map(group=>{
-            return<option key={group}>{group}</option>
-          });
 
-      const images = importAll(require.context('../img/flags', false, /\.(png)$/));
-        return (
-        <div>
-  <Row className="match-cell">
-        <Col  xs={6} md={6} lg={8}>
-          <Form horizontal className="formUpdate">
-            <FormGroup className="horizontalTeam" align='center'>
-                <ControlLabel> Team 1 </ControlLabel>
-                <FormControl type="text" placeholder="Team Abbreviation" value = {this.state.team1} onChange={e=>this.setState({team1:e.target.value})} />
-                <FormControl type="number" placeholder="Goals" value={this.state.goals1} onChange={e=>this.setState({goals1:e.target.value})} min="0" />
-            </FormGroup>
-              <FormGroup className="horizontalTeam" align='center'>
-                  <ControlLabel>Team 2</ControlLabel>
-                  <FormControl type="text" placeholder="Team Abbreviation" value={this.state.team2} onChange={e=>this.setState({team2:e.target.value})}/>
-                  <FormControl type="number" placeholder="Goals" value={this.state.goals2} onChange={e=>this.setState({goals2:e.target.value})} min='0'/>
-              </FormGroup>
-                  <FormGroup className="horizontalTeam" align='center'>
-                      <ControlLabel>Group</ControlLabel>
-                      <br></br>
-                      <select ref="group" placeholder="group" value= {this.state.groupName} onChange={e=>this.setState({groupName:e.target.value})}>
-                          {groupOption}
-                      </select>
-                  </FormGroup>
-                  <FormGroup className="horizontalTeam">
-                      <FormControl type="number" placeholder="Match Number" value={this.state.matchNumber} onChange={e=>this.setState({matchNumber:e.target.value})}/>
-                  </FormGroup>
-                  <FormGroup className="horizontalTeam" align='center'>
-                    <Button type="submit" id="submit" onClick={()=>this.InsertOnGoing()}> Start Game </Button>
-                      <Button type="submit" id="submit" onClick={()=>this.UpdateOnGoing()}> Update OnGoing </Button>
-                      <Button type="submit" id="submit" onClick={()=>this.Insert()}> Save Result</Button>
-                      <Button type="submit" id="submit" onClick={()=>this.UpdateFinal()}> Update Final </Button><br/>
-                      <Button type="submit" id="submit" onClick={()=>this.Clear()}> Clear </Button>
-                  </FormGroup>
-              </Form>
-          </Col>
-          <Col className="formInfo" xs={3} md={3} lg={4}>
-                <Row className='upcomingInfo'>
-                    <h2> Live Game</h2>
-                </Row>
-                  <Row className='upcomingInfo'>
-                    <Col sm={3}>
-                      <br />
-                      <Moment parse="YYYY-MM-DD HH:mm" format="DD MMM HH:mm">{this.props.date}</Moment>
-                    </Col>
-              <Col sm={3}>
-                  <img onClick = {this.handleOnClick.bind(this)} sm={1} src={images[this.props.fn1+'.png']} alt={''} width={35} height={25}/>
-                  <br/>
-                  <div className="ccodetext"  onClick = {this.handleOnClick.bind(this)}>{this.props.fn1}</div>
-              </Col>
-              <Col sm={1}>
-                {this.props.t}
-              </Col>
-              <Col sm={3}>
-                  <img onClick = {this.handleOnClick.bind(this)} sm={1} src={images[this.props.fn2+'.png']} alt={''} width={35} height={25}/>
-                  <br />
-                  <div className="ccodetext" onClick = {this.handleOnClick.bind(this)} >{this.props.fn2}</div>
-              </Col>
-              </Row>
-              {/* Collapse Div*/}
-            </Col>
-            </Row>
-        </div>
-        );
-    }
+  Clear(e) {
+   this.setState({team1:' '});
+   this.setState({team2:' '});
+   this.setState({matchNumber:' '});
+   this.setState({groupName:' '});
+   //this.setState({team2:e.target.value});
+  }
+
+
 }
 function mapStateToProps(state) {
   return {
