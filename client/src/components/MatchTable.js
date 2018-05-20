@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Col} from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import * as actionCreators from '../redux/actions/actionCreators'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -21,9 +21,6 @@ class MatchTable extends Component{
     return(
       <div className="match-container">
         {gmatches}
-        <div className="center-hz">
-          <Button>Show More</Button>
-        </div>
       </div>
     );
   }
