@@ -3,12 +3,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import InsertResult from '../components/InsertResult'
-import {Route,Redirect} from 'react-router-dom'
-import store from '../store'
+import {Redirect} from 'react-router-dom'
 class AdminPage extends Component {
   render() {
     const token=localStorage.getItem('jwtToken');
-    if(token==undefined){
+    if(token==null){
       return <Redirect to="/login" />
     }
     return (
